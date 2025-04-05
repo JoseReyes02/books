@@ -1,0 +1,1 @@
+db.geekFlareCollection.update({"product" : "bottles"},{$set : {"Qty": 10}}  )

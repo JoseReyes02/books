@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="styles.css"> <!-- Enlace a tu CSS -->
+</head>
+
+<body>
+  <header>
+    {{>header}}
+    
+  </header>
+<h1>Acerca de Nosotros</h1>
+  <!-- Imagen de portada -->
+  <section class="hero">
+    <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6" alt="Casa moderna">
+  </section>
+
+  <!-- Nuestra Historia -->
+  <section class="history">
+   
+    <div>
+      <br>
+      <h2>Nuestra Historia</h2>
+      <p>En <strong>Find My House</strong>, nacimos con la visión de facilitar la compra, venta y alquiler de
+        propiedades de manera rápida y segura. Con años de experiencia en el sector inmobiliario, entendimos que
+        encontrar el hogar ideal o el inquilino perfecto no siempre es fácil. Por eso, desarrollamos una plataforma
+        innovadora que conecta propietarios, compradores e inquilinos de forma eficiente y sin complicaciones.
+
+        Desde nuestros inicios, hemos ayudado a miles de personas a encontrar su próximo hogar, siempre comprometidos
+        con la transparencia y el mejor servicio.</p>
+    </div>
+     <img src="https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg" alt="Nuestro equipo">
+  </section>
+
+  <!-- Nuestra Misión -->
+  <section class="mission">
+    <h2>Nuestra Misión</h2>
+
+    <p>Nuestra misión es ofrecer una plataforma confiable y fácil de usar, donde cualquier persona pueda encontrar su hogar ideal o vender su propiedad sin estrés. Nos enfocamos en la innovación, la confianza y la accesibilidad, garantizando la mejor experiencia inmobiliaria para todos nuestros usuarios.</p>
+    <img src="https://images.pexels.com/photos/829377/pexels-photo-829377" alt="Entrega de llaves">
+  </section>
+
+  <!-- Testimonios -->
+  <section class="testimonials">
+    <div class="testimonial">
+      <img src="https://images.unsplash.com/photo-1604881991720-2b1b60c16098" alt="Cliente feliz">
+      <p>"Gracias a Find My House encontré mi hogar ideal de forma rápida y segura."</p>
+      <strong>- Juan Pérez</strong>
+    </div>
+  </section>
+{{>footer}}
+
+
+<style>
+
+
+  header h1 {
+    font-size: 28px;
+    color: #2d3e50;
+  }
+
+  /* Secciones */
+  section {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+
+  section h2 {
+    color: #28a745;
+    margin-bottom: 10px;
+  }
+
+  section p {
+    font-size: 18px;
+    color: #555;
+    padding: 10px;
+  }
+
+  .btn:hover {
+    background: #218838;
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    section {
+      width: 90%;
+    }
+  }
+
+
+   h1 {
+    margin-top: 10px;
+    text-align: center;
+    font-size: 28px;
+    color: #2d3e50;
+  }
+
+  /* Imagen de portada */
+  .hero img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+  }
+
+  /* Secciones con imágenes */
+
+    .history,
+  .mission {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    
+    align-items: center;
+    gap: 20px;
+  }
+
+  .history img,
+  .mission img {
+    width: 40%;
+    border-radius: 8px;
+  }
+
+  /* Testimonios */
+  .testimonial {
+    max-width: 600px;
+    margin: auto;
+    padding: 20px;
+    text-align: center;
+  }
+
+  .testimonial img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+  }
+</style>

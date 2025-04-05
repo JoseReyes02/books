@@ -1,0 +1,278 @@
+/* Google Fonts - Poppins */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap');
+
+
+.slide-container{
+  max-width: 1120px;
+  width: 100%;
+  padding: 40px 0;
+}
+.slide-content{
+  margin: 0 40px;
+  overflow: hidden;
+  border-radius: 25px;
+}
+.card{
+  border-radius: 25px;
+  background-color: #FFF;
+}
+.image-content,
+.card-content{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px 14px;
+}
+.image-content{
+  position: relative;
+  row-gap: 5px;
+  padding: 25px 0;
+}
+.overlay{
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  background-color: #4070F4;
+  border-radius: 25px 25px 0 25px;
+}
+.overlay::before,
+.overlay::after{
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: -40px;
+  height: 40px;
+  width: 40px;
+  background-color: #4070F4;
+}
+.overlay::after{
+  border-radius: 0 25px 0 0;
+  background-color: #FFF;
+}
+.card-image{
+  position: relative;
+  height: 150px;
+  width: 150px;
+  border-radius: 50%;
+  background: #FFF;
+  padding: 3px;
+}
+.card-image .card-img{
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 4px solid #4070F4;
+}
+.name{
+  font-size: 18px;
+  font-weight: 500;
+  color: #333;
+}
+.description{
+  font-size: 14px;
+  color: #707070;
+  text-align: center;
+}
+.button{
+  border: none;
+  font-size: 16px;
+  color: #FFF;
+  padding: 8px 16px;
+  background-color: #4070F4;
+  border-radius: 6px;
+  margin: 14px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.button:hover{
+  background: #265DF2;
+}
+
+.swiper-navBtn{
+  color: #6E93f7;
+  transition: color 0.3s ease;
+}
+.swiper-navBtn:hover{
+  color: #4070F4;
+}
+.swiper-navBtn::before,
+.swiper-navBtn::after{
+  font-size: 35px;
+}
+.swiper-button-next{
+  right: 0;
+}
+.swiper-button-prev{
+  left: 0;
+}
+.swiper-pagination-bullet{
+  background-color: #6E93f7;
+  opacity: 1;
+}
+.swiper-pagination-bullet-active{
+  background-color: #4070F4;
+}
+
+@media screen and (max-width: 768px) {
+  .slide-content{
+    margin: 0 10px;
+  }
+  .swiper-navBtn{
+    display: none;
+  }
+}
+
+/* Estilo del contenedor del carrusel */
+.swiper-container {
+    width: 100%;
+    max-width: 800px; /* Ajusta el ancho máximo según tus necesidades */
+    margin: 0 auto;
+}
+
+/* Estilo de las diapositivas */
+.swiper-slide {
+    text-align: center;
+    font-size: 24px;
+    background-color: #f3f3f3;
+}
+
+/* Estilo de las imágenes en las diapositivas */
+.swiper-slide img {
+    max-width: 100%;
+    height: auto;
+}
+
+/* Estilo de los botones de navegación */
+.swiper-button-next,
+.swiper-button-prev {
+    color: #fff;
+    font-size: 24px;
+    background-color: #3498db; /* Color de fondo de los botones */
+    width: 40px; /* Ancho de los botones */
+    height: 40px; /* Altura de los botones */
+    border-radius: 50%; /* Para hacer que los botones sean redondos */
+}
+
+/* Estilo de los botones de navegación en hover (al pasar el mouse) */
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+    background-color: #2980b9; /* Cambia el color de fondo en hover */
+}
+
+/* Estilo de la paginación (puntos) */
+.swiper-pagination-bullet {
+    background: #ccc; /* Color de fondo de los puntos */
+    width: 8px; /* Ancho de los puntos */
+    height: 8px; /* Altura de los puntos */
+    margin: 4px; /* Espacio entre los puntos */
+    border-radius: 50%; /* Para hacer que los puntos sean redondos */
+}
+
+/* Estilo de la paginación activa (punto actual) */
+.swiper-pagination-bullet-active {
+    background: #3498db; /* Color de fondo del punto activo */
+}
+
+
+/* SEGUNDO swiPER */
+
+/* Estilo del contenedor del carrusel */
+.swiper-container {
+  width: 100%;
+  max-width: 600px; /* Ajusta el ancho máximo según tus necesidades */
+  margin: 0 auto;
+
+
+}
+
+/* Estilo de las diapositivas */
+.swiper-slide {
+  text-align: center;
+  font-size: 24px;
+
+ 
+}
+
+/* Estilo de las imágenes en las diapositivas */
+.swiper-slide img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Estilo de los botones de navegación */
+.swiper-button-next,
+.swiper-button-prev {
+  color: #6e0707;
+  font-size: 24px;
+  background-color: #3498db; /* Color de fondo de los botones */
+  width: 40px; /* Ancho de los botones */
+  height: 40px; /* Altura de los botones */
+  border-radius: 50%; /* Para hacer que los botones sean redondos */
+}
+
+/* Estilo de los botones de navegación en hover (al pasar el mouse) */
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  background-color: #2980b9; /* Cambia el color de fondo en hover */
+}
+
+/* Estilo de la paginación (puntos) */
+.swiper-pagination-bullet {
+  background: #227d03; /* Color de fondo de los puntos */
+  width: 8px; /* Ancho de los puntos */
+  height: 8px; /* Altura de los puntos */
+  margin: 4px; /* Espacio entre los puntos */
+  border-radius: 50%; /* Para hacer que los puntos sean redondos */
+}
+
+/* Estilo de la paginación activa (punto actual) */
+.swiper-pagination-bullet-active {
+  background: #70d300; /* Color de fondo del punto activo */
+  
+}
+.datospropietario{
+  margin-top: 10px;
+}
+.datospropietario label{
+  padding-top: 10px;
+  text-align: left;
+  color: #07186e;
+  font-weight: 700;
+  font-size: 20px;
+  
+}
+.datospropietario p{
+  text-align: left;
+  font-family:monospace;
+}
+.datospropietario span{
+  color: #227d03;
+  font-weight: 100;
+}
+
+.detalles span{
+  color: #227d03;
+}
+.detalles label{
+  font-family:monospace;
+}
+
+div.scroll-container {
+  background-color: #d8d8d8;
+  overflow: auto;
+  white-space: nowrap;
+  padding: 10px;
+  width: 100%;
+  height: 400px;
+}
+
+div.scroll-container img {
+  padding: 10px;
+  width: 500px;
+   height: 100%;
+   object-fit: cover;
+
+}

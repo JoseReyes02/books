@@ -1,0 +1,587 @@
+
+.containerImagen {
+    max-width:100%; 
+    margin: 5px auto;
+    background-color: #ffffffe0;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+    
+}
+.card-img-top{
+    max-width: fit-content;
+}
+
+.post {
+    padding: 10px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+/* Estilos del encabezado de la publicación */
+.post-header {
+    display: flex;
+    align-items: center;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 2px;
+    cursor: pointer;
+}
+
+.post-info {
+    flex: 1;
+}
+
+.post-info h2 {
+    font-size: 18px;
+    margin: 0;
+}
+
+.post-info p {
+    font-size: 14px;
+    color: #acacac;
+    margin: 0;
+}
+.btn-like{
+
+  padding: 2.8px;
+  background-color: #5c9250;
+  border-radius: 3px;
+  color: #e7e7e7;
+}
+.btn-like:hover{
+  background-color: #9e021c;
+  color: #f0f0f0;
+}
+.btn-3{
+  text-align: left;
+  align-items: normal;
+  cursor: pointer;
+  padding: 6px;
+  background-color:  #2aa132;
+  border: none;
+  border-radius: 8px;
+  width: 100%;
+  margin: 6px;
+  color: #ffffff;
+}
+.btn-3:hover{
+  background-color: #5c5c5c;
+  color: #4f9a1d;
+}
+
+.btn-perfil{
+  border: none;
+  border-radius: 10px;
+  background-color: #ffffffec;
+  padding: 10px;
+}
+/* Estilos del contenido de la publicación */
+.post-content p {
+    font-size: 16px;
+    margin-top: 10px;
+}
+.post-content {
+  padding: 15px;
+}
+
+.post-content img {
+    max-width: 100%;
+    height:300px ;
+    height: auto;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+/* Estilos de los botones de acciones (Me gusta, Comentar, Compartir, etc.) */
+.post-actions {
+    margin-top: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#contenedorr {
+  display: flex;
+  justify-content: center; /* Centrado horizontal */
+  align-items: center; /* Centrado vertical */
+  height: 70vh; /* Ajusta la altura según tu diseño */
+}
+.username {
+  width: 90%;
+  flex: 1; /* El nombre de usuario ocupará el espacio disponible */
+  white-space: nowrap; /* Evita que el nombre de usuario se divida en múltiples líneas */
+  overflow: hidden; /* Oculta el exceso de texto que no quepa */
+  text-overflow: ellipsis; /* Agrega puntos suspensivos cuando el texto se desborda */
+  
+}
+
+.icon-list2{
+ float: right;
+  border-radius: 50px;
+  border: solid 1px;
+  cursor: pointer;
+}
+
+
+#message{
+  z-index: 11;
+  text-align: center;
+  /* position: fixed; */
+}
+
+/* Puedes personalizar los botones de acciones aquí */
+
+/* Estilos adicionales (espacios, márgenes, etc.) */
+
+/* Estilos responsive para pantallas más pequeñas */
+@media (max-width: 768px) {
+    .container {
+        margin: 10px;
+    }
+
+    .post {
+        padding: 10px;
+    }
+
+    .avatar {
+        width: 30px;
+        height: 30px;
+        margin-right: 8px;
+    }
+
+    .post-info h2 {
+        font-size: 16px;
+    }
+
+    .post-content p {
+        font-size: 14px;
+    }
+    .containerImagen{
+      width: 95%;
+    }
+    .icon-list2{
+      justify-self: end;
+      margin-left: 150px;
+    }
+    
+    /* Puedes ajustar otros estilos para pantallas más pequeñas aquí */
+}
+a {
+    text-decoration: none; /* Elimina el subrayado */
+}
+.sin-subrayado {
+    text-decoration: none; /* Elimina el subrayado */
+}
+.titulo{
+    margin: 10px;
+}
+.titulo p{
+    font-size: larger;
+    font-weight: bold;
+}
+
+/* //targeta para anuncios` */
+.containerCard {
+    position: relative;
+    max-width: 400px; /* Maximum width */
+    margin: 0 auto; /* Center it */
+  }
+  
+  .containerCard .contentt {
+    position: absolute; /* Position the background text */
+    bottom: 0; /* At the bottom. Use top:0 to append it to the top */
+    background: rgb(0, 0, 0); /* Fallback color */
+    background: rgba(0, 0, 0, 0.5); /* Black background with 0.5 opacity */
+    color: #f1f1f1; /* Grey text */
+    width: 100%; /* Full width */
+    padding: 20px; /* Some padding */
+  }
+  .precio {
+    text-align:right;
+  }
+
+  /* STYLO DEL BOTON PUBLICAR */
+  /* Estilo del botón flotante */
+.floating-button {
+  /* Hace que el botón sea fijo en la pantalla */
+    bottom: 595px; /* Distancia desde la parte inferior */
+    /* Distancia desde la derecha */
+    color: #fff; /* Color del texto del botón */
+    border: none; /* Sin borde */
+    border-radius: 5px;
+    font-size: 18px; /* Tamaño de fuente */
+    cursor: pointer; /* Cursor de apuntador al pasar por encima */
+    z-index: 11;
+}
+
+/* Estilo al pasar el cursor sobre el botón */
+.floating-button:hover {
+    background-color: #0056b3; /* Cambia el color de fondo al pasar el cursor */
+}
+
+
+/* contenedor de imagenes en la vista selecionada */
+* {
+    box-sizing: border-box;
+  }
+  
+  /* Position the image container (needed to position the left and right arrows) */
+  .container {
+    position: relative;
+  }
+  
+  /* Hide the images by default */
+  .mySlides {
+    display: none;
+  }
+  
+  /* Add a pointer when hovering over the thumbnail images */
+  .cursor {
+    cursor: pointer;
+  }
+  
+  /* Next & previous buttons */
+  .prev,
+  .next {
+    cursor: pointer;
+    position: absolute;
+    top: 40%;
+    width: auto;
+    padding: 16px;
+    margin-top: -50px;
+    color: white;
+    font-weight: bold;
+    font-size: 20px;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  
+  /* Position the "next button" to the right */
+  .next {
+    right: 0;
+    border-radius: 3px 0 0 3px;
+  }
+  
+  /* On hover, add a black background color with a little bit see-through */
+  .prev:hover,
+  .next:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+  
+  /* Number text (1/3 etc) */
+  .numbertext {
+    color: #f2f2f2;
+    font-size: 12px;
+    padding: 8px 12px;
+    position: absolute;
+    top: 0;
+  }
+  
+  /* Container for image text */
+  .caption-container {
+    text-align: center;
+    background-color: #222;
+    padding: 2px 16px;
+    color: white;
+  }
+  
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  
+  /* Six columns side by side */
+  .column {
+    float: left;
+    width: 16.66%;
+  }
+  
+  /* Add a transparency effect for thumnbail images */
+  .demo {
+    opacity: 0.6;
+  }
+  
+  .active,
+  .demo:hover {
+    opacity: 1;
+  }
+  
+
+  * {
+    font-family: arial;
+  }
+  
+ 
+  
+  .contenedor-cards {
+    display: flex;
+    flex-wrap: wrap;
+    /* justify-content: space-between; */
+  }
+  
+  .contenedor-cards .contenedor-card-item {
+   
+    width: 100%;
+    margin: 3%;
+    -webkit-transition: all 0.3s ease-out;
+    -o-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
+    border-radius: 5px;
+    cursor: help;
+  }
+  
+  /* .contenedor-cards .contenedor-card-item:hover {
+    box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+    -webkit-transform: translateY(-10px);
+    -ms-transform: translateY(-10px);
+    -o-transform: translateY(-10px);
+    transform: translateY(-10px);
+  } */
+  
+  .contenedor-card-item-wrapper {
+    overflow: hidden;
+    position: relative !important;
+    background: #3E2723;
+    border-radius: 5px;
+  }
+  
+  .contenedor-card-item img {
+    max-width: 100%;
+    position: relative;
+    top: 0;
+    -webkit-transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+    transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+    border-radius: 5px;
+  }
+  
+  .contenedor-card-item .contenedor-info {
+    position: absolute;
+    width: 100%;
+    height: 70px;
+    bottom: -70px;
+    -webkit-transition: all 0.5s cubic-bezier(0.645, 0.045, 0.355, 1);
+    transition: all 0.5s cubic-bezier(0.645, 0.045, 0.355, 1);
+  }
+  
+  .contenedor-card-item .contenedor-info .fondo {
+    background: -moz-linear-gradient(top, rgba(0,0,0,0) 0%, rgba(0,0,0,0.73) 53%, rgba(0,0,0,0.88) 100%);
+  background: -webkit-linear-gradient(top, rgba(0,0,0,0) 0%,rgba(0,0,0,0.73) 53%,rgba(0,0,0,0.88) 100%);
+  background: linear-gradient(to bottom, rgba(0,0,0,0) 0%,rgba(0,0,0,0.73) 53%,rgba(0,0,0,0.88) 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#e0000000',GradientType=0 );
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+  
+  .contenedor-card-item .contenedor-info .info {
+    color: #fff;
+    position: relative;
+    z-index: 500;
+    padding: 20px 15px;
+  }
+  
+  .contenedor-card-item .contenedor-info .info .titulo {
+    margin: 0;
+    font-size: 20px;
+  }
+  
+  .contenedor-card-item .contenedor-info .info .categoria {
+    display: block;
+    font-size: 10px;
+  }
+  
+  .contenedor-card-item:hover .contenedor-info {
+    bottom: 0;
+  }
+  
+  .contenedor-card-item:hover img {
+    z-index: 11;
+    top: -1px;
+    -webkit-transform: rotate(-5deg) scale(1);
+    -ms-transform: rotate(-5deg) scale(2);
+    -o-transform: rotate(-5deg) scale(2);
+     transform: rotate(-5deg) scale();
+  }
+  
+  @media screen and (max-width: 900px) {
+ 
+    .contenedor-card-item .contenedor-info {
+      bottom: 0;
+    }
+  }
+  
+  @media screen and (max-width: 767px) {
+    .contenedor {
+      width: 95%;
+    }
+  
+    .contenedor-cards .contenedor-card-item {
+      width: 48%;
+      margin: 1%;
+    }
+  }
+  
+  @media screen and (max-width: 550px) {
+    .contenedor-cards .contenedor-card-item {
+      width: 60%;
+      margin: 10px auto;
+    }
+  }
+  
+  @media screen and (max-width: 480px) {
+    .contenedor {
+      width: 90%;
+    }
+    
+    .contenedor-cards .contenedor-card-item {
+      width: 90%;
+    }
+  }
+  
+  @media screen and (max-width: 400px) {
+    .contenedor {
+      width: 100%;
+    }
+  }
+
+  /* STILO DE LA DESCRIPCION DE LA PROPIEDAD */
+  /* Estilos generales para el contenedor */
+.property-container {
+  border: 1px solid #ccc;
+  padding: 20px;
+  /* margin: 20px; */
+  background-color: #f9f9f9;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilos para el título */
+.property-container h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+/* Estilos para la información de la propiedad */
+.property-info {
+  margin-bottom: 15px;
+}
+
+.property-info p {
+  margin: 5px 0;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+
+}
+
+/* Estilos para la descripción */
+.property-description {
+  font-style: italic;
+  color: #555;
+}
+.image {
+  max-width: 300px; /* Tamaño máximo de ancho */
+  max-height: 200px; /* Tamaño máximo de altura */
+}
+#contenedordeimagen {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px; /* Espacio entre las imágenes (ajusta según tus preferencias) */
+}
+
+/* //MOSTRAR IMAGEN EN PANTALLA COMPLETA */
+
+.usuario-container {
+  /* position: fixed; */
+  /* display: flex; */
+  align-items: center;
+  border: 1px solid #ccc;
+  padding: 15px;
+  /* margin: 10px; */
+  background-color: #f0f0f0;
+  /* height: 500px; */
+}
+
+.foto-perfil img {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+
+.informacion-usuario h2 {
+  margin-top: 0;
+}
+
+.mensaje-button {
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.mensaje-button:hover {
+  background-color: #0056b3;
+}
+
+
+/* Estilos para el modal de la imagen */
+.modals {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  justify-content: center;
+  align-items: center;
+  z-index: 11;
+}
+
+/* Estilos para la imagen ampliada en el modal */
+#imagen-ampliada {
+  max-width: 90%;
+  max-height: 80%;
+}
+
+.bi-x-circle{
+  position: absolute;
+  z-index: 1;
+  font-size: 20px;
+  color: #010000;
+  font-weight: 600;
+  margin-left: 450px;
+  margin-top: 10px;
+  cursor: pointer;
+
+  padding: 1px;
+  border-radius: 60%;
+}
+
+.bi-x-circle:hover{
+
+  background-color: #00000095;
+  color: white;
+  
+}
+
+#showImagen2{
+
+  display: none;
+}
+
+
+
+
+
+
+
+

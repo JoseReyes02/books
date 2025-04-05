@@ -1,0 +1,74 @@
+    <div class="container" style="background-color: #ffffff;">
+      <div class="container" style="text-align: center;">
+        <div class="row">
+          <div class="col" style="padding: 10px;">
+            <h1>Subir Imagenes</h1>
+            <label class="custom-file-upload">
+              <input type="file" name="image" id="input-imagen" accept="image/*">
+              Elegir Imagen
+            </label>
+            <button id="abrir-modal" hidden></button>
+            <input type="text" id="fileName" hidden>
+          </div>
+        </div>
+      </div>
+      <div class="scroll-container" id="showImagen1">
+        {{#each publicacion}}
+          {{#each fotos}}
+        {{!-- <i class="bi bi-x-circle" onclick="quitarImage('{{this.id}}')"></i> --}}
+        <img src="/upload/{{this.imagen}}" alt="Cinque Terre" class="aumentar" onclick="thumbnail('{{this.id}}')">
+          {{/each}}
+        {{/each}}
+      </div>
+      <div class="scroll-container" id="showImagen2">
+      </div>
+      <!-- Modal -->
+
+      <div class="infoPersonal mt-4">
+        <h4>Informacion prsonal</h4>
+
+        <div class="form-group">
+          <label for="exampleInputEmail1" class="form-label mt-4">Nombre</label>
+          <input type="text" class="form-control P-3" id="nombre" aria-describedby="emailHelp" placeholder=""
+            name="nombre" value="{{user.nombre}}">
+          <small>Puede modificarlo</small>
+
+        </div>
+        <div class="form-group">
+          <label for="exampleInputEmail1" class="form-label mt-4">Email</label>
+          <input type="email" class="form-control P-3" id="email" aria-describedby="emailHelp" value="{{user.email}}"
+            placeholder="opcional" name="">
+
+        </div>
+
+        <div class="form-group">
+          <label for="exampleInputEmail1" class="form-label mt-4">Telefono</label>
+          <input type="text" class="form-control P-3" id="telefono" aria-describedby="emailHelp" value="{{user.telefono}}"
+            placeholder="obligatorio" name="telefono">
+
+
+        </div>
+
+      </div>
+
+
+
+
+      <div id="imageModal" class="modal-foto">
+        <div class="modal-content-foto">
+          <button type="button" class="close btn btn-dark" onclick="closeModal()">X</button>
+          <div class="scroll-container" id="imagenMostrar"></div>
+          <div id="quitarImagen"></div>
+        </div>
+      </div>
+
+      {{!-- <button type="button" class="prev" onclick="moverSlide(-1)">&#10094;</button>
+      <div class="slider-container">
+        <div class="slider" id="showImagen">
+        </div>
+      </div>
+      <button type="button" class="next" onclick="moverSlide(1)">&#10095;</button> --}}
+      <input type="text" id="idImagen" name="id" hidden>
+      <button type="submit" id="btnIdImagen" hidden></button>
+      <br>
+    </div>

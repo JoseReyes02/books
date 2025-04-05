@@ -1,0 +1,365 @@
+.container-notifications {
+  position: fixed;
+  height: 60%;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 997;
+
+}
+
+.container-notifications-bg {
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgb(255, 255, 255);
+}
+
+.container-notifications-show {
+  pointer-events: auto;
+  opacity: 1;
+}
+
+.container-notifications-bg {
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.container-notifications-show {
+  pointer-events: auto;
+  opacity: 1;
+}
+
+.NotificationArea {
+
+  margin-top: 65px;
+  box-sizing: border-box;
+  background-color: #ededed;
+  height: 85%;
+  width: 300px;
+  top: 1;
+  z-index: 999;
+  right: -300px;
+  transition: all .3s ease-in-out;
+  position: absolute;
+  border-radius: 10px;
+}
+
+.NotificationArea-title {
+  font-size: 21px;
+  height: 45px;
+  line-height: 45px;
+  color: #fff;
+  background-color: #f96a18;
+  box-sizing: border-box;
+}
+
+.NotificationArea-title i {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 45px;
+  width: 45px;
+  line-height: 45px;
+  font-size: 25px;
+  cursor: pointer;
+}
+
+.Notification,
+.Notification-icon,
+.Notification-text {
+  margin: 0;
+  padding: 0;
+  height: 80px;
+  box-sizing: border-box;
+}
+
+.Notification {
+  position: relative;
+  display: block;
+  width: 300px;
+  border-top: 1px solid #f3f3f3;
+  color: #2b2b2c;
+  font-size: 14px;
+  transition: all .3s ease-in-out;
+}
+
+.Notification:hover {
+  background-color: rgba(0, 0, 0, .07);
+}
+
+.Notification small {
+  color: #BDBDBD;
+}
+
+.Notification-icon,
+.Notification-text {
+  position: absolute;
+  top: 0;
+}
+
+.Notification-icon {
+  width: 80px;
+  left: 0;
+  box-sizing: border-box;
+}
+
+.Notification-icon i {
+  height: 50px;
+  width: 50px;
+  line-height: 50px;
+  margin-left: 15px;
+  margin-top: 15px;
+  text-align: center;
+  font-size: 20px;
+  color: #fff;
+  background-color: #D9534F;
+  border-radius: 50%;
+}
+
+.Notification-text {
+  width: 220px;
+  right: 0;
+}
+
+.Notification-text p {
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+}
+
+.NotificationArea-show {
+  right: 0;
+}
+
+.text-condensedLight {
+  font-family: "RobotoCondensedLight";
+}
+
+.text-center {
+  text-align: center;
+}
+
+.tittles {
+  font-family: "OswaldLight";
+}
+
+.mdl-textfield {
+  width: 100%;
+}
+
+.full-width {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.tittles {
+  color: #000000;
+}
+
+.mdl-tooltip {
+  -webkit-transform: scale(0);
+  transform: scale(0);
+  -webkit-transform-origin: top center;
+  transform-origin: top center;
+  will-change: transform;
+  z-index: 999;
+  background: rgba(97, 97, 97, .9);
+  border-radius: 2px;
+  color: #fff;
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 14px;
+  max-width: 170px;
+  position: fixed;
+  top: -500px;
+  left: -500px;
+  padding: 8px;
+  text-align: center
+}
+
+.mdl-tooltip.is-active {
+  -webkit-animation: pulse 200ms cubic-bezier(0, 0, .2, 1)forwards;
+  animation: pulse 200ms cubic-bezier(0, 0, .2, 1)forwards
+}
+
+.mdl-tooltip--large {
+  line-height: 14px;
+  font-size: 14px;
+  padding: 16px
+}
+
+/* Chat containers */
+.container3 {
+
+ border: solid 1px;
+  background-color: #ffffff;
+  color: #4f4f4f;
+  padding: 25px;
+  margin: 0px 0;
+  border-radius: 10px;
+}
+
+/* Darker chat container */
+.darker {
+  border-color: #ccc;
+  background-color: #ddd;
+}
+
+/* Clear floats */
+.container3::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.mensajes {
+  padding: 10px;
+
+}
+
+.info {
+  border: 1px solid;
+  position: relative;
+  border-radius: 10px;
+  background-color: #eeeeee;
+  height: 90%;
+
+}
+
+.mensajes .publicaciones {
+  text-align: center;
+  font-size: 20px;
+  font-weight: 700;
+}
+
+/* Style images */
+.container3 img {
+  float: left;
+  max-width: 60px;
+  width: 100%;
+  margin-right: 20px;
+  border-radius: 50%;
+}
+
+.iconoPerfil img {
+
+  max-width: 60px;
+  width: 100%;
+  /* margin-right: 20px; */
+  border-radius: 50%;
+  /* margin-right: 0; */
+
+}
+
+.container3 span {
+  cursor: pointer;
+}
+
+.container3 p {
+  padding: 1px;
+  font-size: medium;
+  color: #ffffff;
+}
+
+
+/* Style the right image */
+
+
+/* Style time text */
+.time-right {
+  float: right;
+  color: #aaa;
+}
+
+/* Style time text */
+.time-left {
+  float: left;
+  color: #999;
+}
+
+.scroll-container {
+  width: 100%;
+  /* Ancho del contenedor */
+  height: 600px;
+  /* Altura del contenedor */
+  overflow: auto;
+  /* Añade una barra de desplazamiento si es necesario */
+  border: 0px solid #ccc;
+  /* Borde para el contenedor */
+  padding: 10px;
+  /* Espaciado interno para el contenedor */
+  padding-top: 15px;
+}
+
+.navbarMisPublicaciones {
+  position: fixed;
+  /* La barra de navegación se mantendrá fija en su lugar */
+  top: 0;
+  /* Coloca la barra en la parte superior de la ventana gráfica */
+  width: 100%;
+  /* Ocupa todo el ancho de la ventana gráfica */
+  z-index: 100;
+  /* Asegura que la barra esté en la parte superior de otros elementos */
+}
+
+.sigup {
+  font-size: 16px; 
+  width: 100%; 
+  margin-bottom: 5px;
+  position: absolute;
+  /* Establece la posición del div como absoluta */ 
+  bottom: 0;
+  /* Lo coloca en la parte inferior del contenedor */
+} 
+
+.sigup a {
+  color: #363636;
+}
+
+.listMenu:hover {
+
+ 
+  
+  color: rgb(230, 10, 10);
+}
+
+
+
+.botones a {
+  margin: 10px;
+
+}
+
+.menu {
+  background: #fff;
+  padding: 10px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+
+.menu a {
+  display: block;
+  padding: 5px;
+  text-decoration: none;
+  color: #333;
+
+  border-radius: 5px;
+  transition: background 0.3s ease;
+}
+
+.menu a:hover {
+  background: #27ae0c;
+  color: #fff;
+}

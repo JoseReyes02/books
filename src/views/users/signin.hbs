@@ -1,0 +1,235 @@
+{{> componentes}}
+
+<section class="vh-100">
+  <div class="container-fluid h-custom">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-md-4 col-lg-4 col-xl-5">
+        <img src="/images/ced3c5c2-b058-4151-9b2b-7fd86257c5d6.png" class="img-fluid"
+          alt="Sample image">
+      </div>
+      <div class="col-md-8 col-lg-8 col-xl-4 offset-xl-1">
+        <form action="/users/signin" method="post">
+         
+            <div class="container">
+              <h2>Iniciar sesión</h2>
+              <p>¿No tienes una cuenta? <a href="#">Regístrate</a></p>
+
+              <div class="buttons">
+                <!-- Botón de Google -->
+                <a href="/auth/google" class="btn google">
+                  <img src="https://www.svgrepo.com/show/303108/google-icon-logo.svg" alt="Google">
+                  <span>Continuar con Google</span>
+                </a>
+
+                <!-- Botón de Facebook -->
+                <button class="btn google">
+                  <img src="https://www.svgrepo.com/show/157818/facebook.svg" alt="Facebook">
+                  <span>Continuar con Facebook</span>
+                </button>
+
+                <!-- Botón de Apple -->
+              </div>
+            </div>
+
+
+          {{!-- <h4 style="color: #0000008a;">Iniciar session</h4> --}}
+          <div class="divider d-flex align-items-center my-4">
+            <p class="text-center fw-bold mx-3 mb-0"></p>
+          </div>
+
+          <!-- Email input -->
+          <div class="form-outline mb-4">
+            <input type="email" id="form3Example3" name="email" class="form-control form-control-lg"
+              placeholder="Introduce tu Email" value="" / hidden>
+
+          </div>
+
+          <!-- Password input -->
+          <div class="form-outline mb-3">
+            <input type="password" id="form3Example4" name="password" class="form-control form-control-lg"
+              placeholder="Introduce tu contraseña" value="" / hidden>
+
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center">
+            <!-- Checkbox -->
+            {{!-- <div class="form-check mb-0">
+              <input class="form-check-input me-2" type="checkbox" value="" id="form2Example3" />
+              <label class="form-check-label" for="form2Example3">
+                Recordar
+              </label>
+            </div> --}}
+            {{!-- <a href="/users/sendEmailToEMail" class="text-bod">Olvidaste tu contraseña?</a> --}}
+          </div>
+
+          {{!-- <div class="text-center text-lg-start mt-4 pt-2">
+            <button type="submit" class="btn btn-primary btn-lg" style="padding-left: 2.5rem; padding-right: 2.5rem;">
+              <span class="icon-sign-in "> Entrar</span>
+            </button>
+
+            <p class="small fw-bold mt-2 pt-1 mb-0">Aun no tienes una cuenta? <a href="/users/signup"
+                class="link-danger">Register</a></p>
+          </div> --}}
+
+        </form>
+        <form action="/users/signinGoogle" method="post">
+          <input type="text" name="email" value="{{email}}" hidden>
+          <input type="text" name="password" value="245" hidden>
+          <button type="submit" id="btnIniciarSession" hidden>enviar</button>
+        </form>
+
+        {{#if IniciarSession}}
+        <script>
+          window.onload = function () {
+            miFuncion();
+          };
+
+          function miFuncion() {
+            document.getElementById('btnIniciarSession').click()
+          }
+        </script>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+  <style>
+    /* Reset y configuración general */
+
+    /* Contenedor principal */
+    .container {
+      background: white;
+      padding: 20px;
+      width: 350px;
+      text-align: center;
+      border-radius: 8px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    /* Título */
+    h2 {
+      font-size: 24px;
+      margin-bottom: 10px;
+    }
+
+    /* Enlace de registro */
+    p {
+      color: #666;
+      font-size: 14px;
+    }
+
+    p a {
+      color: #1877F2;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    p a:hover {
+      text-decoration: underline;
+    }
+
+    /* Botones */
+    .buttons {
+      margin-top: 20px;
+    }
+
+    .btn {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+      cursor: pointer;
+      font-weight: bold;
+      margin-bottom: 10px;
+      transition: 0.3s;
+    }
+
+    .btn img {
+      width: 20px;
+      height: 20px;
+      margin-right: 10px;
+    }
+
+    /* Estilos específicos de cada botón */
+    .google {
+      background: white;
+      color: #555;
+    }
+
+    .google:hover {
+      background: #f5f5f5;
+    }
+
+    .facebook {
+      background: #1877F2;
+      color: white;
+      border: none;
+    }
+
+    .facebook:hover {
+      background: #165dd1;
+    }
+
+    .apple {
+      background: white;
+      color: black;
+    }
+
+    .apple:hover {
+      background: #f5f5f5;
+    }
+  </style>
+  <div
+    class="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-primary">
+    <!-- Copyright -->
+    <div class="text-white mb-3 mb-md-0">
+      Copyright © 2020. All rights reserved.
+    </div>
+    <!-- Copyright -->
+
+    <!-- Right -->
+    <div>
+      <a href="#!" class="text-white me-4">
+        <i class="fab fa-facebook-f"></i>
+      </a>
+      <a href="#!" class="text-white me-4">
+        <i class="fab fa-twitter"></i>
+      </a>
+      <a href="#!" class="text-white me-4">
+        <i class="fab fa-google"></i>
+      </a>
+      <a href="#!" class="text-white">
+        <i class="fab fa-linkedin-in"></i>
+      </a>
+    </div>
+    <!-- Right -->
+  </div>
+</section>
+
+<style>
+  .divider:after,
+  .divider:before {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: #eee;
+  }
+
+  .h-custom {
+    height: calc(100% - 73px);
+  }
+
+  @media (max-width: 450px) {
+    .h-custom {
+      height: 100%;
+    }
+  }
+
+  .btn-facebook {
+    background-color: rgb(51, 86, 247);
+    color: aliceblue;
+  }
+</style>

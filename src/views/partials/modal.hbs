@@ -1,0 +1,74 @@
+{{!-- MODAL --}}
+<div class="container-fluid py-5">
+    <div class="row">
+        <div class="col">
+            <div id="mi-modal" class="modal">
+                <div class="modal-contenido">
+                    <div class="imagen-container">
+                        <img src="" alt="Imagen seleccionada" class="card-img-top imgModal" name="image"
+                            id="imagen-modal" style="height: 400px;width:400px">
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="card-body">
+                                <button type="button" id="cerrar-modal"
+                                    class="btn btn-danger btn-block">Cancelar</button>
+
+                            </div>
+
+                        </div>
+                        <div class="col">
+                            <div class="card-body">
+                                <button type="submit" class="btn btn-primary btn-block">Cargar</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+</div>
+
+
+
+<style>
+    .contenedor {
+        background-color: #f0f0f0;
+        border: 1px solid #ccc;
+        padding: 20px;
+    }
+
+    .contenedor {
+        background-color: #f0f0f0;
+        border: 1px solid #ccc;
+        padding: 3% 5%;
+        /* Puedes ajustar los valores de acuerdo a tus necesidades */
+    }
+
+    .contenedor {
+        background-color: #f0f0f0;
+        border: 1px solid #ccc;
+        padding: 3% 5%;
+        max-width: 800px;
+        /* Establece el ancho máximo según tus necesidades */
+        margin: 0 auto;
+        /* Centra el contenedor horizontalmente */
+    }
+
+    /* Estilos para pantallas pequeñas */
+    @media (max-width: 768px) {
+        .contenedor {
+            padding: 5% 8%;
+        }
+    }
+
+    /* Estilos para pantallas más pequeñas */
+    @media (max-width: 480px) {
+        .contenedor {
+            padding: 8% 10%;
+        }
+    }
+</style>

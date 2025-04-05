@@ -1,0 +1,413 @@
+<!-- Topbar Start -->
+
+{{> header}}
+
+
+
+<form enctype="multipart/form-data" id="cargarFoto">
+  <div class="container py-5 mt-3" style="background-color: #ffffff;">
+    <div class="row">
+      <div class="col">
+        <h3 class="mb-" style="text-align: center; margin:10px">Editar publicacion</h3>
+        <fieldset class="form-group" style="text-align: center;">
+          <legend class="mt-">Usted quiere?</legend>
+        </fieldset>
+        <div style="text-align: center;">
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="Vende">
+            <label class="form-check-label" for="flexRadioDefault1" style="margin-left: 50px;">
+              Vender
+            </label>
+          </div>
+          <div class="form-check">
+            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value="Renta"
+              checked>
+            <label class="form-check-label" for="flexRadioDefault2" style="margin-left: 50px;">
+              Rentar
+            </label>
+          </div>
+        </div>
+
+        <div class="container">
+          <div class="form-group">
+            <label for="exampleInputEmail1" class="form-label mt-4">TITULO</label>
+            <input type="text" class="form-control P-3" id="titulo" value="{{publicacion.titulo}}" 
+              aria-describedby="emailHelp" placeholder="Introduce un titulo" name="titulo">
+
+          </div>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="exampleSelect1" class="form-label mt-4">Tipo de propiedad</label>
+                <select name="tipo_inmueble" class="form-control" id="tipoPropiedad">
+                  <option value="{{publicacion.tipoPropiedad}}" selected>{{publicacion.tipoPropiedad}}</option>
+                 <option value="Apartamento">Apartamento</option>
+                  <option value="Casa">Casa</option>
+                  <option value="Villa">Villa</option>
+                  <option value="Penthouse">Penthouse</option>
+                  <option value="Estudio">Estudio (tipo loft)</option>
+                  <option value="Terreno">Solar/Terreno</option>
+                  <option value="Local_comercial">Local comercial</option>
+                  <option value="Oficina">Oficina</option>
+                  <option value="Nave_industrial">Nave industrial</option>
+                  <option value="Finca">Finca</option>
+                  <option value="Parcela_agricola">Parcela agrícola</option>
+                  <option value="Almacen">Almacén</option>
+                  <option value="Parqueo">Parqueo/Estacionamiento</option>
+                  <option value="Condominio">Condominio</option>
+                  <option value="Edificio_completo">Edificio completo</option>
+                  <option value="Bodega">Bodega</option>
+                  <option value="Cabaña">Cabaña</option>
+                  <option value="Hostal_hotel">Hostal/Hotel</option>
+                  <option value="Plaza_comercial">Plaza comercial</option>
+                  <option value="Consultorio_medico">Consultorio médico</option>
+                  <option value="Garaje">Garaje</option>
+                  <option value="Centro_logistico">Centro logístico</option>
+                  <option value="Coworking">Espacio de coworking</option>
+                  <option value="Penthouse_duplex">Penthouse dúplex</option>
+                  <option value="Atico">Ático</option>
+                </select>
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <label for="exampleSelect1" class="form-label mt-4">Baños</label>
+                <select class="form-control" id="restron" name="restron">
+                  <option>{{publicacion.restron}}</option>
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5+</option>
+                </select>
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <label for="exampleSelect1" class="form-label mt-4">Habitaciones</label>
+                <select class="form-control" id="habitaciones" name="habitaciones">
+                  <option>{{publicacion.habitaciones}}</option>
+                  <option>1</option>
+                  <option>2</option>
+                  <option selected>3</option>
+                  <option>4</option>
+                  <option>5+</option>
+                </select>
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <label for="exampleSelect1" class="form-label mt-4">Marquesinas</label>
+                <select class="form-control" id="marquesinas" name="marquesinas">
+                  <option>{{publicacion.marquesinas}}</option>
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5+</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+        </div>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="exampleSelect1" class="form-label mt-4">Moneda</label>
+                <select class="form-control" id="moneda" name="moneda">
+                  <option>{{publicacion.moneda}}</option>
+                  <option>RD$</option>
+                  <option>US$</option>
+                  <option>EUR</option>
+
+                </select>
+              </div>
+
+            </div>
+            <div class="col-md-4">
+              <label for="exampleInputEmail1" class="form-label mt-4">Disponibilidad</label>
+              <input type="number" class="form-control" name="disponivilidad" id="disponibilidad"
+                value="{{publicacion.disponibilidad}}" aria-describedby="emailHelp" placeholder="">
+
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <label for="exampleInputEmail1" class="form-label mt-4">Precio</label>
+                <input type="text" class="form-control" name="precio" id="precio" aria-describedby="emailHelp"
+                  value="{{publicacion.precio}}" placeholder="">
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <div class="form-group">
+            <label for="exampleSelect1" class="form-label mt-4">Pais</label>
+            <select class="form-control" id="pais" name="pais">
+              <option>{{publicacion.pais}}</option>
+              <option>Republica Dominicana</option>
+            </select>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <label for="exampleSelect1" class="form-label mt-4">Provincia</label>
+            <select class="form-control" id="provincia" name="provincia">
+              <option selected>{{publicacion.provincia}}</option>
+              <option>Distrito Nacional</option>
+              <option>Azua</option>
+              <option>Bahoruco</option>
+              <option>Barahona</option>
+              <option>Dajabón</option>
+              <option>Elías Piña</option>
+              <option>El Seibo</option>
+              <option>Espaillat</option>
+              <option>Hato Mayor</option>
+              <option>Independencia</option>
+              <option>La Altagracia</option>
+              <option>La Romana</option>
+              <option>La Vega</option>
+              <option>María Trinidad Sánchez</option>
+              <option>Monseñor Nouel</option>
+              <option>Monte Cristi</option>
+              <option>Monte Plata</option>
+              <option>Pedernales</option>
+              <option>Peravia</option>
+              <option>Puerto Plata</option>
+              <option>Samaná</option>
+              <option selected>Sánchez Ramírez</option>
+              <option>San Cristóbal</option>
+              <option>San José de Ocoa</option>
+              <option>San Juan</option>
+              <option>San Pedro de Macorís</option>
+              <option>Santiago</option>
+              <option>Santiago Rodríguez</option>
+              <option>Santo Domingo</option>
+              <option>Valverde</option>
+            </select>
+          </div>
+        </div>
+        <div class="col">
+          <div class="form-group">
+            <div class="form-group">
+              <label for="exampleSelect1" class="form-label mt-4">Municipio/Sector</label>
+              <select name="municipio" class="form-control" id="municipio">
+                <option value="{{publicacion.municipio}}" selected>{{publicacion.municipio}}</option>
+                <option value="Santo Domingo de Guzmán">Santo Domingo de Guzmán</option>
+                <option value="Azua de Compostela">Azua de Compostela</option>
+                <option value="Estebanía">Estebanía</option>
+                <option value="Guayabal">Guayabal</option>
+                <option value="Las Charcas">Las Charcas</option>
+                <option value="Las Yayas de Viajama">Las Yayas de Viajama</option>
+                <option value="Padre Las Casas">Padre Las Casas</option>
+                <option value="Peralta">Peralta</option>
+                <option value="Pueblo Viejo">Pueblo Viejo</option>
+                <option value="Sabana Yegua">Sabana Yegua</option>
+                <option value="Tábara Arriba">Tábara Arriba</option>
+                <option value="Neiba">Neiba</option>
+                <option value="Galván">Galván</option>
+                <option value="Los Ríos">Los Ríos</option>
+                <option value="Tamayo">Tamayo</option>
+                <option value="Villa Jaragua">Villa Jaragua</option>
+                <option value="Barahona">Barahona</option>
+                <option value="Cabral">Cabral</option>
+                <option value="El Peñón">El Peñón</option>
+                <option value="Enriquillo">Enriquillo</option>
+                <option value="Fundación">Fundación</option>
+                <option value="Jaquimeyes">Jaquimeyes</option>
+                <option value="La Ciénaga">La Ciénaga</option>
+                <option value="Las Salinas">Las Salinas</option>
+                <option value="Paraíso">Paraíso</option>
+                <option value="Polo">Polo</option>
+                <option value="Vicente Noble">Vicente Noble</option>
+                <option value="Dajabón">Dajabón</option>
+                <option value="El Pino">El Pino</option>
+                <option value="Loma de Cabrera">Loma de Cabrera</option>
+                <option value="Partido">Partido</option>
+                <option value="Restauración">Restauración</option>
+                <option value="San Francisco de Macorís">San Francisco de Macorís</option>
+                <option value="Arenoso">Arenoso</option>
+                <option value="Castillo">Castillo</option>
+                <option value="Eugenio María de Hostos">Eugenio María de Hostos</option>
+                <option value="Las Guáranas">Las Guáranas</option>
+                <option value="Pimentel">Pimentel</option>
+                <option value="Villa Riva">Villa Riva</option>
+                <option value="Comendador">Comendador</option>
+                <option value="Bánica">Bánica</option>
+                <option value="El Llano">El Llano</option>
+                <option value="Hondo Valle">Hondo Valle</option>
+                <option value="Juan Santiago">Juan Santiago</option>
+                <option value="Pedro Santana">Pedro Santana</option>
+                <option value="Santa Cruz de El Seibo">Santa Cruz de El Seibo</option>
+                <option value="Miches">Miches</option>
+                <option value="Moca">Moca</option>
+                <option value="Cayetano Germosén">Cayetano Germosén</option>
+                <option value="Gaspar Hernández">Gaspar Hernández</option>
+                <option value="Jamao al Norte">Jamao al Norte</option>
+                <option value="Hato Mayor del Rey">Hato Mayor del Rey</option>
+                <option value="El Valle">El Valle</option>
+                <option value="Sabana de la Mar">Sabana de la Mar</option>
+                <option value="Salcedo">Salcedo</option>
+                <option value="Tenares">Tenares</option>
+                <option value="Villa Tapia">Villa Tapia</option>
+                <option value="Jimaní">Jimaní</option>
+                <option value="Cristóbal">Cristóbal</option>
+                <option value="Duvergé">Duvergé</option>
+                <option value="La Descubierta">La Descubierta</option>
+                <option value="Mella">Mella</option>
+                <option value="Postrer Río">Postrer Río</option>
+                <option value="Higüey">Higüey</option>
+                <option value="San Rafael del Yuma">San Rafael del Yuma</option>
+                <option value="La Romana">La Romana</option>
+                <option value="Guaymate">Guaymate</option>
+                <option value="Villa Hermosa">Villa Hermosa</option>
+                <option value="La Vega">La Vega</option>
+                <option value="Constanza">Constanza</option>
+                <option value="Jarabacoa">Jarabacoa</option>
+                <option value="Jima Abajo">Jima Abajo</option>
+                <option value="Nagua">Nagua</option>
+                <option value="Cabrera">Cabrera</option>
+                <option value="El Factor">El Factor</option>
+                <option value="Río San Juan">Río San Juan</option>
+                <option value="Bonao">Bonao</option>
+                <option value="Maimón">Maimón</option>
+                <option value="Piedra Blanca">Piedra Blanca</option>
+                <option value="San Fernando de Monte Cristi">San Fernando de Monte Cristi</option>
+                <option value="Castañuelas">Castañuelas</option>
+                <option value="Guayubín">Guayubín</option>
+                <option value="Las Matas de Santa Cruz">Las Matas de Santa Cruz</option>
+                <option value="Pepillo Salcedo (Manzanillo)">Pepillo Salcedo (Manzanillo)</option>
+                <option value="Villa Vásquez">Villa Vásquez</option>
+                <option value="Monte Plata">Monte Plata</option>
+                <option value="Bayaguana">Bayaguana</option>
+                <option value="Peralvillo">Peralvillo</option>
+                <option value="Sabana Grande de Boyá">Sabana Grande de Boyá</option>
+                <option value="Yamasá">Yamasá</option>
+                <option value="Pedernales">Pedernales</option>
+                <option value="Oviedo">Oviedo</option>
+                <option value="Baní">Baní</option>
+                <option value="Nizao">Nizao</option>
+                <option value="Puerto Plata">Puerto Plata</option>
+                <option value="Altamira">Altamira</option>
+                <option value="Guananico">Guananico</option>
+                <option value="Imbert">Imbert</option>
+                <option value="Los Hidalgos (El Mamey)">Los Hidalgos (El Mamey)</option>
+                <option value="Luperón">Luperón</option>
+                <option value="Sosúa">Sosúa</option>
+                <option value="Villa Isabela">Villa Isabela</option>
+                <option value="Villa Montellano">Villa Montellano</option>
+                <option value="Santa Bárbara de Samaná">Santa Bárbara de Samaná</option>
+                <option value="Las Terrenas">Las Terrenas</option>
+                <option value="Sánchez">Sánchez</option>
+                <option value="San Cristóbal">San Cristóbal</option>
+                <option value="Bajos de Haina">Bajos de Haina</option>
+                <option value="Cambita Garabitos">Cambita Garabitos</option>
+                <option value="Los Cacaos">Los Cacaos</option>
+                <option value="Nigua">Nigua</option>
+                <option value="Palenque">Palenque</option>
+                <option value="San Gregorio de Nigua">San Gregorio de Nigua</option>
+                <option value="Villa Altagracia">Villa Altagracia</option>
+                <option value="Yaguate">Yaguate</option>
+                <option value="San José de Ocoa">San José de Ocoa</option>
+                <option value="Sabana Larga">Sabana Larga</option>
+                <option value="Rancho Arriba">Rancho Arriba</option>
+                <option value="San Juan de la Maguana">San Juan de la Maguana</option>
+                <option value="Bohechío">Bohechío</option>
+                <option value="El Cercado">El Cercado</option>
+                <option value="Juan de Herrera">Juan de Herrera</option>
+                <option value="Las Matas de Farfán">Las Matas de Farfán</option>
+                <option value="Vallejuelo">Vallejuelo</option>
+                <option value="San Pedro de Macorís">San Pedro de Macorís</option>
+                <option value="Consuelo">Consuelo</option>
+                <option value="Guayacanes">Guayacanes</option>
+                <option value="Quisqueya">Quisqueya</option>
+                <option value="Ramón Santana">Ramón Santana</option>
+                <option value="San José de los Llanos">San José de los Llanos</option>
+                <option value="Cotuí">Cotuí</option>
+                <option value="Cevicos">Cevicos</option>
+                <option value="Fantino">Fantino</option>
+                <option value="La Mata">La Mata</option>
+                <option value="Santiago de los Caballeros">Santiago de los Caballeros</option>
+                <option value="Baitoa">Baitoa</option>
+                <option value="Jánico">Jánico</option>
+                <option value="Licey al Medio">Licey al Medio</option>
+                <option value="Puñal">Puñal</option>
+                <option value="Sabana Iglesia">Sabana Iglesia</option>
+                <option value="San José de las Matas">San José de las Matas</option>
+                <option value="Tamboril">Tamboril</option>
+                <option value="Villa Bisonó (Navarrete)">Villa Bisonó (Navarrete)</option>
+                <option value="Villa González">Villa González</option>
+                <option value="San Ignacio de Sabaneta">San Ignacio de Sabaneta</option>
+                <option value="Monción">Monción</option>
+                <option value="Villa Los Almácigos">Villa Los Almácigos</option>
+                <option value="Santo Domingo Este">Santo Domingo Este</option>
+                <option value="Santo Domingo Norte">Santo Domingo Norte</option>
+                <option value="Santo Domingo Oeste">Santo Domingo Oeste</option>
+                <option value="Boca Chica">Boca Chica</option>
+                <option value="Los Alcarrizos">Los Alcarrizos</option>
+                <option value="Pedro Brand">Pedro Brand</option>
+                <option value="San Antonio de Guerra">San Antonio de Guerra</option>
+                <option value="Santa Cruz de Mao">Santa Cruz de Mao</option>
+                <option value="Esperanza">Esperanza</option>
+                <option value="Laguna Salada">Laguna Salada</option>
+              </select>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="form-group">
+            <label for="exampleInputEmail1" class="form-label mt-4">Direccion</label>
+            <input type="text" class="form-control" id="direccion" aria-describedby="emailHelp"
+              placeholder="Espesifique su direcion" name="direccion" value="{{publicacion.direccion}}">
+
+
+          </div>
+
+        </div>
+          {{> modal}}
+
+      </div>
+      <div class="form-group">
+        <label for="exampleTextarea" class="form-label mt-4">Descripcion</label>
+        <textarea class="form-control" id="descripcion" rows="3" name="descripcion"></textarea>
+        <small id="emailHelp" class="form-text text-muted">Escribe una descripcion mas descriptiva del inmueble y
+          el
+          lugar</small>
+      </div>
+
+    </div>
+    {{!-- <button type="button" class="btn btn-info" onclick="recet()">Recet</button> --}}
+    <hr>
+
+   {{> cargaFotos}}
+    <hr>
+    <input type="text" id="fileName" hidden>
+    <div id="contenidoError"></div>
+    <div class="d-grid gap-2" style="text-align: center;">
+      <input type="text" value="{{publicacion.id}}" id="idPublicacion" name="idPublicacion" hidden>
+      <button class="btn btn-lg btn-primary" type="button" onclick="ActualizarPublicacion()">Actualizar</button>
+    </div>
+
+
+  </div>
+
+
+</form>
+
+
+<!-- Back to Top -->
+<a href="#" class="btn btn-lg btn-primary btn-lg-square back-to-top"><i class="fa fa-angle-double-up"></i></a>
+{{>componentes}}
+</div>

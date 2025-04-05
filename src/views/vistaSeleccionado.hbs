@@ -1,0 +1,185 @@
+{{> componentes}}
+
+{{> header}}
+
+
+
+<div class="container-fluid" style="text-align: center;">
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-8">
+            {{#each publicacion}}
+
+            <div class="col-md-12">
+                <div class="containerImagen">
+                    <div class="post">
+                        <div class="post-header">
+                            <img src="{{photo}}" alt="Profile" class="profile-pic">
+                            <div class="user-info">
+                                <div class="name">{{usuario}}</div>
+                                <div class="timestamp">{{fecha}} a las {{hora}}</div>
+                            </div>
+                        </div>
+
+
+                        <div class="titulo">
+                            <p style="font-size: 20px;">{{titulo}}</p>
+                        </div>
+
+                        <div class="post-content" style="overflow-x: hidden;">
+                            <div class="swiper-container">
+                                <div class="swiper-wrapper">
+                                    {{#each fotos}}
+                                    <div class="swiper-slide">
+                                        <img src="/upload/{{this.imagen}}" alt="Imagen 1"
+                                            style="width: 500px;  height:400px" class="imagen-miniatura">
+                                    </div>
+                                    {{/each}}
+                                </div>
+                            </div>
+                        </div>
+                        <hr style="margin: 2%;">
+                        <div class="row">
+                            <div class="col">
+                                <div class="detalles" style="text-align: left;">
+                                    <h5 style="letter-spacing: 4px;">Detalles</h5>
+                                    <label for="" style="font-weight: 700;">Tipo de propiedad:
+                                        <span> {{tipoPropiedad}}</span></label>
+
+                                    <label for="" style="font-weight: 700;">Baños:
+                                        <span> {{restron}}</span></label>
+
+                                    <label for="" style="font-weight: 700;">Habitaciones:
+                                        <span> {{habitaciones}}</span></label>
+
+
+                                    <label for="" style="font-weight: 700;">Parqueos:
+                                        <span> {{marquesinas}}</span></label>
+
+
+                                    <label for="" style="font-weight: 700;">Direccion:
+                                        <span> {{direccion}}</span></label>
+                                </div>
+
+                            </div>
+                            <div class="col">
+                                <h5 style="letter-spacing: 4px;">Hubicacion</h5>
+                                <span style="font-family:'Times New Roman', Times, serif;font-weight: 200; 
+                                color:rgb(25, 25, 25)">-{{municipio}}/{{provincia}}</span><br>
+                                <span style="font-family:'Times New Roman', Times, serif;font-weight: 700; 
+                                color:rgb(85, 150, 0)">{{pais}}</span>
+
+
+                            </div>
+                        </div>
+                        <h5 style="letter-spacing: 4px;">Descripcion</h5>
+                        <small>{{descripcion}}</small>
+
+                        <div class="datospropietario">
+                            <h5 style="letter-spacing: 4px; text-align:left">Datos del propietario</h5>
+                            <p for="" style="font-weight: 700;">Nombre:
+                                <span>
+                                    {{nombre}} {{apellido}}</span>
+                            </p>
+                            <p for="" style="font-weight: 700;">Telefono:
+                                <span>
+                                    {{telefono}}</span>
+                            </p>
+                            <p for="" style="font-weight: 700;">Email:
+                                <span>
+                                    {{email}}</span>
+                            </p>
+                            <p for="" style="font-weight: 700;">Instagram:
+                                <span>
+                                    {{instagram}}</span>
+                            </p>
+                            <p for="" style="font-weight: 700;">Direccion:
+                                <span>
+                                    {{direccion}}</span>
+                            </p>
+
+                        </div>
+
+
+                        <div class="precio">
+
+                            <h4>{{moneda}} {{precio}}</h4>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-3">
+                    <a href="https://wa.me/18294965171?text=Hola%2C%20estoy%20interesado" class="btn btn-success"
+                        target="_blank">Contactar por WhatsApp <i class="bi bi-whatsapp"></i></a>
+                    {{!-- <a href="https://mail.google.com/mail/?view=cm&fs=1&to=joseeladio29.jer@gmail.com&su=Asunto&body=Mensaje
+            " class="btn btn-danger" target="_blank"><i class="bi bi-envelope-at-fill"></i> Enviar correo</a>
+                    <a href="tel:+8294965171" class="btn btn-primary"><i class="bi bi-telephone-forward-fill"></i>
+                        Llamar al telefono</a>
+                    <a href="https://wa.me/8294965171" class="btn btn-info"><i class="bi bi-chat-dots-fill"></i> Abrir
+                        chat Aqui</a> --}}
+
+                </div>
+
+            </div>
+
+            {{/each}}
+
+        </div>
+        <div class="col-md-2">
+           
+
+
+        </div>
+
+    </div>
+</div>
+<!-- Contenedor de la imagen que se abrirá en pantalla completa -->
+<div id="imagen-modal" class="modals">
+    <img id="imagen-ampliada" src="" alt="Imagen Ampliada">
+</div>
+
+
+<!-- Contenedor de la imagen miniatura -->
+{{!--
+<div class="row">
+    {{#each publicacion}}
+    {{#each fotos}}
+    <div class="col">
+        <div class="contenedor-card-item">
+            <div class="contenedor-imagen-miniatura">
+                <img src="/upload/{{this}}" alt="Imagen Miniatura" class="imagen-miniatura"
+                    style="width: 350px; height: 250px;">
+            </div>
+        </div>
+    </div>
+    {{/each}}
+    {{/each}}
+</div> --}}
+<script>
+    // codigo para el contenedor de imagenes de la vista seleccionada
+    // Obtiene la imagen modal y la imagen ampliada
+    const modals = document.getElementById('imagen-modal');
+    const imagenAmpliada = document.getElementById('imagen-ampliada');
+
+    // Obtiene todas las imágenes miniaturas
+    const imagenesMiniatura = document.querySelectorAll('.imagen-miniatura');
+
+    // Agrega un evento de clic a cada imagen miniatura
+    imagenesMiniatura.forEach(imagen => {
+        imagen.addEventListener('click', () => {
+            // Muestra el modal y establece la imagen ampliada
+            modals.style.display = 'flex';
+            imagenAmpliada.src = imagen.src;
+        });
+    });
+
+    // Cierra el modal cuando se hace clic en él
+    modals.addEventListener('click', () => {
+        modals.style.display = 'none';
+    });
+</script>
+<!-- Destination Start -->
+
+
+</div>
+
+{{>footer}}

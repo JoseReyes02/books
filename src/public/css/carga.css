@@ -1,0 +1,343 @@
+/* styles.css */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+}
+
+.loader-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+.loader {
+    border: 8px solid #3498db;
+    border-top: 8px solid #fff;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.content.hidden {
+    display: none;
+}
+
+.custom-file-upload {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: #fff;
+    cursor: pointer;
+
+}
+
+.custom-file-upload input[type="file"] {
+    display: none;
+}
+
+/* Estilo opcional para cuando se pasa el mouse sobre el botón */
+.custom-file-upload:hover {
+    background-color: #2980b9;
+}
+
+
+
+
+
+
+
+
+h1 {
+    font-size: 24px;
+}
+
+
+
+label {
+    display: block;
+    margin-bottom: 10px;
+}
+
+input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+}
+
+input[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+/* Estilo para el modal de visualizar laimagen */
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 11;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.646);
+}
+
+.modal-contenido {
+    background-color: #f0f0f0;
+    margin: 5% auto;
+    padding: 10px;
+    max-width: 500px;
+    position: relative;
+
+}
+
+.modal-cerrar {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+/* Estilo predeterminado para el div (visible en todos los dispositivos) */
+#miDiv {
+    display: block;
+}
+
+/* Media query para ocultar el div en dispositivos con un ancho máximo de 768px (ajusta este valor según tus necesidades) */
+@media (max-width: 768px) {
+    #miDiv {
+        display: none;
+    }
+
+    .carousel-inner {
+
+        height: 300px;
+    }
+
+}
+
+.chip {
+    
+    align-items: center;
+}
+
+.chip:hover {
+    cursor: pointer;
+}
+
+.input {
+    border: none;
+    outline: none;
+    box-shadow: none;
+    /* También puedes eliminar cualquier sombra si se aplica por defecto */
+}
+
+.input:focus {
+    /* Estilos adicionales cuando el input está enfocado, como un fondo o cambio de color de texto */
+    background-color: #f0f0f0;
+}
+
+.chip img {
+    width: 40px;
+    height: 40px;
+
+}
+
+.icon-edit {
+    cursor: pointer;
+}
+
+.icon-edit-perfil {
+    margin-top: 145px;
+    padding-left: 70px;
+    position: absolute;
+    bottom: 20;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 24px;
+
+}
+
+.icon-edit-perfil:hover {
+    color: #9c9c9c;
+    cursor: pointer;
+}
+
+.icon-edit:hover {
+    color: #9c9c9c;
+
+}
+
+
+.icon-sign-out {
+    margin: 8px;
+    /* float: right; */
+    font-size: 15px;
+}
+
+@media (max-width: 768px) {
+    .icon-sign-out {
+        padding-left: 10%;
+        /* Cambiar el valor según tus necesidades o eliminar el padding */
+    }
+}
+
+
+/* TAMAÑO DE IMAGEN */
+
+/* Aplicar estilos CSS al contenedor de imagen */
+.imgModal {
+    width: 100%;
+    max-height: 500px;
+}
+
+.imagen-container {
+    display: flex;
+    justify-content: center;
+    /* Centra horizontalmente */
+    align-items: center;
+    /* Centra verticalmente */
+    /* Oculta cualquier parte de la imagen que exceda el tamaño del contenedor */
+}
+
+
+/* Estilos adicionales, como bordes o márgenes, si es necesario */
+.imagen-container img {
+    width: 100%;
+    height: 100%;
+}
+
+.imagen-container2 img {
+    width: 100%;
+    height: 100%;
+}
+
+/* estilos para hover eliminar */
+
+.boton-eliminar {
+    position: absolute;
+    top: 10px;
+    right: 50px;
+    background-color: rgb(20, 20, 20);
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
+    display: none;
+    /* El botón estará oculto inicialmente */
+}
+
+.imagen-contenedor:hover .boton-eliminar {
+    display: block;
+    /* Mostrar el botón cuando el ratón pasa por encima del contenedor */
+}
+
+#contenedorDeslizante {
+    width: 100%;
+    max-height: 75vh;
+    background-color: #eaeaea;
+
+    overflow: auto;
+
+}
+
+#centrado {
+    display: flex;
+    justify-content: center;
+    /* Centra horizontalmente */
+    align-items: center;
+    /* Centra verticalmente */
+}
+
+@keyframes deslizar {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(100px);
+    }
+}
+
+.mobile-icon {
+    display: none;
+    /* Ocultar el icono por defecto */
+}
+
+/* Mostrar el icono solo en pantallas menores o iguales a 768px */
+@media (max-width: 768px) {
+    .bi-house-fill {
+        font-size: 25px;
+    }
+
+    #publicidad{
+        display: none;
+    }
+
+    .mobile-icon {
+
+        margin-left: 20px;
+        margin-right: 20px;
+        display: block;
+    }
+}
+
+.bi-arrow-left-square {
+    font-size: 25px;
+    align-items: center;
+    cursor: pointer;
+ 
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between; /* Distribuye los elementos */
+    align-items: center; /* Alinea verticalmente */
+    padding: 10px;
+}
+
+.auth-links {
+    display: flex;
+    gap: 10px; /* Espacio entre elementos */
+}
+
+@media (max-width: 768px) {
+    .header-container {
+        flex-direction: row;
+        flex-wrap: wrap; /* Permite que los elementos se ajusten */
+    }
+    
+    .auth-links {
+        flex-direction: row; /* Evita que se apilen */
+        justify-content: center;
+    }
+}
