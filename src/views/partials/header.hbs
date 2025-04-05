@@ -18,9 +18,9 @@
             {{#if user}}
             <div class="d-flex align-items-center justify-content-end">
                 <div style="margin-right: 25px;">
-                    <a class="text-primary px-2 position-relative" href="#" style="text-decoration:none">
+                    {{!-- <a class="text-primary px-2 position-relative" href="#" style="text-decoration:none">
                         <i class="bi bi-chat-left-dots-fill"></i>
-                    </a>
+                    </a> --}}
                     <a class="text-primary px-3 position-relative" href="#" style="text-decoration:none">
                         <i class="bi bi-bell-fill" id="notificationBtn"></i>
                         {{!-- <span id="notificationBtn"
@@ -32,7 +32,7 @@
                 </div>
 
                 <a href="#" class="btn-Notification" style="text-decoration: none;">
-                    <span>{{user.nombre}}</span>
+               
                     <img src="{{user.photo}}" class="avatar rounded-circle" alt="Usuario"
                         style="height: 30px; width:30px">
 
