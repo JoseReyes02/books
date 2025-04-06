@@ -9,8 +9,8 @@
   <div class="container-fluid h-custom">
     <div class="row d-flex justify-content-center align-items-center h-100">
       <div class="col-md-9 col-lg-6 col-xl-5">
-        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/draw2.webp" class="img-fluid"
-          alt="Sample image">
+        <img src="/images/ced3c5c2-b058-4151-9b2b-7fd86257c5d6.png" class="img-fluid"
+          style="max-width: 100%; maxt-height: 500px;" alt="Sample image">
       </div>
       <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
         <form action="/users/signup" method="post">
@@ -28,78 +28,61 @@
               <i class="fab fa-google"></i>
             </button>
           </div> --}}
-          <h4 style="color: #0000008a;">Registrate..</h4>
 
-          <div class="divider d-flex align-items-center my-4">
-            <p class="text-center fw-bold mx-3 mb-0"></p>
-          </div>
+          <div class="container">
 
-          <!-- Email input -->
-          <div class="form-outline mb-4">
-            <label for="">Nombre</label>
-            <input type="text" id="form3Example3" name="nombre" value="{{nombre}}" class="form-control"
-              placeholder="Primer Nombre" />
 
-          </div>
-          <div class="form-outline mb-4">
-            <label class="form-label" for="form3Example3">Apellido</label>
-            <input type="text" id="form3Example3" name="apellido" value="{{apellido}}" class="form-control "
-              placeholder="Segundo Nombre" />
+            <div class="divider d-flex align-items-center my-4">
+              <p class="text-center fw-bold mx-3 mb-0">Registrate</p>
+            </div>
 
-          </div>
-          <div class="form-outline mb-4">
-             <label class="form-label" for="form3Example3">Email</label>
-            <input type="email" id="form3Example3" name="email"  class="form-control"
-              placeholder="Introduce tu Email" required/>
-          </div>
+            <!-- Email input -->
+            <div class="form-outline mb-4">
+              <label for="">Nombre completo</label>
+              <input type="text" id="form3Example3" name="nombre" value="{{nombre}}" class="form-control"
+                placeholder="Introduce tu nombre completo" />
 
-          <!-- Password input -->
-          <div class="form-outline mb-3">
+            </div>
+
+            <div class="form-outline mb-4">
+              <label class="form-label" for="form3Example3">Email</label>
+              <input type="email" id="form3Example3" name="email" class="form-control" placeholder="Introduce tu Email"
+                required />
+            </div>
+
+            <!-- Password input -->
+            <div class="form-outline mb-3">
               <label class="form-label" for="form3Example4">Contraseña</label>
-            <input type="password" id="form3Example4" name="password" class="form-control"
-              placeholder="Introduce una contraseña" />
-          </div>
+              <input type="password" id="form3Example4" name="password" class="form-control"
+                placeholder="Introduce una contraseña" />
+            </div>
 
-          <div class="d-flex justify-content-between align-items-center">
-          
-         
-          </div>
+            <div class="d-flex justify-content-between align-items-center">
 
-          <div class="text-center text-lg-start mt-4 pt-2">
-            <button type="submit" class="btn btn-primary btn-lg"
-              style="padding-left: 2.5rem; padding-right: 2.5rem;">Registrarme</button>
-            <p class="small fw-bold mt-2 pt-1 mb-0">Ya tienes una cuenta? <a href="/users/signin"
-                class="link-danger">Iniciar session</a></p>
-          </div>
 
+            </div>
+
+            <div class="text-center text-lg-start mt-4 pt-2">
+              <button type="submit" class="btn btn-primary btn-lg"
+                style="padding-left: 2.5rem; padding-right: 2.5rem;">Registrarme</button>
+              <p class="small fw-bold mt-2 pt-1 mb-0">Ya tienes una cuenta? <a href="/users/signin"
+                  class="link-danger">Iniciar session</a></p>
+            </div>
+          </div>
         </form>
       </div>
     </div>
   </div>
-  <div
-    class="d-flex flex-column flex-md-row text-center text-md-start justify-content-between py-4 px-4 px-xl-5 bg-primary">
-    <!-- Copyright -->
-    <div class="text-white mb-3 mb-md-0">
-      Copyright © 2020. All rights reserved.
-    </div>
-    <!-- Copyright -->
+  <div class="container-fluid bg-success text-white-50 py-5 px-sm-3 px-lg-5" style="margin-top: 100px;"
+    id="contactFooter">
+    <div class="row">
+      <div class="col-lg-6 text-center text-md-left mb-3 mb-md-0">
+        <p class="m-0 text-white-50">Derechos Reservados<a href="#"> © 2025</a>. JER-WEB</a>
 
-    <!-- Right -->
-    <div>
-      <a href="#!" class="text-white me-4">
-        <i class="fab fa-facebook-f"></i>
-      </a>
-      <a href="#!" class="text-white me-4">
-        <i class="fab fa-twitter"></i>
-      </a>
-      <a href="#!" class="text-white me-4">
-        <i class="fab fa-google"></i>
-      </a>
-      <a href="#!" class="text-white">
-        <i class="fab fa-linkedin-in"></i>
-      </a>
+        </p>
+      </div>
+
     </div>
-    <!-- Right -->
   </div>
 </section>
 
@@ -126,4 +109,13 @@
     background-color: rgb(51, 86, 247);
     color: aliceblue;
   }
+
+      .container {
+      background: white;
+      padding: 20px;
+      width: 350px;
+      text-align: center;
+      border-radius: 8px;
+      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    }
 </style>

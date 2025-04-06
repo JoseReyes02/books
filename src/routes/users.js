@@ -28,113 +28,102 @@ router.get('/auth/google', (req, res) => {
     res.redirect(url)
 });
 router.post('/users/signin', passport.authenticate('local', {
-
     successRedirect: '/',
-    failureRedirect: '/users/signin'
+    failureRedirect: '/users/signin' 
 
 }));
-router.post('/users/signinGoogle', passport.authenticate('local', {
-    successRedirect: '/',
-    failureRedirect: '/users/signin'
+// router.post('/users/signinGoogle', passport.authenticate('local', {
+//     successRedirect: '/',
+//     failureRedirect: '/users/signin'
 
-}));
+// }));
 router.get('/auth/google/callback', async (req, res) => {
     const code = req.query.code
+
     try {
         const { tokens } = await client.getToken(code)
+    
         const ticket = await client.verifyIdToken({
             idToken: tokens.id_token,
             audience: process.env.GOOGLE_CLIENT_ID
         })
+    
         const payload = ticket.getPayload()
-
-        req.session.user = {
-            name: payload.name,
-            email: payload.email,
-            picture: payload.picture
-        }
-
-
+    
         const nombre = payload.name
         const email = payload.email
         const photo = payload.picture
         const estado = 'activo'
-        const findUser = await User.find({ estado: 'activo' }).count()
-        const secuencia = findUser + 1
-
-        const findEmail = await User.findOne({ email: email })
-        if (!findEmail) {
-            const newUser = new User({ nombre, email, photo, estado, secuencia })
-            await newUser.save()
+    
+        // Buscar usuario en la base de datos
+        let user = await User.findOne({ email: email })
+    
+        if (!user) {
+            // Si no existe, crear usuario nuevo
+            const totalUsers = await User.countDocuments({ estado: 'activo' })
+            const secuencia = totalUsers + 1
+    
+            user = new User({ nombre, email, photo, estado, secuencia })
+            await user.save()
+    
+            // Opcional: Enviar email de bienvenida
             const deviceInfo = {
                 browser: req.useragent.browser,
                 version: req.useragent.version,
                 os: req.useragent.os,
                 platform: req.useragent.platform,
                 device: req.useragent.isMobile ? 'Móvil' : req.useragent.isDesktop ? 'PC' : 'Desconocido'
-            };
-          const platform = deviceInfo.platform
-          const device = deviceInfo.device  
+            }
     
-            contentHTML = `
+            const platform = deviceInfo.platform
+            const device = deviceInfo.device  
+    
+            const contentHTML = `
             <div style="font-family: Arial, sans-serif; max-width: 600px; margin: auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px;">
-       <h2 style="color: #4CAF50;">¡Inicio de sesión exitoso en FindMyHouse! 🏡</h2>
-       <p>Hola,</p>
-       <p>Has iniciado sesión en tu cuenta de <strong>FindMyHouse</strong>. Aquí tienes los detalles de acceso:</p>
-       <ul style="background: #f9f9f9; padding: 15px; border-radius: 5px; list-style: none;">
-           <li><strong>📅 Fecha:</strong> ${new Date().toLocaleString()}</li>
-           <li><strong>📍 Plataforma:</strong> ${platform}}</li>
-           <li><strong>🖥 Dispositivo:</strong> ${device}}</li>
-       </ul>
-       <p>Si fuiste tú, no necesitas hacer nada. Pero si no reconoces esta actividad, te recomendamos:</p>
-       <ul>
-           <li>⚠️ Cambiar tu contraseña inmediatamente.</li>
-           <li>🚨 Activar la verificación en dos pasos (si está disponible).</li>
-           <li>📧 Contactarnos en <a href="mailto:soporte@findmyhouse.com">soporte@findmyhouse.com</a> si necesitas ayuda.</li>
-       </ul>
-       <p>Gracias por confiar en FindMyHouse.</p>
-       <hr>
-       <p style="text-align: center; font-size: 12px; color: #888;">Este es un mensaje automático, por favor no respondas.</p>
-    </div>
-          `
-           var transporter = nodemailer.createTransport({
-               host: 'smtp.gmail.com',
-               port: 587,
-               secure: false,
-               service: 'gmail',
-               auth: {
-                   user: 'findmyhouse57@gmail.com',
-                   pass: 'mktoxcekrsrceebl'
-               }
-           });
-           var mailOptions = {
-               from: '"FindMyHouse" <findmyhouse57@gmail.com>',
-               to: email,
-               subject: 'Iniciaste seccion en FindMyHouse!',
-               html: contentHTML,
-           };
-           transporter.sendMail(mailOptions, function (error, info) {
-               if (error) {
-                   var error = 'Error al enviar el email.. Intentalo nuevamente'
-                   console.log(error)
-                   res.render('users/signup', { error })
-               } else {
-                   var message = 'Correo enviado'
-                   console.log('email enviado:' + info.response);
-                   res.render('users/signup', { message })
-               }
-           });
+                <h2 style="color: #4CAF50;">¡Inicio de sesión exitoso en FindMyHouse! 🏡</h2>
+                <p>Hola,</p>
+                <p>Has iniciado sesión en tu cuenta de <strong>FindMyHouse</strong>.</p>
+                <ul style="background: #f9f9f9; padding: 15px; border-radius: 5px; list-style: none;">
+                    <li><strong>📅 Fecha:</strong> ${new Date().toLocaleString()}</li>
+                    <li><strong>📍 Plataforma:</strong> ${platform}</li>
+                    <li><strong>🖥 Dispositivo:</strong> ${device}</li>
+                </ul>
+            </div>`
     
-          
+            const transporter = nodemailer.createTransport({
+                service: 'gmail',
+                auth: {
+                    user: 'findmyhouse57@gmail.com',
+                    pass: 'mktoxcekrsrceebl'
+                }
+            })
+    
+            const mailOptions = {
+                from: '"FindMyHouse" <findmyhouse57@gmail.com>',
+                to: email,
+                subject: 'Iniciaste sesión en FindMyHouse!',
+                html: contentHTML,
+            }
+    
+            await transporter.sendMail(mailOptions)
         }
-
-        let IniciarSession = true
-        res.render('users/signin', { email, IniciarSession })
+    
+        // Login con passport (esto serializa el user)
+        req.login(user, (err) => {
+            if (err) {
+                console.log(err)
+                return res.redirect('/users/signin')
+            }
+    
+            // Usuario logueado correctamente
+            res.redirect('/index')  // Cambia por la ruta que quieras
+        })
+    
     } catch (error) {
         console.log(error)
         res.redirect('/users/signin')
     }
-
+    
 })
 
 router.get('/admin', (req, res) => {
@@ -213,10 +202,7 @@ router.post('/users/signup', async (req, res) => {
         error.push('Campo Nombre es requerido!');
         console.log(error);
     }
-    else if (apellido.length <= 0) {
-        error.push('Campo Apellido es requerido!');
-        console.log(error);
-    }
+ 
     else if (email.length <= 0) {
         error.push('Campo Email es requerido!');
         console.log(error);

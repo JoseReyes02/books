@@ -9,8 +9,8 @@ const session = require('express-session');
 const passport = require('passport')
 const multer = require('multer');
 
-// const livereload = require('livereload');
-// const connectLivereload = require('connect-livereload');
+const livereload = require('livereload');
+const connectLivereload = require('connect-livereload');
 
 const { Server } = require('socket.io');
 const http = require('http');
@@ -101,27 +101,27 @@ app.use(require('./routes/dasboard'));
 
 
 // === LiveReload para archivos estáticos y Handlebars ===
-// const liveReloadServer = livereload.createServer({
-//     extraExts: ['hbs'] // 👈 Agregar soporte para archivos .hbs
-//   });
+const liveReloadServer = livereload.createServer({
+    extraExts: ['hbs'] // 👈 Agregar soporte para archivos .hbs
+  });
 
-// liveReloadServer.watch([path.join(__dirname, 'public'), path.join(__dirname, 'views')]);
-// app.use(connectLivereload());
+liveReloadServer.watch([path.join(__dirname, 'public'), path.join(__dirname, 'views')]);
+app.use(connectLivereload());
 
 
   
-//   liveReloadServer.watch([
-//     path.join(__dirname, 'views'), // 👈 Verifica cambios en la carpeta de vistas
-//     path.join(__dirname, 'public')
-//   ]);
+  liveReloadServer.watch([
+    path.join(__dirname, 'views'), // 👈 Verifica cambios en la carpeta de vistas
+    path.join(__dirname, 'public')
+  ]);
   
-//   app.use(connectLivereload());
+  app.use(connectLivereload());
 
-// liveReloadServer.server.once("connection", () => {
-//     setTimeout(() => {
-//       liveReloadServer.refresh("/");
-//     }, 100);
-//   })
+liveReloadServer.server.once("connection", () => {
+    setTimeout(() => {
+      liveReloadServer.refresh("/");
+    }, 100);
+  })
 
 app.use(express.static(path.join(__dirname, 'public')));
 
