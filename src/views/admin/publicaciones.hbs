@@ -1,0 +1,197 @@
+<!-- Custom fonts for this template-->
+<link href="/adminPage/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+<link
+    href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+    rel="stylesheet">
+<!-- Custom styles for this template-->
+<link href="/adminPage/css/sb-admin-2.min.css" rel="stylesheet">
+
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        {{> menuAdmin}}
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                {{> navbarAdmin}}
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">Dashboard</h1>
+                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                                class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+                    </div>
+                    <hr>
+                    <h1>Publicaciones</h1>
+
+
+
+
+
+                       <div class="row">
+      <div class="col-md-3" id="publicidad">
+        
+      </div>
+        <div class="col-md-6">
+      {{#each publicaciones}}
+        <div class="package-item bg-white mb-2">
+          <div class="post-header">
+            <img src="{{photo}}" alt="Profile" class="profile-pic">
+            <div class="user-info">
+              <div class="name">{{usuario}}</div>
+              <div class="timestamp">{{fecha}} a las {{hora}}</div>
+            </div>
+          </div>
+          {{!-- //CARROUSEL --}}
+          <p class="m-2">{{titulo}}</p>
+          <div id="carouselExampleControls{{@index}}" class="carousel slide" data-ride="carousel">
+            
+            <ol class="carousel-indicators">
+              {{#each fotos}}
+              <li data-target="#carousel{{@index}}" data-slide-to="{{@index}}" {{#if @first}}class="active" {{/if}}>
+              </li>
+              {{/each}}
+            </ol>
+            <div class="carousel-inner" style="height: 100%;">
+              {{#each fotos}}
+              <div class="carousel-item {{#if @first}}active{{/if}}">
+                <img src="/upload/{{this.imagen}}" alt="Imagen {{@index}}" style="width: 100%; height: 500px;">
+              </div>
+              {{/each}}
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleControls{{@index}}" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleControls{{@index}}" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+          <div class="p-2">
+            <div class="d-flex justify-content-between">
+              <h5 class="m-0">{{moneda}} {{precio}}</h5>
+            </div>
+
+          </div>
+
+
+          <div class="p-1">
+            <div class="d-flex justify-content-between mb-3">
+              <small class="m-0"><i class="bi bi-house-door-fill text-primary mr-2"></i>{{habitaciones}}
+                Habitaciones</small>
+              <small class="m-0"><i class="fa fa-bath text-primary mr-2"></i>{{restron}} Baños</small>
+              <small class="m-0"><i class="fa fa-truck text-primary mr-2"></i>{{marquesinas}} Parqueos</small>
+              
+            </div>
+            <div class="localidades" style="margin: 0%;">
+                <small class="m-0">{{provincia}} | {{municipio}} | {{direccion}}</small>
+            </div>
+            
+            <hr>
+            <div class=" mt-1 pt-1">
+              <div class="">
+                <div class="post-footer d-fle align-items-cente" id="containerLike{{_id}}">
+                  <a href="/vistaSeleccionado/{{_id}}" class="btn btn-primary btn-sm">
+                    <i class="bi bi-list-columns-reverse"></i> Detalles
+                  </a>
+                 
+                
+            
+
+                 
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      
+   
+      {{/each}}
+        </div>
+      <div class="col-md-3">
+
+      </div>
+    </div>
+
+
+
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; Your Website 2021</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="login.html">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="/adminPage/vendor/jquery/jquery.min.js"></script>
+    <script src="/adminPage/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="/adminPage/vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="/adminPage/js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="/adminPage/vendor/chart.js/Chart.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="/adminPage/js/demo/chart-area-demo.js"></script>
+    <script src="/adminPage/js/demo/chart-pie-demo.js"></script>

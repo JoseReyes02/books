@@ -116,7 +116,7 @@ router.get('/auth/google/callback', async (req, res) => {
             }
     
             // Usuario logueado correctamente
-            res.redirect('/index')  // Cambia por la ruta que quieras
+            res.redirect('/')  // Cambia por la ruta que quieras
         })
     
     } catch (error) {
