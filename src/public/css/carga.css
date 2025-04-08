@@ -19,6 +19,11 @@ body {
     bottom: 0;
 }
 
+.listIcon i{
+    font-size: 30px;
+    margin-left: 700px;
+}
+
 .loader {
     border: 8px solid #3498db;
     border-top: 8px solid #fff;

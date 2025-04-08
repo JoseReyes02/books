@@ -9632,11 +9632,13 @@ h6,
 }
 
 .package-item {
+  box-shadow: 0 0 30px #CCCCCC;
   transition: .5s;
+  margin: 15px;
 }
 
 .package-item:hover {
-  box-shadow: 0 0 30px #CCCCCC;
+  box-shadow: 0 0 30px blue;
 }
 
 .bg-registration {

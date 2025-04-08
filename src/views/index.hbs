@@ -1,26 +1,26 @@
 {{> header}}
-  <div class="container-fluid position-relative nav-bar p-0">
-    <div class="container-lg position-relative p-0 px-lg-3" style="z-index: 9;">
-      <nav class="navbar navbar-expand-lg bg-light navbar-light shadow-lg py-3 py-lg-0 pl-3 pl-lg-5">
-        <a href="" class="navbar-brand">
-          <h1 class="m-0 text-primary"><span class="text-dark">FIND My</span>HOUSE</h1>
-        </a>
-        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse justify-content-between px-3" id="navbarCollapse">
-          <div class="navbar-nav ml-auto py-0">
-            <a href="/" class="nav-item nav-link">Inicio</a>
-            <a href="/about" class="nav-item nav-link">Acerca de nosotros</a>
-            <a href="/servicios" class="nav-item nav-link">Servicios</a>
-          
-           
-            <a href="#" id="contactBtn" class="nav-item nav-link">Contactos</a>
-          </div>
+<div class="container-fluid position-relative nav-bar p-0">
+  <div class="container-lg position-relative p-0 px-lg-3" style="z-index: 9;">
+    <nav class="navbar navbar-expand-lg bg-light navbar-light shadow-lg py-3 py-lg-0 pl-3 pl-lg-5">
+      <a href="" class="navbar-brand">
+        <h1 class="m-0 text-primary"><span class="text-dark">FIND My</span>HOUSE</h1>
+      </a>
+      <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse justify-content-between px-3" id="navbarCollapse">
+        <div class="navbar-nav ml-auto py-0">
+          <a href="/" class="nav-item nav-link">Inicio</a>
+          <a href="/about" class="nav-item nav-link">Acerca de nosotros</a>
+          <a href="/servicios" class="nav-item nav-link">Servicios</a>
+
+
+          <a href="#" id="contactBtn" class="nav-item nav-link">Contactos</a>
         </div>
-      </nav>
-    </div>
+      </div>
+    </nav>
   </div>
+</div>
 <!-- Header Start -->
 <div class="container-fluid page-header">
   <div class="container">
@@ -80,7 +80,7 @@
             </div>
             <div class="col-md-3">
               <div class="mb-3 mb-md-0">
-                <select class="custom-select px-4" style="height: 47px;" id="municipio" >
+                <select class="custom-select px-4" style="height: 47px;" id="municipio">
                   <option value="" selected>Municipio</option>
                   <option value="Santo Domingo de Guzmán">Santo Domingo de Guzmán</option>
                   <option value="Azua de Compostela">Azua de Compostela</option>
@@ -244,7 +244,7 @@
             </div>
             <div class="col-md-3">
               <div class="mb-3 mb-md-0">
-                <select  class="custom-select px-4" style="height: 47px;"  id="tipo_inmueble">
+                <select class="custom-select px-4" style="height: 47px;" id="tipo_inmueble">
                   <option value="">Tipo de propiedad</option>
                   <option value="apartamento">Apartamento</option>
                   <option value="casa">Casa</option>
@@ -306,10 +306,10 @@
     </div>
     <div class="row">
       <div class="col-md-3" id="publicidad">
-        
+
       </div>
-        <div class="col-md-6">
-      {{#each publicaciones}}
+      <div class="col-md-6">
+        {{#each publicaciones}}
         <div class="package-item bg-white mb-2">
           <div class="post-header">
             <img src="{{photo}}" alt="Profile" class="profile-pic">
@@ -317,11 +317,19 @@
               <div class="name">{{usuario}}</div>
               <div class="timestamp">{{fecha}} a las {{hora}}</div>
             </div>
+
+            <div class="listIcon">
+              <i class="bi bi-list"></i>
+            </div>
+
+
+
+
           </div>
           {{!-- //CARROUSEL --}}
           <p class="m-2">{{titulo}}</p>
           <div id="carouselExampleControls{{@index}}" class="carousel slide" data-ride="carousel">
-            
+
             <ol class="carousel-indicators">
               {{#each fotos}}
               <li data-target="#carousel{{@index}}" data-slide-to="{{@index}}" {{#if @first}}class="active" {{/if}}>
@@ -358,12 +366,12 @@
                 Habitaciones</small>
               <small class="m-0"><i class="fa fa-bath text-primary mr-2"></i>{{restron}} Baños</small>
               <small class="m-0"><i class="fa fa-truck text-primary mr-2"></i>{{marquesinas}} Parqueos</small>
-              
+
             </div>
             <div class="localidades" style="margin: 0%;">
-                <small class="m-0">{{provincia}} | {{municipio}} | {{direccion}}</small>
+              <small class="m-0">{{provincia}} | {{municipio}} | {{direccion}}</small>
             </div>
-            
+
             <hr>
             <div class=" mt-1 pt-1">
               <div class="">
@@ -377,23 +385,24 @@
                     </i>
                     {{#if haDadoMeGusta}} Guardado {{else}} Guardar {{/if}}
                   </button>
-                  
+
                   <div id="likeCount{{_id}}" style="float: right;">
                     <span><i class="bi bi-hand-thumbs-up-fill"></i> {{likeCount}}</span>
                   </div>
-                  
-                  <button class="btn btn-primary btn-sm" style="text-decoration: none;border:solid 1px;padding:5px" onclick="compartirPublicacion('{{_id}}')">  Compartir <i class="bi bi-share-fill"></i></button>
-                 
+
+                  <button class="btn btn-primary btn-sm" style="text-decoration: none;border:solid 1px;padding:5px"
+                    onclick="compartirPublicacion('{{_id}}')"> Compartir <i class="bi bi-share-fill"></i></button>
+
                 </div>
               </div>
             </div>
           </div>
 
         </div>
-      
-   
-      {{/each}}
-        </div>
+
+
+        {{/each}}
+      </div>
       <div class="col-md-3">
 
       </div>
@@ -403,16 +412,16 @@
 <!-- Packages End -->
 <script>
   // Obtener el botón de contacto y el footer
-const contactBtn = document.getElementById("contactBtn");
-const contactFooter = document.getElementById("contactFooter");
+  const contactBtn = document.getElementById("contactBtn");
+  const contactFooter = document.getElementById("contactFooter");
 
-// Añadir el evento de click al botón
-contactBtn.addEventListener("click", function() {
-  // Desplazar al footer
-  contactFooter.scrollIntoView({
-    behavior: "smooth"
+  // Añadir el evento de click al botón
+  contactBtn.addEventListener("click", function () {
+    // Desplazar al footer
+    contactFooter.scrollIntoView({
+      behavior: "smooth"
+    });
   });
-});
 
 </script>
 <!-- Footer Start -->
