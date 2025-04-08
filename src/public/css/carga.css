@@ -22,7 +22,15 @@ body {
 .listIcon i{
     font-size: 30px;
     margin-left: 700px;
+    
 }
+.post-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: start; /* O center si lo quieres centrado vertical */
+    padding: 10px;
+  }
+  
 
 .loader {
     border: 8px solid #3498db;
