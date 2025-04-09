@@ -19,18 +19,17 @@ body {
     bottom: 0;
 }
 
-.listIcon i{
+.listIcon {
     font-size: 30px;
-
-    
+    margin-left: 500px;
 }
-.post-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: start; /* O center si lo quieres centrado vertical */
-    padding: 10px;
+.bi-list:hover{
+ 
+  cursor: pointer;
   }
-  
+  .dropdown-item{
+    margin: 7px;
+  }
 
 .loader {
     border: 8px solid #3498db;

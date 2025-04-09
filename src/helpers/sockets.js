@@ -3,6 +3,9 @@ const Publicaciones = require('../models/inmueble');
 const Like = require('../models/likes')
 const User = require('../models/usuarios')
 const { v4 } = require('uuid');
+
+
+
 module.exports = (io) => {
     io.on('connection', async (socket) => {
         const hoy = new Date();
@@ -318,7 +321,7 @@ module.exports = (io) => {
 
                 Publicaciones.findByIdAndUpdate(
                     idPublicacion,
-                    { $pull: { saveUser: { idUser: idUser } } }, 
+                    { $pull: { saveUser: { idUser: idUser } } },
                     { new: true }
                 )
                     .then(async (publicacionActualizada) => {
@@ -326,8 +329,8 @@ module.exports = (io) => {
                             console.log('Publicación no encontrada');
                         } else {
                             console.log('publicacion Actualizada')
-                    
-                           
+
+
 
                             socket.emit('server:quitarGuardado', idPublicacion)
 
@@ -439,6 +442,21 @@ module.exports = (io) => {
             }
         })
 
+        
+        socket.on('client:optenerids', async data => {
+            const idpublicacion = data.idpublicacion
+            const findPublicacions = await Publicaciones.findById(idpublicacion)
+            const idUsuario = findPublicacions.idUsuario
+            socket.emit('server:enviarIdUsuarioremitente',idUsuario)
+        })
+
+
+        socket.on('client:enviarMensaje', async data => {
+            const mensaje = data.mensaje;
+            const idusuarioRemitente = data.idusuarioRemitente
+
+            console.log(id, + ' '  + mensaje)
+        })
 
 
     });

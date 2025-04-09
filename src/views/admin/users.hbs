@@ -1,11 +1,10 @@
-
-    <!-- Custom fonts for this template-->
-    <link href="/adminPage/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
-    <!-- Custom styles for this template-->
-    <link href="/adminPage/css/sb-admin-2.min.css" rel="stylesheet">
+<!-- Custom fonts for this template-->
+<link href="/adminPage/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+<link
+    href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+    rel="stylesheet">
+<!-- Custom styles for this template-->
+<link href="/adminPage/css/sb-admin-2.min.css" rel="stylesheet">
 
 
 <body id="page-top">
@@ -36,25 +35,29 @@
                         <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                                 class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
                     </div>
-          <hr>
+                    <hr>
                     <h1>Usuarios Registrados</h1>
 
                     <div class="usuarios-container">
                         {{#each usuarios}}
-                        <div class="card-user">
-                            <img src="{{photo}}" alt="Foto Perfil" class="img-user">
-                            <h3>{{nombre}}</h3>
-           
-
-                            <div class="acciones">
-                                <a href="/users/edit/{{this._id}}" class="btn btn-editar">Publicaciones</a>
-                                <form action="/users/desactivar/{{this._id}}" method="POST" style="display:inline;">
-                                    <button type="submit" class="btn btn-desactivar">Desactivar</button>
-                                </form>
-                            </div>
-                        </div>
+                        <a class="dropdown-item d-flex align-items-center" href="#">
+                                <div class="dropdown-list-image mr-3">
+                                    <img class="rounded-circle" src="{{photo}}" alt="..." style="height: 35px;width:35px">
+                                    <div class="status-indicator bg-success"></div>
+                                </div>
+                                <div class="font-weight-bold">
+                                    <div class="text-truncate">{{nombre}}</div>
+                                    <div class="small text-gray-500">{{email}}</div>
+                                </div>
+                            </a>
+                       
                         {{/each}}
+
+                        
                     </div>
+
+
+                  
 
 
 
@@ -110,59 +113,42 @@
         </div>
     </div>
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="/adminPage/vendor/jquery/jquery.min.js"></script>
-    <script src="/adminPage/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  
+    <style>
+        .usuarios-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
 
-    <!-- Core plugin JavaScript-->
-    <script src="/adminPage/vendor/jquery-easing/jquery.easing.min.js"></script>
+        .card-user {
+            border: 1px solid #ccc;
+            padding: 15px;
+            border-radius: 10px;
+            width: 200px;
+            text-align: center;
+        }
 
-    <!-- Custom scripts for all pages-->
-    <script src="/adminPage/js/sb-admin-2.min.js"></script>
+        .img-user {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
 
-    <!-- Page level plugins -->
-    <script src="/adminPage/vendor/chart.js/Chart.min.js"></script>
+        .acciones .btn {
+            margin: 5px;
+            padding: 5px 10px;
+            border: none;
+            color: white;
+            cursor: pointer;
+        }
 
-    <!-- Page level custom scripts -->
-    <script src="/adminPage/js/demo/chart-area-demo.js"></script>
-    <script src="/adminPage/js/demo/chart-pie-demo.js"></script>
+        .btn-editar {
+            background-color: #3498db;
+        }
 
-<style>
-    .usuarios-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-}
-
-.card-user {
-  border: 1px solid #ccc;
-  padding: 15px;
-  border-radius: 10px;
-  width: 200px;
-  text-align: center;
-}
-
-.img-user {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  object-fit: cover;
-}
-
-.acciones .btn {
-  margin: 5px;
-  padding: 5px 10px;
-  border: none;
-  color: white;
-  cursor: pointer;
-}
-
-.btn-editar {
-  background-color: #3498db;
-}
-
-.btn-desactivar {
-  background-color: #e74c3c;
-}
-
-</style>
+        .btn-desactivar {
+            background-color: #e74c3c;
+        }
+    </style>

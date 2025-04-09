@@ -45,7 +45,7 @@ socket.on('server:ponerMeGusta', (data, likes,publicacion) => {
                   <div id="likeCount${data}" style="float: right;">
                     <span><i class="bi bi-hand-thumbs-up-fill"></i> ${publicacion.likeCount}</span>
                   </div>
-                       <button class="btn btn-primary btn-sm" style="text-decoration: none;border:solid 1px;padding:5px" onclick="compartirPublicacion('${data}')">  Compartir <i class="bi bi-share-fill"></i></button>
+                      
     `
 })
 
@@ -65,7 +65,7 @@ socket.on('server:quitarMeGusta', (data, likes,publicacion) => {
                   <div id="likeCount${data}" style="float: right;">
                     <span><i class="bi bi-hand-thumbs-up-fill"></i> ${publicacion.likeCount}</span>
                   </div>
-                       <button class="btn btn-primary btn-sm" style="text-decoration: none;border:solid 1px;padding:5px" onclick="compartirPublicacion('${data}')">  Compartir <i class="bi bi-share-fill"></i></button>
+                   
 
     `
 
@@ -175,3 +175,4 @@ socket.on('server:quitarGuardado', (idPublicacion) => {
     document.getElementById('publicacionesGuardadas' + idPublicacion).innerHTML = '';
     alertify.success('Publicacion quitada!');
 });
+
