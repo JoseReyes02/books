@@ -1,7 +1,9 @@
 
 const Publicaciones = require('../models/inmueble');
 const Like = require('../models/likes')
-const User = require('../models/usuarios')
+const User = require('../models/usuarios');
+const Conversacion = require('../models/chat');
+const Notification = require('../models/notifications')
 const { v4 } = require('uuid');
 
 
@@ -442,20 +444,156 @@ module.exports = (io) => {
             }
         })
 
-        
+
         socket.on('client:optenerids', async data => {
             const idpublicacion = data.idpublicacion
             const findPublicacions = await Publicaciones.findById(idpublicacion)
             const idUsuario = findPublicacions.idUsuario
-            socket.emit('server:enviarIdUsuarioremitente',idUsuario)
+            socket.emit('server:enviarIdUsuarioremitente', idUsuario, findPublicacions)
         })
 
 
-        socket.on('client:enviarMensaje', async data => {
-            const mensaje = data.mensaje;
-            const idusuarioRemitente = data.idusuarioRemitente
+        socket.on('client:newMessage', async (data) => {
+            const userEmisor = data.idUser;
+            const userReceptor = data.userReceptor;
 
-            console.log(id, + ' '  + mensaje)
+            const mensaje = data.mensaje;
+
+            const findChat = await Conversacion.findOne({
+                $or: [{ userEmisor: data.idUser, userReceptor: data.userReceptor },
+                { userEmisor: data.userReceptor, userReceptor: data.idUser }]
+            });
+
+            if (findChat) {
+                const idConversacion = findChat.id;
+                const userquery = await User.findById(userEmisor);
+                const idChatOptenido = findChat.id;
+            
+                var NameUserSend = userquery.nombre
+                var estado = 'noleido'
+                var photo = userquery.photo;
+                var datosMensaje = ({
+                    mensaje: mensaje,
+                    NameUserSend: NameUserSend,
+                    photo: photo,
+                    idEmisor: userEmisor,
+                    idReceptor: userReceptor
+                })
+                Conversacion.findByIdAndUpdate(idChatOptenido, { $push: { mensajes: datosMensaje } }, { new: true })
+                    .then(async (publicacionActualizada) => {
+                        if (!publicacionActualizada) {
+                            console.log('Publicación no encontrada');
+                            // Manejar el caso en el que no se encuentra la publicación
+                        } else {
+                            const idUser = data.idUser;
+                            const userReceptor = data.userReceptor;
+
+                            const notificacionChat = await Notification.findOne({
+                                estado: 'noleido',
+                                $or: [{ idUser: data.idUser, userReceptor: data.userReceptor },
+                                { idUser: data.userReceptor, userReceptor: data.idUser }]
+                            })
+                 
+                            if (notificacionChat) {
+                                await Notification.findByIdAndUpdate(notificacionChat.id, { mensaje })
+                                var saveNotification = await Notification.find();
+                                var cantidad = await Notification.find().count();
+                                const query = await Conversacion.findOne({
+                                    $or: [{ userEmisor: data.idUser, userReceptor: data.userReceptor },
+                                    { userEmisor: data.userReceptor, userReceptor: data.idUser }]
+                                });
+                                io.emit('server:mensaje', query, cantidad, saveNotification); 
+
+                            } else {
+                                const newNotification = new Notification({
+                                    mensaje, NameUserSend, fecha, estado, photo, idConversacion, idUser, userReceptor
+                                })
+                                await newNotification.save();
+                                var saveNotification = await Notification.find();
+
+                                var cantidad = await Notification.find().count();
+                                const query = await Conversacion.findOne({
+                                    $or: [{ userEmisor: data.idUser, userReceptor: data.userReceptor },
+                                    { userEmisor: data.userReceptor, userReceptor: data.idUser }]
+                                });
+                                io.emit('server:mensaje', query, cantidad, saveNotification);
+                            }
+
+
+                        }
+                    })
+                    .catch((error) => {
+                        console.error('Error al agregar el comentario:', error);
+                        // Manejar el error según tus necesidades
+                    });
+
+
+            } else {
+                const userquery = await User.findById(userEmisor);
+    
+                var NameUserSend = userquery.nombre
+                var estado = 'noleido'
+                var photo = userquery.photo;
+
+                var datosMensaje = ({
+                    mensaje: mensaje,
+                    NameUserSend: NameUserSend,
+                    photo: photo,
+                    idEmisor: userEmisor,
+                    idReceptor: userReceptor
+                })
+                const newCHat = new Conversacion({
+                    userEmisor, userReceptor
+                })
+                await newCHat.save();
+                const idConversacion = newCHat.id
+                Conversacion.findByIdAndUpdate(idConversacion, { $push: { mensajes: datosMensaje} }, { new: true })
+                .then(async (publicacionActualizada) => {
+                    if (!publicacionActualizada) {
+                        console.log('Publicación no encontrada');
+                        // Manejar el caso en el que no se encuentra la publicación
+                    } else {
+                        const idUser = data.idUser;
+                     
+                        const notificacionChat = await Notification.findOne({estado:'noleido',
+                            $or: [{ idUser: data.idUser, userReceptor: data.userReceptor },
+                            { idUser: data.userReceptor, userReceptor: data.idUser }]
+                        })
+                        console.log('notificacion encontrada ', notificacionChat)
+                        if (notificacionChat) {
+                            await Notification.findByIdAndUpdate(notificacionChat.id,{mensaje})
+                            var saveNotification = await Notification.find();
+                            var cantidad = await Notification.find().count();
+                            const query = await Conversacion.findOne({
+                                $or: [{ userEmisor: data.idUser, userReceptor: data.userReceptor },
+                                { userEmisor: data.userReceptor, userReceptor: data.idUser }]
+                            });
+                            io.emit('server:mensaje', query, cantidad, saveNotification);
+                        } else {
+                            const newNotification = new Notification({
+                                mensaje, NameUserSend, fecha, estado, photo, idConversacion, idUser, userReceptor
+                            })
+                            await newNotification.save();
+                            var saveNotification = await Notification.find();
+    
+                            var cantidad = await Notification.find().count();
+                            const query = await Conversacion.findOne({
+                                $or: [{ userEmisor: data.idUser, userReceptor: data.userReceptor },
+                                { userEmisor: data.userReceptor, userReceptor: data.idUser }]
+                            });
+                            io.emit('server:mensaje', query, cantidad, saveNotification);
+                        }
+    
+    
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error al agregar el comentario:', error);
+                    // Manejar el error según tus necesidades
+                });
+            }
+
+
         })
 
 

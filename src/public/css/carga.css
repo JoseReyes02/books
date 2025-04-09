@@ -23,13 +23,15 @@ body {
     font-size: 30px;
     margin-left: 500px;
 }
-.bi-list:hover{
- 
-  cursor: pointer;
-  }
-  .dropdown-item{
+
+.bi-list:hover {
+
+    cursor: pointer;
+}
+
+.dropdown-item {
     margin: 7px;
-  }
+}
 
 .loader {
     border: 8px solid #3498db;
@@ -53,6 +55,69 @@ body {
 .content.hidden {
     display: none;
 }
+
+
+
+
+/* Mensajes del emisor (lado derecho) */
+.msgEmisor {
+    align-self: flex-end;  /* Alineado a la derecha */
+    color: #e0e0e0;
+    background-color: #2337e7;
+    max-width: 70%;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 15px 15px 0px 15px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    margin-left: 90px;
+}
+
+
+.msgReceptor {
+    align-self: flex-start;  /* Alineado a la izquierda */
+    color: #e0e0e0;
+    background-color: #4b4b4b;
+    max-width: 70%;
+    padding: 10px;
+    margin: 5px;
+    border-radius: 15px 15px 15px 0px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+    /* Cuerpo */
+    .chat-body {
+
+  width: 100%;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        display: flex;
+        flex-direction: column;
+        padding: 10px;
+        overflow-y: auto;
+}
+
+
+
+
+  @media screen and (max-width: 480px) {
+    .chat-body {
+        height: 100vh;
+        /* Hace que el cuerpo se reduzca cuando el teclado se muestra */
+    }
+
+     .msgEmisor{
+  margin-left: 90px;
+    }
+   
+}
+
+
+
+
+
 
 .custom-file-upload {
     display: inline-block;
@@ -158,7 +223,7 @@ input[type="submit"]:hover {
 }
 
 .chip {
-    
+
     align-items: center;
 }
 
@@ -311,7 +376,7 @@ input[type="submit"]:hover {
         font-size: 25px;
     }
 
-    #publicidad{
+    #publicidad {
         display: none;
     }
 
@@ -327,29 +392,56 @@ input[type="submit"]:hover {
     font-size: 25px;
     align-items: center;
     cursor: pointer;
- 
+
 }
 
 .header-container {
     display: flex;
-    justify-content: space-between; /* Distribuye los elementos */
-    align-items: center; /* Alinea verticalmente */
+    justify-content: space-between;
+    /* Distribuye los elementos */
+    align-items: center;
+    /* Alinea verticalmente */
     padding: 10px;
 }
 
 .auth-links {
     display: flex;
-    gap: 10px; /* Espacio entre elementos */
+    gap: 10px;
+    /* Espacio entre elementos */
 }
 
 @media (max-width: 768px) {
     .header-container {
         flex-direction: row;
-        flex-wrap: wrap; /* Permite que los elementos se ajusten */
+        flex-wrap: wrap;
+        /* Permite que los elementos se ajusten */
     }
-    
+
     .auth-links {
-        flex-direction: row; /* Evita que se apilen */
+        flex-direction: row;
+        /* Evita que se apilen */
         justify-content: center;
     }
+}
+
+
+.message {
+    max-width: 70%;
+    padding: 8px 12px;
+    border-radius: 15px;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    word-wrap: break-word;
+}
+
+.left {
+
+    color: white;
+    align-self: flex-start;
+}
+
+.right {
+    background-color: #e0e0e0;
+    color: black;
+    align-self: flex-end;
 }
