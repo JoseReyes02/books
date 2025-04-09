@@ -56,23 +56,21 @@ socket.on('server:mensaje', (data, cantidad, notification) => {
     })
 
 
-    // document.getElementById('notificacion').innerHTML = ""
-    // notification.forEach(nt => {
-    //     document.getElementById('notificacion').innerHTML += `
-    //     <div class="solicitud btn-outline-secondary" style="width: 400px;">
-    //     <div class="usuario">
-    //       <img src="/upload/${nt.photo}" alt="Imagen de usuario" class="imagen-usuario imagenChat" style=" height: 20px;width: 20px;">
-    //       <div>
-    //         <span class="nombre-usuario texto">${nt.NameUserSend}</span><br>
-    //         <span class="descripcion">${nt.mensaje}</span>
-    //           <small style="padding-left:210px;">${nt.fecha}</small>
-    //       </div>
-    //       <div>
-    //       </div>
-    //     </div>
-    //   </div>
-    //     `
-    // })
+    document.getElementById('mensajesList').innerHTML = "" 
+    notification.forEach(nt => {
+        document.getElementById('mensajesList').innerHTML += `
+         <a class="dropdown-item d-flex align-items-center" href="#" onclick="toggleChat('${nt.idConversacion}')">
+                                <div class="dropdown-list-image mr-3">
+                                    <img class="rounded-circle" src="${nt.photo}" alt="..." style="height: 35px;width:35px">
+                                    <div class="status-indicator bg-success"></div>
+                                </div>
+                                <div class="font-weight-bold">
+                                    <div class="text-truncate">${nt.NameUserSend}</div>
+                                     <div class="small text-gray-500">${nt.mensaje}</div>
+                                </div>
+                            </a>
+        `
+    })
 
     // document.getElementById('contador').innerHTML = cantidad
     mantenerContenedorAbajo()
