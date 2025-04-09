@@ -5,11 +5,38 @@ function toggleChat(id) {
 
 }
 
-socket.on('server:enviarIdUsuarioremitente', (data, publ) => {
 
+function abrirChat(id) {
+    socket.emit('client:abrirChat', {
+        idchat: id,
+    })
+
+}
+
+socket.on('server:enviarIdUsuarioremitente', (data, publ) => {
     document.getElementById("chat-container").style.display = 'block';
     document.getElementById("chat-container").style.display = 'flex';
     document.getElementById("nombreUser").innerHTML = publ.usuario;
+    document.getElementById('chat-footer').innerHTML = `
+            <input type="text" placeholder="Escribe un mensaje..." id="mensaje" autofocus />
+        <button type="button" onclick="enviarMensaje('${data}')">Enviar</button>
+   
+    `
+})
+
+socket.on('server:chatAbierto', (data, chats) => {
+    document.getElementById('cuerpomensaje').innerHTML = ""
+    chats.mensajes.forEach(ms => {
+        document.getElementById('cuerpomensaje').innerHTML += `
+            <div class="usuario ${ms.idEmisor === userLocal ? 'msgEmisor' : 'msgReceptor'}">
+              <span class="nombre-usuario texto">${ms.mensaje}</span>
+          </div>
+            `
+    })
+        
+    document.getElementById("chat-container").style.display = 'block';
+    document.getElementById("chat-container").style.display = 'flex';
+    document.getElementById("nombreUser").innerHTML = chats.nombreReceptor;
     document.getElementById('chat-footer').innerHTML = `
             <input type="text" placeholder="Escribe un mensaje..." id="mensaje" autofocus />
         <button type="button" onclick="enviarMensaje('${data}')">Enviar</button>

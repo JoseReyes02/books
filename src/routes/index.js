@@ -4,6 +4,7 @@ const User = require('../models/usuarios');
 const Inmueble = require('../models/inmueble');
 const Imagen = require('../models/imagen');
 const Likes = require('../models/likes');
+const notificacion = require('../models/notifications');
 const { isAuthenticated } = require('../helpers/auth'); 
 const usuarios = require('../models/usuarios');
 const Guardar = require('../models/guardar');
@@ -20,7 +21,7 @@ router.get('/', async (req, res) => {
         const meGusta = await Likes.find({ idUser: usuarioActualId });
     
         const publicaciones = await Inmueble.find({estado:'activa'});
- 
+        const notificaciones = await notificacion.find({ idUser: usuarioActualId });
         // Preprocesa los datos para marcar las publicaciones que el usuario ha dado "Me Gusta".
         const publicacionesConMeGusta = publicaciones.map(publicacion => {
             const haDadoMeGusta = meGusta.some(like => like.idPublicacion == publicacion._id && like.idUser === req.user.id);
@@ -29,7 +30,7 @@ router.get('/', async (req, res) => {
         });
         const ruta = '/'
         // Preprocesa los datos para marcar las publicaciones que el usuario ha dado "Me Gusta".
-        res.render('index', { publicaciones: publicacionesConMeGusta,ruta });
+        res.render('index', { publicaciones: publicacionesConMeGusta,ruta ,notificaciones});
             // res.render('index', { datos, foto1, foto2, foto3, foto4 });
 
     } catch (error) {

@@ -5,6 +5,7 @@ const User = require('../models/usuarios');
 const Conversacion = require('../models/chat');
 const Notification = require('../models/notifications')
 const { v4 } = require('uuid');
+const Chat = require('../models/chat');
 
 
 
@@ -452,6 +453,15 @@ module.exports = (io) => {
             socket.emit('server:enviarIdUsuarioremitente', idUsuario, findPublicacions)
         })
 
+        socket.on('client:abrirChat', async data => {
+            const idnotificacion = data.idchat
+            const findNotification = await Notification.findById(idnotificacion)
+            const idChat = findNotification.idConversacion;
+            const findChat = await Conversacion.findById(idChat)
+            const idUsuario = findChat.userEmisor;
+            socket.emit('server:chatAbierto', idUsuario, findChat)
+        })
+
 
         socket.on('client:newMessage', async (data) => {
             const userEmisor = data.idUser;
@@ -529,8 +539,11 @@ module.exports = (io) => {
 
 
             } else {
+
+                const findUserReceptor = await User.findById(userReceptor);
+                const nombreReceptor = findUserReceptor.nombre
+                const fotoReceptor = findUserReceptor.photo;
                 const userquery = await User.findById(userEmisor);
-    
                 var NameUserSend = userquery.nombre
                 var estado = 'noleido'
                 var photo = userquery.photo;
@@ -543,7 +556,7 @@ module.exports = (io) => {
                     idReceptor: userReceptor
                 })
                 const newCHat = new Conversacion({
-                    userEmisor, userReceptor
+                    userEmisor, userReceptor,nombreReceptor,fotoReceptor
                 })
                 await newCHat.save();
                 const idConversacion = newCHat.id
