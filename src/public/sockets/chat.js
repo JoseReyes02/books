@@ -13,9 +13,19 @@ function abrirChat(id) {
 
 }
 
-socket.on('server:enviarIdUsuarioremitente', (data, publ) => {
+socket.on('server:enviarIdUsuarioremitente', (data, publ,chats) => {
     document.getElementById("chat-container").style.display = 'block';
     document.getElementById("chat-container").style.display = 'flex';
+
+    document.getElementById('cuerpomensaje').innerHTML = ""
+    chats.mensajes.forEach(ms => {
+        document.getElementById('cuerpomensaje').innerHTML += `
+            <div class="usuario ${ms.idEmisor === userLocal ? 'msgEmisor' : 'msgReceptor'}">
+              <span class="nombre-usuario texto">${ms.mensaje}</span>
+          </div>
+            `
+    })
+
     document.getElementById("nombreUser").innerHTML = publ.usuario;
     document.getElementById('chat-footer').innerHTML = `
             <input type="text" placeholder="Escribe un mensaje..." id="mensaje" autofocus />
@@ -24,7 +34,7 @@ socket.on('server:enviarIdUsuarioremitente', (data, publ) => {
     `
 })
 
-socket.on('server:chatAbierto', (data, chats) => {
+socket.on('server:chatAbierto', (data, chats,notification,nombreReceptor) => {
     document.getElementById('cuerpomensaje').innerHTML = ""
     chats.mensajes.forEach(ms => {
         document.getElementById('cuerpomensaje').innerHTML += `
@@ -36,12 +46,29 @@ socket.on('server:chatAbierto', (data, chats) => {
         
     document.getElementById("chat-container").style.display = 'block';
     document.getElementById("chat-container").style.display = 'flex';
-    document.getElementById("nombreUser").innerHTML = chats.nombreReceptor;
+    document.getElementById("nombreUser").innerHTML = nombreReceptor;
     document.getElementById('chat-footer').innerHTML = `
             <input type="text" placeholder="Escribe un mensaje..." id="mensaje" autofocus />
         <button type="button" onclick="enviarMensaje('${data}')">Enviar</button>
    
     `
+
+
+    document.getElementById('mensajesList').innerHTML = "" 
+    notification.forEach(nt => {
+        document.getElementById('mensajesList').innerHTML += `
+         <a class="dropdown-item d-flex align-items-center" href="#" onclick="abrirChat('${nt._id}')">
+                                <div class="dropdown-list-image mr-3">
+                                    <img class="rounded-circle" src="${nt.photo}" alt="..." style="height: 35px;width:35px">
+                                    <div class="status-indicator bg-success"></div>
+                                </div>
+                                <div class="font-weight-bold">
+                                    <div class="text-truncate">${nt.NameUserSend}</div>
+                                     <div class="small text-gray-500">${nt.mensaje}</div>
+                                </div>
+                            </a>
+        `
+    })
 })
 
 function cerrarChat() {
@@ -72,6 +99,8 @@ function enviarMensaje(idusuarioRemitente) {
 
 
 var userLocal = document.getElementById('idUser').value;
+
+
 socket.on('server:mensaje', (data, cantidad, notification) => {
     document.getElementById('cuerpomensaje').innerHTML = ""
     data.mensajes.forEach(ms => {
@@ -82,11 +111,11 @@ socket.on('server:mensaje', (data, cantidad, notification) => {
             `
     })
 
-
+ 
     document.getElementById('mensajesList').innerHTML = "" 
     notification.forEach(nt => {
         document.getElementById('mensajesList').innerHTML += `
-         <a class="dropdown-item d-flex align-items-center" href="#" onclick="toggleChat('${nt.idConversacion}')">
+         <a class="dropdown-item d-flex align-items-center" href="#" onclick="abrirChat('${nt._id}')">
                                 <div class="dropdown-list-image mr-3">
                                     <img class="rounded-circle" src="${nt.photo}" alt="..." style="height: 35px;width:35px">
                                     <div class="status-indicator bg-success"></div>

@@ -5,7 +5,7 @@ const User = require('../models/usuarios');
 const Conversacion = require('../models/chat');
 const Notification = require('../models/notifications')
 const { v4 } = require('uuid');
-const Chat = require('../models/chat');
+const Chat = require('../models/chat'); 
 
 
 
@@ -58,7 +58,7 @@ module.exports = (io) => {
                     }
                 })
                 .catch((error) => {
-                    console.error('Error al agregar el comentario:', error);
+                    console.error('Error al cargar la foto:', error);
                 });
 
 
@@ -242,7 +242,6 @@ module.exports = (io) => {
         socket.on('client:like', async data => {
             const idUser = data.idUser;
             const idPublicacion = data.idPublicacion;
-
             const likes = await Like.findOne({ idPublicacion: idPublicacion, idUser: idUser })
 
             if (likes) {
@@ -455,20 +454,26 @@ module.exports = (io) => {
 
         socket.on('client:abrirChat', async data => {
             const idnotificacion = data.idchat
+            const estado = 'leido'
+            await Notification.findByIdAndUpdate(idnotificacion,{estado})
             const findNotification = await Notification.findById(idnotificacion)
+            const nombreReceptor = findNotification.NameUserSend            
             const idChat = findNotification.idConversacion;
+         
             const findChat = await Conversacion.findById(idChat)
-            const idUsuario = findChat.userEmisor;
-            socket.emit('server:chatAbierto', idUsuario, findChat)
+            console.log(findChat)
+            const idUsuario = findChat.userReceptor;
+             const notificaciones = await Notification.find({ idUser: idUsuario ,estado:'noleido'});
+            socket.emit('server:chatAbierto', idUsuario, findChat,notificaciones,nombreReceptor)
         })
 
 
         socket.on('client:newMessage', async (data) => {
             const userEmisor = data.idUser;
             const userReceptor = data.userReceptor;
+            console.log(userReceptor)
 
             const mensaje = data.mensaje;
-
             const findChat = await Conversacion.findOne({
                 $or: [{ userEmisor: data.idUser, userReceptor: data.userReceptor },
                 { userEmisor: data.userReceptor, userReceptor: data.idUser }]
@@ -506,27 +511,27 @@ module.exports = (io) => {
                  
                             if (notificacionChat) {
                                 await Notification.findByIdAndUpdate(notificacionChat.id, { mensaje })
-                                var saveNotification = await Notification.find();
+                                  const notificaciones = await Notification.find({ idUser: userEmisor ,estado:'noleido'});
                                 var cantidad = await Notification.find().count();
                                 const query = await Conversacion.findOne({
                                     $or: [{ userEmisor: data.idUser, userReceptor: data.userReceptor },
                                     { userEmisor: data.userReceptor, userReceptor: data.idUser }]
                                 });
-                                io.emit('server:mensaje', query, cantidad, saveNotification); 
+                                io.emit('server:mensaje', query, cantidad, notificaciones); 
 
                             } else {
                                 const newNotification = new Notification({
                                     mensaje, NameUserSend, fecha, estado, photo, idConversacion, idUser, userReceptor
                                 })
                                 await newNotification.save();
-                                var saveNotification = await Notification.find();
+                                  const notificaciones = await Notification.find({ idUser:userEmisor ,estado:'noleido'});
 
                                 var cantidad = await Notification.find().count();
                                 const query = await Conversacion.findOne({
                                     $or: [{ userEmisor: data.idUser, userReceptor: data.userReceptor },
                                     { userEmisor: data.userReceptor, userReceptor: data.idUser }]
                                 });
-                                io.emit('server:mensaje', query, cantidad, saveNotification);
+                                io.emit('server:mensaje', query, cantidad, notificaciones);
                             }
 
 

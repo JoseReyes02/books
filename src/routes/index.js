@@ -21,7 +21,7 @@ router.get('/', async (req, res) => {
         const meGusta = await Likes.find({ idUser: usuarioActualId });
     
         const publicaciones = await Inmueble.find({estado:'activa'});
-        const notificaciones = await notificacion.find({ idUser: usuarioActualId });
+        const notificaciones = await notificacion.find({ idUser: usuarioActualId ,estado:'noleido'});
         // Preprocesa los datos para marcar las publicaciones que el usuario ha dado "Me Gusta".
         const publicacionesConMeGusta = publicaciones.map(publicacion => {
             const haDadoMeGusta = meGusta.some(like => like.idPublicacion == publicacion._id && like.idUser === req.user.id);
