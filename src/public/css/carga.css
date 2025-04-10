@@ -18,7 +18,13 @@ body {
     right: 0;
     bottom: 0;
 }
-
+  .horaMensaje {
+  
+    font-size: 12px;
+    margin-top: 10px;
+  float: right;
+    /* margin-left: 10px; */
+  }
 .listIcon {
     font-size: 30px;
     margin-left: 500px;

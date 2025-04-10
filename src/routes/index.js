@@ -21,7 +21,8 @@ router.get('/', async (req, res) => {
         const meGusta = await Likes.find({ idUser: usuarioActualId });
     
         const publicaciones = await Inmueble.find({estado:'activa'});
-        const notificaciones = await notificacion.find({ idUser: usuarioActualId ,estado:'noleido'});
+        const notificaciones = await notificacion.find({ $or: [{ idUser: req.user.id },{ userReceptor: req.user.id }] })
+        
         // Preprocesa los datos para marcar las publicaciones que el usuario ha dado "Me Gusta".
         const publicacionesConMeGusta = publicaciones.map(publicacion => {
             const haDadoMeGusta = meGusta.some(like => like.idPublicacion == publicacion._id && like.idUser === req.user.id);
@@ -29,8 +30,10 @@ router.get('/', async (req, res) => {
             return { ...publicacion._doc, haDadoMeGusta};
         });
         const ruta = '/'
+
+        const usuarios = await User.find({estado:'activo'}); 
         // Preprocesa los datos para marcar las publicaciones que el usuario ha dado "Me Gusta".
-        res.render('index', { publicaciones: publicacionesConMeGusta,ruta ,notificaciones});
+        res.render('index', { publicaciones: publicacionesConMeGusta,ruta ,notificaciones,usuarios});
             // res.render('index', { datos, foto1, foto2, foto3, foto4 });
 
     } catch (error) {
@@ -88,9 +91,8 @@ router.get('/vistaSeleccionado/:id',isAuthenticated, async (req, res) => {
 });
 
 
-router.post('/like', async (req, res) => {
- 
-  
+router.post('/crearChat', async (req, res) => {
+  console.log('holsa')
 });
 
 
