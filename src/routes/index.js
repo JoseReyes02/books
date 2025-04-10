@@ -31,7 +31,10 @@ router.get('/', async (req, res) => {
         });
         const ruta = '/'
 
-        const usuarios = await User.find({estado:'activo'}); 
+        const usuarios = await User.find({
+            estado: 'activo',
+            _id: { $ne: req.user.id }
+        });
         // Preprocesa los datos para marcar las publicaciones que el usuario ha dado "Me Gusta".
         res.render('index', { publicaciones: publicacionesConMeGusta,ruta ,notificaciones,usuarios});
             // res.render('index', { datos, foto1, foto2, foto3, foto4 });

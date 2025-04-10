@@ -486,6 +486,35 @@ module.exports = (io) => {
            
         })
 
+        socket.on('client:abrirChatUser', async data => {
+            const userReceptor = data.userReceptor;
+            const userLocal = data.userLocal;
+
+            const findChat = await Conversacion.findOne({
+                $or: [{ userEmisor: userLocal, userReceptor: userReceptor },
+                { userEmisor: userReceptor, userReceptor: userLocal }]
+            });
+            const findUser = await User.findById(userReceptor);
+            const nombre = findUser.nombre
+
+            if (!findChat) {
+                var estado = 'activo'
+                const userEmisor = userLocal;
+                const newCHat = new Conversacion({ 
+                    userEmisor, userReceptor,estado
+                })
+                await newCHat.save();
+                const idChat = newCHat.id
+                
+                socket.emit('server:chatCreado', idChat,findChat,nombre)
+
+            }else{
+                const idChat = findChat.id;
+                socket.emit('server:chatCreado', idChat,findChat,nombre)
+            }
+           
+        })
+
 
         socket.on('client:newMessage', async (data) => {
             const idChat = data.idchat;

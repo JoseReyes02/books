@@ -16,10 +16,19 @@ function abrirChat(id) {
 
 }
 
-socket.on('server:chatCreado', (idchat, chats) => {
+function abrirChatUser(id) {
+    const idUser = document.getElementById('idUser').value
+    socket.emit('client:abrirChatUser', {
+        userReceptor: id,
+        userLocal: idUser
+    })
+
+}
+
+socket.on('server:chatCreado', (idchat, chats,nombre) => {
     document.getElementById("chat-container").style.display = 'block';
     document.getElementById("chat-container").style.display = 'flex';
-    // document.getElementById("nombreUser").innerHTML = publ.usuario;
+    document.getElementById("nombreUser").innerHTML = nombre
     document.getElementById('chat-footer').innerHTML = `
         <input type="text" placeholder="Escribe un mensaje..." id="mensaje" autocomplete="off" autofocus />
     <button type="button" onclick="enviarMensaje('${idchat}')">Enviar</button>

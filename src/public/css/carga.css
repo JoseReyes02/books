@@ -105,6 +105,12 @@ body {
         overflow-y: auto;
 }
 
+.usuarios-container-amigos{
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 550px;
+}
+
 
 
 
