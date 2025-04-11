@@ -473,22 +473,30 @@ module.exports = (io) => {
         })
 
         socket.on('client:abrirChat', async data => {
-            const idChat = data.idchat
+            const idChat = data.idchat;
+            const idUser = data.idUser;
+
             const chat = await Conversacion.findById(idChat);
             const userEmisor = chat.userEmisor;
             const userReceptor = chat.userReceptor;
-            const findChat = await Conversacion.findOne({
-                $or: [{ userEmisor: userEmisor, userReceptor: userReceptor },
-                { userEmisor: userReceptor, userReceptor: userEmisor }]
-            });
-            socket.emit('server:chatCreado', idChat,findChat)
             
-           
+            var nombreReceptor = []
+            if (userEmisor != idUser) {
+                const findReceptor = await User.findById(userEmisor);
+                nombreReceptor.push(findReceptor.nombre)
+            }else if(userReceptor != idUser) {
+                const findReceptor = await User.findById(userReceptor);
+                nombreReceptor.push(findReceptor.nombre)
+            }
+          nombreReceptor = nombreReceptor[0]
+          socket.emit('server:chatCreado', idChat,chat,nombreReceptor)
+            
         })
 
         socket.on('client:abrirChatUser', async data => {
             const userReceptor = data.userReceptor;
             const userLocal = data.userLocal;
+     
 
             const findChat = await Conversacion.findOne({
                 $or: [{ userEmisor: userLocal, userReceptor: userReceptor },
@@ -525,7 +533,7 @@ module.exports = (io) => {
             const userEmisor = chat.userEmisor;
             const userReceptor = chat.userReceptor;
 
-                const userquery = await User.findById(userEmisor);
+                const userquery = await User.findById(idUser);
 
                 var NameUserSend = userquery.nombre
                 var estado = 'noleido'
@@ -546,22 +554,15 @@ module.exports = (io) => {
                             // Manejar el caso en el que no se encuentra la publicación
                         } else {
                
-                            const notificacionChat = await Notification.findOne({
-                                estado: 'noleido',
-                                $or: [{ idUser: idUser, userReceptor: userReceptor },
-                                { idUser: userReceptor, userReceptor: userEmisor }]
-                            })
-
+                            const notificacionChat = await Notification.findOne({idConversacion:idChat})
+                             const ultimoId = idUser
                             if (notificacionChat) {
-                                await Notification.findByIdAndUpdate(notificacionChat.id, { mensaje })
+                                await Notification.findByIdAndUpdate(notificacionChat.id, { mensaje,ultimoId })
                                 const notificaciones = await Notification.find({ estado: 'noleido' });
                                 var cantidad = await Notification.find({ idUser: userEmisor, estado: 'noleido' }).count();
-                                const query = await Conversacion.findOne({
-                                    $or: [{ userEmisor: userEmisor, userReceptor: userReceptor },
-                                    { userEmisor: userReceptor, userReceptor: userEmisor }]
-                                });
+                                const query = await Conversacion.findById(idChat);
                            
-                                io.emit('server:mensaje', query, cantidad, notificaciones);
+                                io.emit('server:mensaje', query, cantidad, notificaciones,idChat);
 
                             } else {
                                 const idConversacion = idChat;
@@ -572,11 +573,8 @@ module.exports = (io) => {
                                 const notificaciones = await Notification.find({estado: 'noleido' });
 
                                 var cantidad = await Notification.find({ idUser: userEmisor, estado: 'noleido' }).count();
-                                const query = await Conversacion.findOne({
-                                    $or: [{ userEmisor: userEmisor, userReceptor: userReceptor },
-                                    { userEmisor: userReceptor, userReceptor: userEmisor }]
-                                });
-                                io.emit('server:mensaje', query, cantidad, notificaciones);
+                                const query = await Conversacion.findById(idChat);
+                                io.emit('server:mensaje', query, cantidad, notificaciones,idChat);
                             }
 
 

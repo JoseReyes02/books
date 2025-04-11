@@ -10,8 +10,10 @@ function crearChat(idpublicacion) {
 
 
 function abrirChat(id) {
+    const idUser = document.getElementById('idUser').value
     socket.emit('client:abrirChat', {
         idchat: id,
+        idUser: idUser
     })
 
 }
@@ -117,7 +119,9 @@ function cerrarChat() {
 
 
 
-socket.on('server:mensaje', (data, cantidad, notification) => {
+socket.on('server:mensaje', (data, cantidad, notification,idChat) => {
+    const iduserEmisor = data.userEmisor;
+    const iduserReceptor = data.userReceptor;
     document.getElementById('cuerpomensaje').innerHTML = ""
     data.mensajes.forEach(ms => {
         document.getElementById('cuerpomensaje').innerHTML += `
@@ -131,7 +135,9 @@ socket.on('server:mensaje', (data, cantidad, notification) => {
 
     document.getElementById('mensajesList').innerHTML = ""
     notification.forEach(nt => {
-        if (nt.userEmisor === userLocal || nt.userReceptor === userLocal) {
+        console.log('idUser ' + nt.idUser)
+        console.log('local ' + userLocal)
+        if (nt.userReceptor === iduserReceptor || nt.userReceptor === iduserEmisor || nt.idUser === iduserReceptor || nt.idUser === iduserEmisor) {
             document.getElementById('mensajesList').innerHTML += `
                 <a class="dropdown-item d-flex align-items-center" href="#" onclick="abrirChat('${nt.idConversacion}')">
                                        <div class="dropdown-list-image mr-3">
@@ -140,7 +146,7 @@ socket.on('server:mensaje', (data, cantidad, notification) => {
                                        </div>
                                        <div class="font-weight-bold">
                                            <div class="text-truncate">${nt.NameUserSend}</div>
-                                            <div class="small text-gray-500">${nt.mensaje}</div>
+                                            <div class="small text-gray-500">${nt.ultimoId === userLocal ? 'Tu: ' : ''} ${nt.mensaje}</div>
                                        </div>
                                    </a>
        

@@ -7,6 +7,7 @@ const NotificationSchema = new Schema({
     idUser: {type: String, require: true},
     userReceptor: {type: String, require: true},
     NameUserSend: {type: String, require: true},
+    ultimoId: {type: String, require: true},
     estado: {type: String, require: true},
     photo: {type: String, require: true},
     fecha: {type: String, require: true},
