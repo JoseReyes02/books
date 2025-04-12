@@ -27,7 +27,7 @@ function abrirChatUser(id) {
 
 }
 
-socket.on('server:chatCreado', (idchat, chats,nombre) => {
+socket.on('server:chatCreado', (idchat, chats, nombre) => {
     document.getElementById("chat-container").style.display = 'block';
     document.getElementById("chat-container").style.display = 'flex';
     document.getElementById("nombreUser").innerHTML = nombre
@@ -119,7 +119,7 @@ function cerrarChat() {
 
 
 
-socket.on('server:mensaje', (data, cantidad, notification,idChat) => {
+socket.on('server:mensaje', (data, cantidad, notification, idChat, idUser) => {
     const iduserEmisor = data.userEmisor;
     const iduserReceptor = data.userReceptor;
     document.getElementById('cuerpomensaje').innerHTML = ""
@@ -135,9 +135,7 @@ socket.on('server:mensaje', (data, cantidad, notification,idChat) => {
 
     document.getElementById('mensajesList').innerHTML = ""
     notification.forEach(nt => {
-        console.log('idUser ' + nt.idUser)
-        console.log('local ' + userLocal)
-        if (nt.userReceptor === iduserReceptor || nt.userReceptor === iduserEmisor || nt.idUser === iduserReceptor || nt.idUser === iduserEmisor) {
+        if (idUser === nt.idUser || idUser === nt.userReceptor) {
             document.getElementById('mensajesList').innerHTML += `
                 <a class="dropdown-item d-flex align-items-center" href="#" onclick="abrirChat('${nt.idConversacion}')">
                                        <div class="dropdown-list-image mr-3">
@@ -145,21 +143,23 @@ socket.on('server:mensaje', (data, cantidad, notification,idChat) => {
                                            <div class="status-indicator bg-success"></div>
                                        </div>
                                        <div class="font-weight-bold">
-                                           <div class="text-truncate">${nt.NameUserSend}</div>
+                                           <div class="text-truncate">${nt.idUser === userLocal ? nt.nombreUserReceptor : nt.nombreUserEmisor}</div>
                                             <div class="small text-gray-500">${nt.ultimoId === userLocal ? 'Tu: ' : ''} ${nt.mensaje}</div>
                                        </div>
                                    </a>
        
                `
-        } else {
-
-             document.getElementById('mensajesList').innerHTML = `
-             <p>No tienes mensajes</p>
-             `
-
         }
+        // else {
+        //     console.log('recibido2')
+        //      document.getElementById('mensajesList').innerHTML = `
+        //      <p>No tienes mensajes</p>
+        //      `
+
+        // }
 
     })
+
 
     // document.getElementById('contador').innerHTML = cantidad
     mantenerContenedorAbajo()

@@ -5,7 +5,7 @@ const User = require('../models/usuarios');
 const Conversacion = require('../models/chat');
 const Notification = require('../models/notifications')
 const { v4 } = require('uuid');
-const Chat = require('../models/chat');
+const Chat = require('../models/chat'); 
 
 
 
@@ -456,9 +456,10 @@ module.exports = (io) => {
                 { userEmisor: userReceptor, userReceptor: userEmisor }]
             });
             if (!findChat) {
+                c
                 var estado = 'activo'
                 const newCHat = new Conversacion({ 
-                    userEmisor, userReceptor,estado
+                    userEmisor, userReceptor,estado 
                 })
                 await newCHat.save();
                 const idChat = newCHat.id
@@ -506,8 +507,8 @@ module.exports = (io) => {
             const nombre = findUser.nombre
 
             if (!findChat) {
-                var estado = 'activo'
                 const userEmisor = userLocal;
+                var estado = 'activo'
                 const newCHat = new Conversacion({ 
                     userEmisor, userReceptor,estado
                 })
@@ -557,24 +558,33 @@ module.exports = (io) => {
                             const notificacionChat = await Notification.findOne({idConversacion:idChat})
                              const ultimoId = idUser
                             if (notificacionChat) {
-                                await Notification.findByIdAndUpdate(notificacionChat.id, { mensaje,ultimoId })
+                                const findUserEmisor = await User.findById(userEmisor)
+                                const nombreUserEmisor = await findUserEmisor.nombre;
+                                const findUserReceptor = await User.findById(userReceptor)
+                                const nombreUserReceptor = findUserReceptor.nombre
+
+                                await Notification.findByIdAndUpdate(notificacionChat.id, { mensaje,ultimoId,nombreUserEmisor,nombreUserReceptor })
                                 const notificaciones = await Notification.find({ estado: 'noleido' });
                                 var cantidad = await Notification.find({ idUser: userEmisor, estado: 'noleido' }).count();
                                 const query = await Conversacion.findById(idChat);
-                           
-                                io.emit('server:mensaje', query, cantidad, notificaciones,idChat);
+                                io.emit('server:mensaje', query, cantidad, notificaciones,idChat,idUser);
 
                             } else {
+                                const findUserEmisor = await User.findById(userEmisor)
+                                const nombreUserEmisor = await findUserEmisor.nombre;
+                                const findUserReceptor = await User.findById(userReceptor)
+                                const nombreUserReceptor = findUserReceptor.nombre
+
                                 const idConversacion = idChat;
                                 const newNotification = new Notification({
-                                    mensaje, NameUserSend, fecha, estado, photo, idConversacion, idUser, userReceptor
+                                    mensaje, fecha, estado, photo, idConversacion, idUser, userReceptor,nombreUserEmisor,nombreUserReceptor
                                 })
                                 await newNotification.save();
                                 const notificaciones = await Notification.find({estado: 'noleido' });
 
                                 var cantidad = await Notification.find({ idUser: userEmisor, estado: 'noleido' }).count();
                                 const query = await Conversacion.findById(idChat);
-                                io.emit('server:mensaje', query, cantidad, notificaciones,idChat);
+                                io.emit('server:mensaje', query, cantidad, notificaciones,idChat,idUser);
                             }
 
 

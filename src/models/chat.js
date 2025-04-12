@@ -8,6 +8,7 @@ const ChatSchema = new Schema({
     idConversacion: {type: String, require: true},
     userEmisor:{type: String, require: true},
     userReceptor: {type: String, require: true},
+   
     estado: {type: String, require: true},
     date: {type: Date, default: Date.now}
 });
