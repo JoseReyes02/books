@@ -7,6 +7,18 @@
 <!-- Custom styles for this template-->
 <link href="/adminPage/css/sb-admin-2.min.css" rel="stylesheet">
 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+    {{#if user}}
+    <li class="flecha-izquierda">
+
+        <a class="" href="/" id="alertsDropdown" role="button"  aria-haspopup="true"
+            aria-expanded="false">
+            <i class="bi bi-arrow-left"></i>
+            <!-- Counter - Alerts -->
+
+        </a>
+
+    </li>
+    {{/if}}
     <!-- Topbar Navbar -->
     <ul class="navbar-nav ml-auto">
 
@@ -119,19 +131,7 @@
 
 
                 <div id="mensajesList">
-                    {{#each notificaciones}}
-                    <a class="dropdown-item d-flex align-items-center" href="#"
-                        onclick="abrirChat('{{idConversacion}}')">
-                        <div class="dropdown-list-image mr-3">
-                            <img class="rounded-circle" src="{{photo}}" alt="..." style="height: 35px;width:35px">
-                            <div class="status-indicator bg-success"></div>
-                        </div>
-                        <div class="font-weight-bold">
-                            <div class="text-truncate">{{NameUserSend}}</div>
-                            <div class="text-gray-500">{{mensaje}}</div>
-                        </div>
-                    </a>
-                    {{/each}}
+                   
                 </div>
 
             </div>

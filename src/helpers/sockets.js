@@ -5,7 +5,7 @@ const User = require('../models/usuarios');
 const Conversacion = require('../models/chat');
 const Notification = require('../models/notifications')
 const { v4 } = require('uuid');
-const Chat = require('../models/chat'); 
+
 
 
 
@@ -32,6 +32,9 @@ module.exports = (io) => {
         segundos = segundos < 10 ? '0' + segundos : segundos;
 
         const hora = `${horas}:${minutos}:${segundos}`;
+       
+         const notificaciones = await Notification.find({ estado: 'noleido' });
+        socket.emit('server:cargarMensajes', notificaciones);
 
 
 

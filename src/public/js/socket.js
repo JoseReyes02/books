@@ -1,7 +1,9 @@
 // oOPTENER EL NOMBRE DE LA IMAGEN SELECIONADA
 const socket = io();
+
 const imageInput = document.getElementById("input-imagen");
 const fileNameDisplay = document.getElementById("fileName");
+
 imageInput.addEventListener("change", () => {
   const file = imageInput.files[0]; // Obtiene el primer archivo seleccionado
   if (file) {
@@ -173,10 +175,10 @@ function deleted(id) {
 socket.on('server:abrirImagen', (data, id) => {
   document.getElementById('imageModal').style.display = "block";
   document.getElementById('imagenMostrar').innerHTML = `
-   <img id="modalImage" src="/upload/${data}" alt="Imagen Grande">
+   <img id="modalImage" src="/upload/${data}" alt="Imagen Grande" class="img-carousel" style="width: 100%; height: 500px;">
   `
   document.getElementById('quitarImagen').innerHTML = `
-     <button type="button" class="delete btn btn-danger" onclick="quitarImage('${id}')">Eliminar</button>
+     <button type="button" class="delete btn btn-danger" onclick="quitarImage('${id}')">Eliminar foto</button>
   `
 
 

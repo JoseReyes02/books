@@ -7,6 +7,29 @@ function crearChat(idpublicacion) {
     })
 
 }
+//se cargan los mensajes de cada usuario al iniciar la pagina
+socket.on('server:cargarMensajes', (notification) => {
+    for (let i = 0; i < notification.length; i++) {
+        const idUser = notification[i].idUser
+        const userReceptor = notification[i].userReceptor
+
+        if (idUser === userLocal || userReceptor === userLocal) {
+            document.getElementById('mensajesList').innerHTML += `
+               <a class="dropdown-item d-flex align-items-center" href="#" onclick="abrirChat('${notification[i].idConversacion}')">
+                                      <div class="dropdown-list-image mr-3">
+                                          <img class="rounded-circle" src="${notification[i].photo}" alt="..." style="height: 35px;width:35px">
+                        
+                                  </div>
+                                     <div class="font-weight-bold">
+                                         <div class="text-truncate">${notification[i].idUser === userLocal ? notification[i].nombreUserReceptor : notification[i].nombreUserEmisor}</div>
+                                          <div class="small text-gray-500">${notification[i].ultimoId === userLocal ? 'Tu: ' : ''} ${notification[i].mensaje}</div>
+                                    </div>
+                                </a>
+      
+           `
+        }
+    }
+})
 
 
 function abrirChat(id) {
@@ -37,15 +60,19 @@ socket.on('server:chatCreado', (idchat, chats, nombre) => {
 
 `
 
-    document.getElementById('cuerpomensaje').innerHTML = ""
+    document.getElementById('cuerpomensaje' + userLocal).innerHTML = ""
     chats.mensajes.forEach(ms => {
-        document.getElementById('cuerpomensaje').innerHTML += `
+        document.getElementById('cuerpomensaje' + userLocal).innerHTML += `
             <div class="usuario ${ms.userEmisor === userLocal ? 'msgEmisor' : 'msgReceptor'}">
               <span class="nombre-usuario texto">${ms.mensaje}</span>
               <small class="text-gray-500 horaMensaje">${ms.hora}</small>
           </div>
             `
     })
+    if (window.innerWidth <= 768) {
+        document.body.style.overflow = 'hidden';
+      }
+    mantenerContenedorAbajo()
 
 
 })
@@ -69,9 +96,9 @@ function enviarMensaje(idchat) {
 
 
 socket.on('server:chatAbierto', (data, chats, notification, nombreReceptor) => {
-    document.getElementById('cuerpomensaje').innerHTML = ""
+    document.getElementById('cuerpomensaje' + userLocal).innerHTML = ""
     chats.mensajes.forEach(ms => {
-        document.getElementById('cuerpomensaje').innerHTML += `
+        document.getElementById('cuerpomensaje' + userLocal).innerHTML += `
             <div class="usuario ${ms.idEmisor === userLocal ? 'msgEmisor' : 'msgReceptor'}">
               <span class="nombre-usuario texto">${ms.mensaje}</span>
               <small class="text-gray-500 horaMensaje">${ms.hora}</small>
@@ -104,11 +131,18 @@ socket.on('server:chatAbierto', (data, chats, notification, nombreReceptor) => {
                             </a>
         `
     })
+    if (window.innerWidth <= 768) {
+        document.body.style.overflow = 'hidden';
+      }
+   
+    mantenerContenedorAbajo()
 })
 
 function cerrarChat() {
     document.getElementById("chat-container").style.display = 'none';
-    document.body.classList.remove('noscroll');
+    if (window.innerWidth <= 768) {
+        document.body.style.overflow = 'auto';
+      }
 
 }
 
@@ -122,9 +156,10 @@ function cerrarChat() {
 socket.on('server:mensaje', (data, cantidad, notification, idChat, idUser) => {
     const iduserEmisor = data.userEmisor;
     const iduserReceptor = data.userReceptor;
-    document.getElementById('cuerpomensaje').innerHTML = ""
+
+    document.getElementById('cuerpomensaje' + idUser).innerHTML = ""
     data.mensajes.forEach(ms => {
-        document.getElementById('cuerpomensaje').innerHTML += `
+        document.getElementById('cuerpomensaje' + idUser).innerHTML += `
             <div class="usuario ${ms.userEmisor === userLocal ? 'msgEmisor' : 'msgReceptor'}">
               <span class="nombre-usuario texto">${ms.mensaje}</span>
               <small class="text-gray-500 horaMensaje">${ms.hora}</small>
@@ -132,33 +167,55 @@ socket.on('server:mensaje', (data, cantidad, notification, idChat, idUser) => {
             `
     })
 
-
     document.getElementById('mensajesList').innerHTML = ""
-    notification.forEach(nt => {
-        if (idUser === nt.idUser || idUser === nt.userReceptor) {
+
+    for (let i = 0; i < notification.length; i++) {
+        const idUser = notification[i].idUser
+        const userReceptor = notification[i].userReceptor
+
+        if (idUser === userLocal || userReceptor === userLocal) {
             document.getElementById('mensajesList').innerHTML += `
-                <a class="dropdown-item d-flex align-items-center" href="#" onclick="abrirChat('${nt.idConversacion}')">
+                <a class="dropdown-item d-flex align-items-center" href="#" onclick="abrirChat('${notification[i].idConversacion}')">
                                        <div class="dropdown-list-image mr-3">
-                                           <img class="rounded-circle" src="${nt.photo}" alt="..." style="height: 35px;width:35px">
-                                           <div class="status-indicator bg-success"></div>
-                                       </div>
-                                       <div class="font-weight-bold">
-                                           <div class="text-truncate">${nt.idUser === userLocal ? nt.nombreUserReceptor : nt.nombreUserEmisor}</div>
-                                            <div class="small text-gray-500">${nt.ultimoId === userLocal ? 'Tu: ' : ''} ${nt.mensaje}</div>
-                                       </div>
-                                   </a>
+                                           <img class="rounded-circle" src="${notification[i].photo}" alt="..." style="height: 35px;width:35px">
+                         
+                                   </div>
+                                      <div class="font-weight-bold">
+                                          <div class="text-truncate">${notification[i].idUser === userLocal ? notification[i].nombreUserReceptor : notification[i].nombreUserEmisor}</div>
+                                           <div class="small text-gray-500">${notification[i].ultimoId === userLocal ? 'Tu: ' : ''} ${notification[i].mensaje}</div>
+                                     </div>
+                                 </a>
        
-               `
+            `
         }
-        // else {
-        //     console.log('recibido2')
-        //      document.getElementById('mensajesList').innerHTML = `
-        //      <p>No tienes mensajes</p>
-        //      `
 
-        // }
 
-    })
+    }
+    // notification.forEach(nt => {
+    //     if (idUser === nt.idUser || idUser === nt.userReceptor) {
+    //         document.getElementById('mensajesList').innerHTML += `
+    //             <a class="dropdown-item d-flex align-items-center" href="#" onclick="abrirChat('${nt.idConversacion}')">
+    //                                    <div class="dropdown-list-image mr-3">
+    //                                        <img class="rounded-circle" src="${nt.photo}" alt="..." style="height: 35px;width:35px">
+    //                                        <div class="status-indicator bg-success"></div>
+    //                                    </div>
+    //                                    <div class="font-weight-bold">
+    //                                        <div class="text-truncate">${nt.idUser === userLocal ? nt.nombreUserReceptor : nt.nombreUserEmisor}</div>
+    //                                         <div class="small text-gray-500">${nt.ultimoId === userLocal ? 'Tu: ' : ''} ${nt.mensaje}</div>
+    //                                    </div>
+    //                                </a>
+
+    //            `
+    //     }
+    //     // else {
+    //     //     console.log('recibido2')
+    //     //      document.getElementById('mensajesList').innerHTML = `
+    //     //      <p>No tienes mensajes</p>
+    //     //      `
+
+    //     // }
+
+    // })
 
 
     // document.getElementById('contador').innerHTML = cantidad

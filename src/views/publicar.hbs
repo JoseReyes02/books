@@ -126,14 +126,15 @@
             <div class="col-md-4">
               <label for="exampleInputEmail1" class="form-label mt-4">Disponibilidad</label>
               <input type="number" class="form-control" name="disponivilidad" id="disponibilidad"
-                value="{{publicacion.disponibilidad}}" aria-describedby="emailHelp" placeholder="">
+                value="1" aria-describedby="emailHelp" placeholder=""> 
 
             </div>
             <div class="col">
               <div class="form-group">
                 <label for="exampleInputEmail1" class="form-label mt-4">Precio</label>
                 <input type="text" class="form-control" name="precio" id="precio" aria-describedby="emailHelp"
-                  value="{{publicacion.precio}}" placeholder="">
+                  value="" placeholder="">
+                  <small>Precio de alquiler o venta</small>
 
               </div>
 
@@ -388,7 +389,7 @@
     {{!-- <button type="button" class="btn btn-info" onclick="recet()">Recet</button> --}}
     <hr>
 
-   {{> cargaFotos}}
+   {{> cargaFotos}} 
     <hr>
     <input type="text" id="fileName" hidden>
     <div id="contenidoError"></div>

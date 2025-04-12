@@ -1,4 +1,4 @@
-{{> componentes}}
+
 {{> header}}
 
 
@@ -13,7 +13,7 @@
               <input type="file" id="inputFile" name="image" hidden>
               <span class="icon-camera icon-edit-perfil" onclick="inputFileFuncion()"></span>
 
-              <h5 class="my-3 mt-5">{{user.nombre}} {{user.apellido}}</h5>
+              <h5 class="my-3 mt-5">{{user.nombre}}</h5>
 
               {{!-- <div class="d-flex justify-content-center mb-2">
                 <button type="button" class="btn btn-primary">Follow</button>
@@ -251,7 +251,7 @@
                 </div>
               </div>
             </div>
-          </div>
+          
           {{!-- Informacion --}}
           <div class="tab-pane fade" id="informacion" role="tabpanel" aria-labelledby="informacion-tab">
             <div class="card mb-4">
@@ -298,7 +298,7 @@
             </div>
           </div>
 
-          <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
+        
         </div>
 
       </div>

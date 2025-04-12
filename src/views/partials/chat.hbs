@@ -13,14 +13,14 @@
 
 
 
-<div class="chat-container" id="chat-container">
+<div class="chat-container" id="chat-container"> 
     <div class="chat-header">
         <span id="nombreUser">Chat</span>
         <button class="chat-close" onclick="cerrarChat()">&times;</button>
     </div>
     <div class="chat-body" id="chatbody">
         <div id="contenedorMensajes" style="height: 300px;">
-            <div id="cuerpomensaje"></div>
+            <div id="cuerpomensaje{{user.id}}"></div>
         </div> 
     </div>
     <input type="text" id="idUser" value="{{user.id}}" hidden /> 

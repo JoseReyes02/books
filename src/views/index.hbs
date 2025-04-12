@@ -12,7 +12,7 @@
         <div class="navbar-nav ml-auto py-0">
           <a href="/" class="nav-item nav-link">Inicio</a>
           <a href="/about" class="nav-item nav-link">Acerca de nosotros</a>
-          <a href="/servicios" class="nav-item nav-link">Servicios</a>
+          <a href="/servicios" class="nav-item nav-link">Servicios</a> 
 
 
           <a href="#" id="contactBtn" class="nav-item nav-link">Contactos</a>
@@ -305,25 +305,14 @@
     <h1>Sugerencias para ti</h1>
   </div>
   <div class="row">
-    <div class="col-md-3" id="publicidad">
+    <div class="col-md-2" id="publicidad"> 
 
     </div>
-    <div class="col-md-6">
-      <style>
-        .img-carousel {
-          width: 100%;
-          /* Ocupar todo el ancho disponible */
-          height: auto;
-          /* Ajustar la altura automáticamente */
-          object-fit: cover;
-          /* Que la imagen se recorte si es necesario pero sin deformarse */
-          border-radius: 10px;
-          transform: scale(0.9);
-          /* Bordes redondeados opcionales */
-        }
-      </style>
+   
+
 
       {{#each publicaciones}}
+       <div class="col-md-4">
       <div class="package-item bg-white mb-2">
         <div class="post-header" style="display: flex; align-items: center; justify-content: space-between;">
           <div style="display: flex; align-items: center;">
@@ -425,12 +414,13 @@
         </div>
 
       </div>
+             
 
-
+       </div>
       {{/each}}
-    </div>
-    <div class="col-md-3">
-      <div class="usuarios-container d-none d-md-block" >
+    
+    <div class="col-md-2">
+      {{!-- <div class="usuarios-container d-none d-md-block" >
         {{#each usuarios}}
         <a class="dropdown-item d-flex align-items-center" href="#">
           <div class="dropdown-list-image mr-3">
@@ -446,7 +436,7 @@
         {{/each}}
 
 
-      </div>
+      </div> --}}
 
     </div>
   </div>
