@@ -69,6 +69,7 @@ module.exports = (io) => {
             var titulo = data.titulo;
             const tipoPropiedad = data.tipoPropiedad;
             const restron = data.restron;
+            const metros = data.metros
             const habitaciones = data.habitaciones
             const marquesinas = data.marquesinas;
             const moneda = data.moneda;
@@ -87,6 +88,7 @@ module.exports = (io) => {
             const direccionPersonal = data.direccionPersonal
             const telefono = data.telefono
             const email = data.email
+            const ubicacion = data.ubicacion
 
             if (!titulo) {
                 const message = 'Describa un titulo para la publicacion!'
@@ -112,8 +114,8 @@ module.exports = (io) => {
                 } else {
                     titulo = titulo.toUpperCase()
                     const estado = 'activa';
-                    await Publicaciones.findByIdAndUpdate(idPublicacion, {
-                        titulo, tipoPropiedad, restron, fecha, hora, nombre, email,telefono,
+                    await Publicaciones.findByIdAndUpdate(idPublicacion, {ubicacion,
+                        titulo, tipoPropiedad, restron, fecha, hora, nombre, email,telefono,metros,
                         habitaciones, marquesinas, moneda, disponibilidad, precio, pais
                         , provincia, municipio, direccion, descripcion, estado, tipo_operacion, likeCount
                     })
@@ -145,8 +147,10 @@ module.exports = (io) => {
             const direccionPersonal = data.direccionPersonal
             const telefono = data.telefono
             const email = data.email
+            const metros = data.metros;
+            const ubicacion = data.ubicacion
 
-            console.log(telefono)
+
 
             if (!titulo) {
                 const message = 'Describa un titulo para la publicacion!'
@@ -172,8 +176,8 @@ module.exports = (io) => {
                 } else {
                     titulo = titulo.toUpperCase()
                     const estado = 'activa';
-                    await Publicaciones.findByIdAndUpdate(idPublicacion, {
-                        titulo, tipoPropiedad, restron, fecha, hora, telefono, nombre, email,
+                    await Publicaciones.findByIdAndUpdate(idPublicacion, {ubicacion,
+                        titulo, tipoPropiedad, restron, fecha, hora, telefono, nombre, email,metros,
                         habitaciones, marquesinas, moneda, disponibilidad, precio, pais
                         , provincia, municipio, direccion, descripcion, estado, tipo_operacion
                     })

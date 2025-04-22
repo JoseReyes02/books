@@ -33,6 +33,8 @@ const InmuebleSchema = new Schema({
     fotos: [],
     saveUser: [],
     estado: {type: String, require: true},
+    metros: {type: String, require: true},
+    ubicacion: {type: String, require: true},
     photo: {type: String, require: true},
     likeCount: {type: Number, require: true},
     saveCount: {type: Number, require: true},

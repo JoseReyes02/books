@@ -29,19 +29,22 @@
         </div>
 
         <div class="container">
-          <div class="form-group">
-            <label for="exampleInputEmail1" class="form-label mt-4">TITULO</label>
-            <input type="text" class="form-control P-3" id="titulo" value="{{publicacion.titulo}}" 
-              aria-describedby="emailHelp" placeholder="Introduce un titulo" name="titulo">
-
-          </div>
           <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="exampleInputEmail1" class="form-label mt-4">TITULO</label>
+                <input type="text" class="form-control P-3" id="titulo" value="{{publicacion.titulo}}"
+                  aria-describedby="emailHelp" placeholder="Introduce un titulo" name="titulo">
+
+              </div>
+
+            </div>
+            <div class="col-md-6">
               <div class="form-group">
                 <label for="exampleSelect1" class="form-label mt-4">Tipo de propiedad</label>
                 <select name="tipo_inmueble" class="form-control" id="tipoPropiedad">
                   <option value="{{publicacion.tipoPropiedad}}" selected>{{publicacion.tipoPropiedad}}</option>
-                 <option value="Apartamento">Apartamento</option>
+                  <option value="Apartamento">Apartamento</option>
                   <option value="Casa">Casa</option>
                   <option value="Villa">Villa</option>
                   <option value="Penthouse">Penthouse</option>
@@ -68,6 +71,19 @@
                   <option value="Atico">Ático</option>
                 </select>
               </div>
+
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-4">
+              <div class="form-group">
+                <label for="exampleInputEmail1" class="form-label mt-4">Metros cuadrados (M^2)</label>
+                <input type="text" class="form-control P-3" id="metros" value="" aria-describedby="emailHelp"
+                  placeholder="" name="metro">
+
+              </div>
+
             </div>
             <div class="col">
               <div class="form-group">
@@ -372,13 +388,18 @@
             <input type="text" class="form-control" id="direccion" aria-describedby="emailHelp"
               placeholder="Espesifique su direcion" name="direccion" value="{{publicacion.direccion}}">
 
-
           </div>
 
         </div>
-          {{> modal}}
+
 
       </div>
+               <div class="form-group">
+          <label for="exampleInputEmail1" class="form-label mt-4">Ubicacion (obcional)</label>
+          <input type="text" class="form-control" id="ubicacion" aria-describedby="emailHelp"
+             name="ubicacion" value="{{publicacion.ubicacion}}">
+            <small>Ve a google-map copia la ubicacion de lugar y pegalo aqui</small>
+        </div>
       <div class="form-group">
         <label for="exampleTextarea" class="form-label mt-4">Descripcion</label>
         <textarea class="form-control" id="descripcion" rows="3" name="descripcion"></textarea>
@@ -390,9 +411,36 @@
     </div>
     {{!-- <button type="button" class="btn btn-info" onclick="recet()">Recet</button> --}}
     <hr>
-
-   {{> cargaFotos}}
+    {{> cargaFotos}}
+            {{> modal}}
     <hr>
+
+    <div class="infoPersonal mt-4">
+      <h4>Informacion prsonal</h4>
+      <div class="form-group">
+        <label for="exampleInputEmail1" class="form-label mt-4">Nombre</label>
+        <input type="text" class="form-control P-3" id="nombre" aria-describedby="emailHelp" placeholder=""
+          name="nombre" value="{{user.nombre}}">
+        <small>Puede modificarlo</small>
+
+      </div>
+      <div class="form-group">
+        <label for="exampleInputEmail1" class="form-label mt-4">Email</label>
+        <input type="email" class="form-control P-3" id="email" aria-describedby="emailHelp" value="{{user.email}}"
+          placeholder="opcional" name="">
+
+      </div>
+
+      <div class="form-group">
+        <label for="exampleInputEmail1" class="form-label mt-4">Telefono</label>
+        <input type="text" class="form-control P-3" id="telefono" aria-describedby="emailHelp" value="{{user.telefono}}"
+          placeholder="obligatorio">
+
+
+      </div>
+
+    </div>
+
     <input type="text" id="fileName" hidden>
     <div id="contenidoError"></div>
     <div class="d-grid gap-2" style="text-align: center;">

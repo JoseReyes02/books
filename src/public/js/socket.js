@@ -36,6 +36,7 @@ function GuardarPublicacion() {
  
   const titulo = document.getElementById('titulo').value;
   const tipoPropiedad = document.getElementById('tipoPropiedad').value;
+  const metros = document.getElementById('metros').value;
   const restron = document.getElementById('restron').value
   const habitaciones = document.getElementById('habitaciones').value
   const marquesinas = document.getElementById('marquesinas').value
@@ -50,6 +51,7 @@ function GuardarPublicacion() {
   const idPublicacion = document.getElementById('idPublicacion').value
   const nombre = document.getElementById('nombre').value
   const email = document.getElementById('email').value
+  const ubicacion = document.getElementById('ubicacion').value
   // const direccionPersonal = document.getElementById('direcionPersonal').value
   const telefono = document.getElementById('telefono').value
   socket.emit('client:guardarPublicacion', {
@@ -69,7 +71,9 @@ function GuardarPublicacion() {
     idPublicacion: idPublicacion,
     tipo_operacion:seleccion,
     nombre:nombre,
-  
+    metros:metros,
+    ubicacion:ubicacion,
+
     telefono:telefono,
     email:email
   
@@ -94,6 +98,7 @@ function ActualizarPublicacion() {
   const nombre = document.getElementById('nombre').value
   const email = document.getElementById('email').value
   const telefono = document.getElementById('telefono').value
+  const ubicacion = document.getElementById('ubicacion').value
   socket.emit('client:ActualizarPublicacion', {
     titulo: titulo,
     tipoPropiedad: tipoPropiedad,
@@ -112,6 +117,7 @@ function ActualizarPublicacion() {
     tipo_operacion:seleccion,
     nombre:nombre,
     email:email,
+    ubicacion:ubicacion,
 
     telefono:telefono
   
