@@ -19,96 +19,16 @@
         <button class="chat-close" onclick="cerrarChat()">&times;</button>
     </div>
     <div class="chat-body" id="chatbody">
-        <div id="contenedorMensajes" style="height: 300px;">
+        <div id="contenedorMensa"> 
             <div id="cuerpomensaje{{user.id}}"></div>
         </div> 
     </div>
     <input type="text" id="idUser" value="{{user.id}}" hidden /> 
     <div class="chat-footer" id="chat-footer">
-        <input type="text" placeholder="Escribe un mensaje..." id="mensaje" autocomplete="off" autofocus />
+        <input type="text" placeholder="Escribe un mensaje..." id="mensaje" onclick="activarMensaje()" autocomplete="off" autofocus />
         <button type="button" onclick="enviarMensaje('{{_id}}')">Enviar</button>
     </div>
 </div>
 
 
 
-<style>
-    /* Estilo base */
-    .chat-container {
-        display: none;
-
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        width: 320px;
-        height: 450px;
-        background-color: #fff;
-        border: 1px solid #ccc;
-        border-radius: 12px 12px 0 0;
-        box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
-        flex-direction: column;
-        overflow: hidden;
-        z-index: 9999;
-        transition: all 0.3s ease;
-    }
-
-    /* Cabecera */
-    .chat-header {
-        background-color: #007bff;
-        color: white;
-        padding: 10px 15px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        font-weight: bold;
-    }
-
-    .chat-close {
-        background: none;
-        border: none;
-        color: white;
-        font-size: 20px;
-        cursor: pointer;
-    }
-
-
-    /* Pie */
-    .chat-footer {
-        display: flex;
-        padding: 10px;
-        border-top: 1px solid #ddd;
-        background-color: #fff;
-    }
-
-    .chat-footer input {
-        flex: 1;
-        padding: 8px;
-        border: 1px solid #ccc;
-        border-radius: 8px;
-        outline: none;
-        margin-right: 5px;
-    }
-
-    .chat-footer button {
-        background-color: #007bff;
-        color: white;
-        border: none;
-        padding: 8px 12px;
-        border-radius: 8px;
-        cursor: pointer;
-    }
-
-    /* Modo móvil (pantalla completa) */
-    @media (max-width: 768px) {
-        .chat-container {
-            height: 100dvh;
-            /* Usamos dvh para evitar problemas con el teclado en móviles */
-            width: 100vw;
-            bottom: 0;
-            right: 0;
-            border-radius: 0;
-        }
-
-   
-    }
-</style>

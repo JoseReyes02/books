@@ -18,24 +18,26 @@ body {
     right: 0;
     bottom: 0;
 }
-  .horaMensaje {
-  
+
+.horaMensaje {
+
     font-size: 12px;
     margin-top: 10px;
-  float: right;
+    float: right;
     /* margin-left: 10px; */
-  }
+}
+
 .listIcon {
     font-size: 30px;
     margin-left: 500px;
 }
 
-.bi-arrow-left{
+.bi-arrow-left {
     font-size: 30px;
-    color:#2337e7
-   
+    color: #2337e7
 }
-.flecha-izquierda{
+
+.flecha-izquierda {
     float: left;
 }
 
@@ -76,7 +78,8 @@ body {
 
 /* Mensajes del emisor (lado derecho) */
 .msgEmisor {
-    align-self: flex-end;  /* Alineado a la derecha */
+    align-self: flex-end;
+    /* Alineado a la derecha */
     color: #e0e0e0;
     background-color: #2337e7;
     max-width: 70%;
@@ -90,7 +93,8 @@ body {
 
 
 .msgReceptor {
-    align-self: flex-start;  /* Alineado a la izquierda */
+    align-self: flex-start;
+    /* Alineado a la izquierda */
     color: #e0e0e0;
     background-color: #4b4b4b;
     max-width: 70%;
@@ -101,20 +105,20 @@ body {
     overflow-wrap: break-word;
 }
 
-    /* Cuerpo */
-    .chat-body {
+/* Cuerpo */
+.chat-body {
 
-  width: 100%;
-        background-color: white;
-        border-radius: 10px;
-        box-shadow: 0 0 10px rgba(0,0,0,0.2);
-        display: flex;
-        flex-direction: column;
-        padding: 10px;
-        overflow-y: auto;
+    width: 100%;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    overflow-y: auto;
 }
 
-.usuarios-container-amigos{
+.usuarios-container-amigos {
     overflow-y: auto;
     overflow-x: hidden;
     height: 550px;
@@ -123,16 +127,22 @@ body {
 
 
 
-  @media screen and (max-width: 480px) {
+@media screen and (max-width: 480px) {
     .chat-body {
         height: 100vh;
         /* Hace que el cuerpo se reduzca cuando el teclado se muestra */
     }
 
-     .msgEmisor{
-  margin-left: 90px;
+    .msgEmisor {
+        margin-left: 90px;
     }
-   
+
+}
+
+.chat-bodyAgregado{
+
+    height: 45vh;
+    overflow-y:hidden;
 }
 
 
@@ -469,4 +479,88 @@ input[type="submit"]:hover {
     border-radius: 10px;
     transform: scale(0.9);
     /* Bordes redondeados opcionales */
-  }
+}
+.contenedorMensajeAjustable{
+   height: 100px;
+}
+#contenedoMensaje{
+    height: 315px;
+}
+
+.chat-container {
+    display: none;
+    position: fixed;
+    bottom: 0px;
+    right: 20px;
+    width: 320px;
+    height: 450px;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 12px 12px 0 0;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 9999;
+    transition: all 0.3s ease;
+}
+
+/* Cabecera */
+.chat-header {
+  background-color: #4e73df;
+    color: white;
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+}
+
+.chat-close {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+
+/* Pie */
+.chat-footer {
+    bottom: 0px;
+    display: flex;
+    padding: 10px;
+    border-top: 1px solid #ddd;
+    background-color: #fff;
+}
+
+.chat-footer input {
+    flex: 1;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    outline: none;
+    margin-right: 5px;
+}
+
+.chat-footer button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* Modo móvil (pantalla completa) */
+@media (max-width: 768px) {
+    .chat-container {
+        height: 100dvh;
+        /* Usamos dvh para evitar problemas con el teclado en móviles */
+        width: 100vw;
+        bottom: 0;
+        right: 0;
+        border-radius: 0;
+    }
+
+
+}

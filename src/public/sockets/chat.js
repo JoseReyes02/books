@@ -55,7 +55,7 @@ socket.on('server:chatCreado', (idchat, chats, nombre) => {
     document.getElementById("chat-container").style.display = 'flex';
     document.getElementById("nombreUser").innerHTML = nombre
     document.getElementById('chat-footer').innerHTML = `
-        <input type="text" placeholder="Escribe un mensaje..." id="mensaje" autocomplete="off" autofocus />
+        <input type="text" placeholder="Escribe un mensaje..." id="mensaje" onclick="activarMensaje()" autocomplete="off" autofocus />
     <button type="button" onclick="enviarMensaje('${idchat}')">Enviar</button>
 
 `
@@ -147,7 +147,12 @@ function cerrarChat() {
 }
 
 
+function activarMensaje(){
+    if (window.innerWidth <= 768) {
+        document.getElementById('chatbody').classList.add('chat-bodyAgregado');
 
+      }
+}
 
 
 
@@ -157,9 +162,9 @@ socket.on('server:mensaje', (data, cantidad, notification, idChat, idUser) => {
     const iduserEmisor = data.userEmisor;
     const iduserReceptor = data.userReceptor;
 
-    document.getElementById('cuerpomensaje' + idUser).innerHTML = ""
+    document.getElementById('cuerpomensaje' + userLocal).innerHTML = ""
     data.mensajes.forEach(ms => {
-        document.getElementById('cuerpomensaje' + idUser).innerHTML += `
+        document.getElementById('cuerpomensaje' + userLocal).innerHTML += `
             <div class="usuario ${ms.userEmisor === userLocal ? 'msgEmisor' : 'msgReceptor'}">
               <span class="nombre-usuario texto">${ms.mensaje}</span>
               <small class="text-gray-500 horaMensaje">${ms.hora}</small>

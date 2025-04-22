@@ -6,9 +6,6 @@ const Conversacion = require('../models/chat');
 const Notification = require('../models/notifications')
 const { v4 } = require('uuid');
 
-
-
-
 module.exports = (io) => {
     io.on('connection', async (socket) => {
         const hoy = new Date();
@@ -116,7 +113,7 @@ module.exports = (io) => {
                     titulo = titulo.toUpperCase()
                     const estado = 'activa';
                     await Publicaciones.findByIdAndUpdate(idPublicacion, {
-                        titulo, tipoPropiedad, restron, fecha, hora, nombre, email,
+                        titulo, tipoPropiedad, restron, fecha, hora, nombre, email,telefono,
                         habitaciones, marquesinas, moneda, disponibilidad, precio, pais
                         , provincia, municipio, direccion, descripcion, estado, tipo_operacion, likeCount
                     })
@@ -148,6 +145,8 @@ module.exports = (io) => {
             const direccionPersonal = data.direccionPersonal
             const telefono = data.telefono
             const email = data.email
+
+            console.log(telefono)
 
             if (!titulo) {
                 const message = 'Describa un titulo para la publicacion!'

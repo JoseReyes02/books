@@ -8,6 +8,15 @@ const { isAuthenticated } = require('../helpers/auth');
 const Inmueble = require('../models/inmueble');
 const { v4 } = require('uuid');
 
+const fs = require('fs-extra');
+
+const cloudinary = require('cloudinary');
+cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+})
+
 
 
 router.get('/publicaciones/misPublicaciones', isAuthenticated, async (req, res) => {
@@ -17,13 +26,18 @@ router.get('/publicaciones/misPublicaciones', isAuthenticated, async (req, res) 
 
 router.post('/publicaciones/cargarFotos', async (req, res) => {
     const { idPublicacion } = req.body;
-    console.log(idPublicacion + ' id 1')
+   
     try {
-        const imagen = req.file.filename;
-        const uniqueID = v4();
+        const result = await  cloudinary.v2.uploader.upload(req.file.path)
+        const idImagen = result.public_id
+        const urlImagen = result.secure_url
+
+
+        // const imagen = req.file.filename;
+        // const uniqueID = v4();
         const fotos = ({
-            id: uniqueID,
-            imagen: imagen,
+            idImagen: idImagen,
+            urlImagen: urlImagen,
         })
         Publicaciones.findByIdAndUpdate(idPublicacion, { $push: { fotos: fotos } }, { new: true })
             .then(async (publicacionActualizada) => {
@@ -34,6 +48,11 @@ router.post('/publicaciones/cargarFotos', async (req, res) => {
                     const findImagenes = await Publicaciones.findById(idPublicacion);
                     const fotos = findImagenes.fotos;
                     res.json(fotos);
+                    
+                     
+                     // Eliminar el archivo temporal después de subirlo a Cloudinary
+                    await fs.unlink(req.file.path)
+                    
                 }
             })
             .catch((error) => {

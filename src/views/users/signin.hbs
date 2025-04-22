@@ -4,69 +4,67 @@
   <div class="container-fluid h-custom">
     <div class="row d-flex justify-content-center align-items-center">
       <div class="col-md-6">
-        <img src="/images/ced3c5c2-b058-4151-9b2b-7fd86257c5d6.png" class="img-fluid"
-          style="max-width: 100%; maxt-height: 500px;" alt="Sample image">
-      </div>
-      <div class="col-md-6">
-       
-          <div class="container">
-            <h2>Iniciar sesión</h2>
-            <div class="buttons">
-              <!-- Botón de Google -->
-              <a href="/auth/google" class="btn google" id="btn">
-                <img src="https://www.svgrepo.com/show/303108/google-icon-logo.svg" alt="Google">
-                <span>Continuar con Google</span>
-              </a>
+      <div class="container">
+          <img src="/images/ced3c5c2-b058-4151-9b2b-7fd86257c5d6.png" class="img-fluid"
+            style="max-width: 40%; maxt-height: 200px;" alt="Sample image">
+         
+          <h2 class="mt-5">Iniciar sesión</h2>
+          <div class="buttons">
+            <!-- Botón de Google -->
+            <a href="/auth/google" class="btn google" id="btn">
+              <img src="https://www.svgrepo.com/show/303108/google-icon-logo.svg" alt="Google">
+              <span>Continuar con Google</span>
+            </a>
 
-              <!-- Botón de Facebook -->
-              <button class="btn google" id="btn">
-                <img src="https://www.svgrepo.com/show/157818/facebook.svg" alt="Facebook">
-                <span>Continuar con Facebook</span>
-              </button>
+            <!-- Botón de Facebook -->
+            {{!-- <button class="btn google" id="btn">
+              <img src="https://www.svgrepo.com/show/157818/facebook.svg" alt="Facebook">
+              <span>Continuar con Facebook</span>
+            </button> --}}
 
-              <!-- Botón de Apple -->
+            <!-- Botón de Apple -->
 
-              <div>
-               <form action="/users/signin" method="post">
-                  <div class="divider d-flex align-items-center my-4">
-                    <p class="text-center fw-bold mx-3 mb-0">O</p>
-                  </div>
+            <div>
+              <form action="/users/signin" method="post">
+                <div class="divider d-flex align-items-center my-4">
+                  <p class="text-center fw-bold mx-3 mb-0">O</p>
+                </div>
 
-                  <!-- Email input -->
-                  <div class="form-outline mb-4">
-                     <label class="form-label" for="form3Example3" style="float: left;">Email address</label>
-                    <input type="email" id="form3Example3" name="email" class="form-control form-control-lg"
-                      placeholder="Enter email" value="alejandroRomero@gmail.com" />
-                   
-                  </div>
+                <!-- Email input -->
+                <div class="form-outline mb-4">
+                  <label class="form-label" for="form3Example3" style="float: left;">Email address</label>
+                  <input type="email" id="form3Example3" name="email" class="form-control form-control-lg"
+                    placeholder="Enter email" value="alejandroRomero@gmail.com" />
 
-                  <!-- Password input -->
-                  <div class="form-outline mb-3">
-                       <label class="form-label" for="form3Example4" style="float: left;">Password</label>
-                    <input type="password" id="form3Example4" name="password" class="form-control form-control-lg"
-                      placeholder="Enter password" value="12345" />
-                 
-                  </div>
+                </div>
 
-                  <div class="d-flex justify-content-between align-items-center">
-                
-                    <a href="#!" class="text-body">Olvidaste tu contraseña?</a>
-                  </div>
+                <!-- Password input -->
+                <div class="form-outline mb-3">
+                  <label class="form-label" for="form3Example4" style="float: left;">Password</label>
+                  <input type="password" id="form3Example4" name="password" class="form-control form-control-lg"
+                    placeholder="Enter password" value="12345" />
 
-                  <div class="text-center text-lg-start mt-4 pt-2">
-                      <button type="submit" class="btn btn-primary btn-lg"
-                style="padding-left: 2.5rem; padding-right: 2.5rem;">Iniciar session</button>
-                   
-                    <p class="small fw-bold mt-2 pt-1 mb-0">Aun no tienes una cuenta? <a href="/users/signup"
-                        class="link-danger">Register</a></p>
-                  </div>
+                </div>
 
-                </form>
+                <div class="d-flex justify-content-between align-items-center">
+
+                  <a href="#!" class="text-body">Olvidaste tu contraseña?</a>
+                </div>
+
+                <div class="text-center text-lg-start mt-4 pt-2">
+                  <button type="submit" class="btn btn-primary btn-lg"
+                    style="padding-left: 2.5rem; padding-right: 2.5rem;">Iniciar session</button>
+
+                  <p class="small fw-bold mt-2 pt-1 mb-0">Aun no tienes una cuenta? <a href="/users/signup"
+                      class="link-danger">Register</a></p>
+                </div>
+
+              </form>
 
 
-              </div>
             </div>
           </div>
+        </div>
 
 
 
@@ -75,7 +73,7 @@
 
 
 
-      
+
         {{!-- <form action="/users/signinGoogle" method="post">
           <input type="text" name="email" value="{{email}}" hidden>
           <input type="text" name="password" value="245" hidden>
@@ -101,6 +99,7 @@
 
     /* Contenedor principal */
     .container {
+      margin-top: 150px;
       background: white;
       padding: 20px;
       width: 350px;
@@ -186,16 +185,17 @@
       background: #f5f5f5;
     }
   </style>
-<div class="container-fluid bg-success text-white-50 py-5 px-sm-3 px-lg-5" style="margin-top: 100px;" id="contactFooter">
-  <div class="row">
-    <div class="col-lg-6 text-center text-md-left mb-3 mb-md-0">
-      <p class="m-0 text-white-50">Derechos Reservados<a href="#"> © 2025</a>. JER-WEB</a>
+  {{!-- <div class="container-fluid bg-success text-white-50 py-5 px-sm-3 px-lg-5" style="margin-top: 100px;"
+    id="contactFooter">
+    <div class="row">
+      <div class="col-lg-6 text-center text-md-left mb-3 mb-md-0">
+        <p class="m-0 text-white-50">Derechos Reservados<a href="#"> © 2025</a>. JER-WEB</a>
 
-      </p>
+        </p>
+      </div>
+
     </div>
-
-  </div>
-</div>
+  </div> --}}
 </section>
 
 <style>

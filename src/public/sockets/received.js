@@ -43,7 +43,7 @@ socket.on('server:ponerMeGusta', (data, likes,publicacion) => {
                       Guardado
                   </button>
                   <div id="likeCount${data}" style="float: right;">
-                    <span><i class="bi bi-hand-thumbs-up-fill"></i> ${publicacion.likeCount}</span>
+                    <span><i class="bi-heart-fill"></i> ${publicacion.likeCount}</span>
                   </div>
                       
     `
@@ -63,7 +63,7 @@ socket.on('server:quitarMeGusta', (data, likes,publicacion) => {
                    Guardar
                   </button>
                   <div id="likeCount${data}" style="float: right;">
-                    <span><i class="bi bi-hand-thumbs-up-fill"></i> ${publicacion.likeCount}</span>
+                    <span><i class="bi-heart-fill"></i> ${publicacion.likeCount}</span>
                   </div>
                    
 
@@ -143,12 +143,8 @@ socket.on('server:filtrarInmueble', (data) => {
               <a href="/vistaSeleccionado/${public._id}" class="btn btn-primary btn-sm">
                 <i class="bi bi-list-columns-reverse"></i> Detalles
               </a>
-              <button class="btn btn-primary btn-sm" onclick="obtenerLike('${public._id}')">
-                <i class="bi bi-heart-fill" style="${haDadoMeGusta}"></i> ${textoMeGusta}
-              </button>
-              <div id="likeCount${public._id}" style="float: right;">
-                <span><i class="bi bi-hand-thumbs-up-fill"></i> ${public.likeCount}</span>
-              </div>
+             
+             
             </div>
           </div>
         </div>
