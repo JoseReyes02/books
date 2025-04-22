@@ -137,18 +137,30 @@ socket.on('server:mostrarFotos', (data) => {
   document.getElementById('showImagen2').innerHTML = ''
   data.forEach(fotos => {
     document.getElementById('showImagen2').innerHTML += `
-         <img src="/upload/${fotos.imagen}" alt="Cinque Terre" class="aumentar" onclick="thumbnail('${fotos.id}')">
+         <img src="${fotos.urlImagen}" alt="Cinque Terre" class="aumentar" onclick="thumbnail('${fotos.idImagen}')">
     `
   });
 })
 
 
 function thumbnail(id) {
-  const idPublicacion = document.getElementById('idPublicacion').value
-  socket.emit('client:abrirImagen', {
-    idImagen: id,
-    idPublicacion: idPublicacion
+  Swal.fire({
+    title: "Quieres quitar esta imagen?",
+    showCancelButton: true,
+    confirmButtonText: "Si!",
+  }).then((result) => {
+    /* Read more about isConfirmed, isDenied below */
+    if (result.isConfirmed) {
+      const idPublicacion = document.getElementById('idPublicacion').value
+      socket.emit('client:abrirImagen',{
+        idImagen: id,
+        idPublicacion: idPublicacion
+      });
+    } else if (result.isDenied) {
+      Swal.fire("Changes are not saved", "", "info");
+    }
   });
+  
 }
 
 function deleted(id) {

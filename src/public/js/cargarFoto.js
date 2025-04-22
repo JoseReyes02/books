@@ -14,7 +14,7 @@ document.getElementById("cargarFoto").addEventListener("submit", function (event
       document.getElementById('showImagen2').innerHTML = ''
       data.forEach(fotos => {
         document.getElementById('showImagen2').innerHTML += ` 
-         <img src="${fotos.urlImagen}" alt="Cinque Terre" class="aumentar" onclick="thumbnail('${fotos.id}')">
+         <img src="${fotos.urlImagen}" alt="Cinque Terre" class="aumentar" onclick="thumbnail('${fotos.idImagen}')">
           `
         document.getElementById('cerrar-modal').click();
         deslizarDerecha()

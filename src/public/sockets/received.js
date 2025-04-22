@@ -93,7 +93,7 @@ socket.on('server:filtrarInmueble', (data) => {
 
       fotosHTML += `
         <div class="carousel-item ${index === 0 ? 'active' : ''}">
-          <img src="/upload/${foto.imagen}" alt="Imagen ${index}" style="width: 100%; height: 200px;">
+          <img src="${foto.urlImagen}" alt="Imagen ${index}" style="width: 100%; height: 200px;">
         </div>
       `;
     });

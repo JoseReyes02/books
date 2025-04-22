@@ -224,15 +224,29 @@ module.exports = (io) => {
             const publicaciones = await Publicaciones.findById(idPublicacion);
             const fotos = publicaciones.fotos
             for (i = 0; i < fotos.length; i++) {
-                const id = fotos[i].id;
+                const id = fotos[i].idImagen;
                 if (id == idImagen) {
-                    const imagenName = fotos[i].imagen;
-                    socket.emit('server:abrirImagen', imagenName, id)
+                    Publicaciones.findByIdAndUpdate(
+                        idPublicacion,
+                        { $pull: { fotos: { idImagen: id } } }, // Elimina la imagen específica
+                        { new: true }
+                    )
+                        .then(async (publicacionActualizada) => {
+                            if (!publicacionActualizada) {
+                                console.log('Publicación no encontrada');
+                            } else {
+                                const findImagenes = await Publicaciones.findById(idPublicacion);
+                                const fotos = findImagenes.fotos;
+                                socket.emit('server:mostrarFotos', fotos)
+
+                            }
+                        })
+                        .catch((error) => {
+                            console.error('Error al eliminar la imagen:', error);
+                        });
                 }
             }
-            // console.log(publicaciones);
         })
-
         socket.on('client:changeImageProfile', async data => {
             const imagenName = data.imagenName;
             const idUsuario = data.idUsuario

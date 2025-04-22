@@ -12,11 +12,12 @@
           </div>
         </div>
       </div>
+      <p>Click en la imagen para quitarla.</p>
       <div class="scroll-container" id="showImagen1"> 
         {{#each publicacion}}
           {{#each fotos}}
         {{!-- <i class="bi bi-x-circle" onclick="quitarImage('{{this.id}}')"></i> --}}
-        <img src="{{this.urlImagen}}" alt="Cinque Terre" class="aumentar" onclick="thumbnail('{{this.id}}')">
+        <img src="{{this.urlImagen}}" alt="Cinque Terre" class="aumentar" onclick="thumbnail('{{this.idImagen}}')" >
           {{/each}}
         {{/each}}
       </div>

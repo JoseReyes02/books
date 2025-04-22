@@ -26,15 +26,10 @@ router.get('/publicaciones/misPublicaciones', isAuthenticated, async (req, res) 
 
 router.post('/publicaciones/cargarFotos', async (req, res) => {
     const { idPublicacion } = req.body;
-    console.log(idPublicacion)
-    
     try {
         const result = await  cloudinary.v2.uploader.upload(req.file.path)
-
         const idImagen = result.public_id
-        var urlImagen = result.url
-
-
+        const urlImagen = result.url
         // const imagen = req.file.filename;
         // const uniqueID = v4();
         const fotos = {
@@ -50,6 +45,7 @@ router.post('/publicaciones/cargarFotos', async (req, res) => {
                     const findImagenes = await Publicaciones.findById(idPublicacion);
                     const fotos = findImagenes.fotos;
                     res.json(fotos);
+                    console.log('hecho')
                      // Eliminar el archivo temporal después de subirlo a Cloudinary
                     await fs.unlink(req.file.path)
                     
@@ -63,7 +59,7 @@ router.post('/publicaciones/cargarFotos', async (req, res) => {
     
         
     } catch (error) {
-        
+        console.log(error)
     }
    
 });
@@ -71,7 +67,7 @@ router.post('/publicaciones/cargarFotos', async (req, res) => {
 
 router.post('/publicaciones/editarFotos', async (req, res) => {
     const { idPublicacion } = req.body;
-    console.log(idPublicacion + ' id 2')
+
     try {
         const imagen = req.file.filename;
         const uniqueID = v4();

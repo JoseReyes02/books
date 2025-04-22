@@ -301,10 +301,8 @@
 
     </div> --}}
    
-
-
       {{#each publicaciones}}
-       <div class="col-md-3">
+       <div class="col-md-4">
       <div class="package-item bg-white mb-2">
         <div class="post-header" style="display: flex; align-items: center; justify-content: space-between;">
           <div style="display: flex; align-items: center;">
@@ -350,7 +348,7 @@
           <div class="carousel-inner" style="height: 100%;">
             {{#each fotos}}
             <div class="carousel-item {{#if @first}}active{{/if}}">
-              <img src="/upload/{{this.imagen}}" alt="Imagen {{@index}}" class="img-carousel"
+              <img src="{{this.urlImagen}}" alt="Imagen {{@index}}" class="img-carousel"
                 style="width: 100%; height: 500px;">
             </div>
             {{/each}}
