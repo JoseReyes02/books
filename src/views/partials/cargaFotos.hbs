@@ -16,7 +16,7 @@
         {{#each publicacion}}
           {{#each fotos}}
         {{!-- <i class="bi bi-x-circle" onclick="quitarImage('{{this.id}}')"></i> --}}
-        <img src="/upload/{{this.imagen}}" alt="Cinque Terre" class="aumentar" onclick="thumbnail('{{this.id}}')">
+        <img src="{{this.urlImagen}}" alt="Cinque Terre" class="aumentar" onclick="thumbnail('{{this.id}}')">
           {{/each}}
         {{/each}}
       </div>

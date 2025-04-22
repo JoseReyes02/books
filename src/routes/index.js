@@ -72,7 +72,8 @@ router.get('/publicar',isAuthenticated, async (req, res) => {
         const photo = req.user.photo
         const newPublicacion = new Inmueble({estado,idUsuario,photo,usuario});
         await newPublicacion.save();
-        const idPublicacion = newPublicacion.id;
+        const idPublicacion = newPublicacion._id;
+ 
         res.render('publicar',{idPublicacion});
     }
 

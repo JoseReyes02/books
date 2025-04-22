@@ -394,7 +394,7 @@
     <input type="text" id="fileName" hidden>
     <div id="contenidoError"></div>
     <div class="d-grid gap-2" style="text-align: center;">
-      <input type="text" value="{{publicacion.id}}" id="idPublicacion" name="idPublicacion" hidden>
+      <input type="text" {{#if idPublicacion}} value="{{idPublicacion}}" {{else}} value="{{publicacion.id}}" {{/if}} id="idPublicacion" name="idPublicacion">
       <button class="btn btn-lg btn-primary" type="button" onclick="GuardarPublicacion()">Guardar publicacion</button>
     </div>
 
