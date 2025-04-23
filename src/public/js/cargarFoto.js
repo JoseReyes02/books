@@ -19,7 +19,7 @@ document.getElementById("cargarFoto").addEventListener("submit", function (event
         document.getElementById('cerrar-modal').click();
         deslizarDerecha()
       });
-
+      document.getElementById('loader').style.display = 'none';
     })
     .catch(error => {
       console.error("Error:", error);

@@ -167,7 +167,9 @@ inputImagen.addEventListener("change", function () {
 
         lector.onload = function (e) {
             imagenModal.src = e.target.result;
-            modal.style.display = "block"; // Abre el modal cuando se carga la imagen
+            document.getElementById('btn-cargarfoto').click()
+            document.getElementById('loader').style.display = 'flex';
+            // modal.style.display = "block"; // Abre el modal cuando se carga la imagen
         };
 
         lector.readAsDataURL(archivo);
