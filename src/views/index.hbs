@@ -12,7 +12,7 @@
         <div class="navbar-nav ml-auto py-0">
           <a href="/" class="nav-item nav-link">Inicio</a>
           <a href="/about" class="nav-item nav-link">Acerca de nosotros</a>
-          <a href="/servicios" class="nav-item nav-link">Servicios</a> 
+          <a href="/servicios" class="nav-item nav-link">Servicios</a>
 
 
           <a href="#" id="contactBtn" class="nav-item nav-link">Contactos</a>
@@ -274,14 +274,14 @@
                 </select>
               </div>
             </div>
-             <div class="col-md-2">
-          <button class="btn btn-primary btn-block" onclick="filtrarInmueble()" type="buttom"
-            style="height: 47px; margin-top: -2px;">Buscar</button>
-        </div>
-           
+            <div class="col-md-2">
+              <button class="btn btn-primary btn-block" onclick="filtrarInmueble()" type="buttom"
+                style="height: 47px; margin-top: -2px;">Buscar</button>
+            </div>
+
           </div>
         </div>
-       
+
       </div>
     </div>
   </div>
@@ -296,14 +296,14 @@
     <h6 class="text-primary text-uppercase" style="letter-spacing: 5px;">ENCUENTRA TU NUEVA VIVIENDA</h6>
     <h1>Sugerencias para ti</h1>
   </div>
-  <div class="row">
-    {{!-- <div class="col-md-1" id="publicidad"> 
+  <div class="row ">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+  <div id="publicaciones">
+    {{#each publicaciones}}
 
-    </div> --}}
-   
-      {{#each publicaciones}}
-       <div class="col-md-4">
-      <div class="package-item bg-white mb-2">
+    <div class="package-item bg-white  card">
+      <div class="card-body">
         <div class="post-header" style="display: flex; align-items: center; justify-content: space-between;">
           <div style="display: flex; align-items: center;">
             <img src="{{photo}}" alt="Profile" class="profile-pic">
@@ -321,19 +321,21 @@
             <div class="dropdown-menu dropleft" aria-labelledby="dropdownMenuLink" style="background-color: #ebebeb;">
               <button type="button" class="dropdown-item" onclick="compartirPublicacion('{{_id}}')"> <i
                   class="bi bi-share"></i> Compartir</button>
-              {{!-- <button type="button" class="dropdown-item"> <i class="bi bi-copy"></i> Copiar enlace   </button> --}}
-              <a href="/vistaSeleccionado/{{_id}}" class="dropdown-item"> <i class="bi bi-list-columns-reverse"></i> Detalles
-            </a>
+              {{!-- <button type="button" class="dropdown-item"> <i class="bi bi-copy"></i> Copiar enlace </button> --}}
+              <a href="/vistaSeleccionado/{{_id}}" class="dropdown-item"> <i class="bi bi-list-columns-reverse"></i>
+                Detalles
+              </a>
 
               {{!-- <button type="button" class="dropdown-item" onclick="crearChat('{{_id}}')"> <i
                   class="bi bi-chat-left-dots"></i> Chatear </button> --}}
-                  {{#each fotos}}
-               <a href="https://wa.me/1{{telefono}}?text=Hola%2C%20estoy%20interesado%20{{imagen}}" class="dropdown-item"
-                        target="_blank"><i class="bi bi-whatsapp"></i> Contactar por WhatsApp </a>
-                        {{/each}}
+
+              <a href="https://wa.me/1{{telefono}}?text=Hola%2C%20estoy%20interesado%20{{imagen}}" class="dropdown-item"
+                target="_blank"><i class="bi bi-whatsapp"></i> Contactar por WhatsApp </a>
+
             </div>
           </div>
         </div>
+
 
         {{!-- //CARROUSEL --}}
         {{!-- <p class="m-2">{{titulo}}</p> --}}
@@ -406,32 +408,23 @@
         </div>
 
       </div>
-             
-
-       </div>
-      {{/each}}
-    
-    {{!-- <div class="col-md-1">
-      <div class="usuarios-container d-none d-md-block" >
-        {{#each usuarios}}
-        <a class="dropdown-item d-flex align-items-center" href="#">
-          <div class="dropdown-list-image mr-3">
-            <img class="rounded-circle" src="{{photo}}" alt="..." style="height: 35px;width:35px">
-            <div class="status-indicator bg-success"></div>
-          </div>
-          <div class="font-weight-bold">
-            <div class="text-truncate">{{nombre}}</div>
-            <div class="small text-gray-500">{{email}}</div>
-          </div>
-        </a>
-
-        {{/each}}
-
-
-      </div> --}}
 
     </div>
+
+    {{/each}}
   </div>
+
+    </div>
+    <div class="col-md-4"></div>
+  </div>
+
+
+
+  <style>
+    .package-item {
+    
+    }
+  </style>
 
 </div>
 <!-- Packages End -->
