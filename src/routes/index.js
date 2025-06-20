@@ -86,8 +86,8 @@ router.get('/vistaSeleccionado/:id',isAuthenticated, async (req, res) => {
         const publicacion = await Inmueble.find({ _id: idImagen });
         const publicaciones = await Inmueble.find({estado:'activa'});
         const datos = await Inmueble.find();
-        const ruta = '/vistaSeleccionado/' + idImagen;
-        res.render('vistaSeleccionado', { publicacion, datos,publicaciones,ruta });
+      
+        res.render('vistaSeleccionado', { publicacion, datos,publicaciones,idImagen});
         
     } catch (error) {
         res.redirect('/index');
