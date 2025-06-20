@@ -1,16 +1,10 @@
 {{> componentes}}
-
 {{> header}}
-
-
-
 <div class="container-fluid" style="text-align: center;">
     <div class="row">
         <div class="col-md-2"></div>
         <div class="col-md-8">
             {{#each publicacion}}
-
-
             <div class="containerImagen">
                 <div class="post">
                     <div class="post-header">
@@ -60,7 +54,9 @@
                                 <label for="" style="font-weight: 700;">Metros cuadrados:
                                     <span> {{metros}}</span></label><br>
                                      <label for="" style="font-weight: 700;">Direccion:
-                                    <span> {{direccion}}</span></label>
+                                    <span> {{direccion}}</span></label><br>
+                                     <label for="" style="font-weight: 700;">Como llegar: {{#if ubicacion}} <a href="{{ubicacion}}">Google map</a> {{else}} No tiene ubicacion {{/if}}</label>
+                                     
                             </div>
 
                         </div>
