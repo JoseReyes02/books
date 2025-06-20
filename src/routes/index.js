@@ -84,13 +84,20 @@ router.get('/vistaSeleccionado/:id',isAuthenticated, async (req, res) => {
     try {
         const idImagen = req.params.id;
         const publicacion = await Inmueble.find({ _id: idImagen });
+        var urlImagen = []
+        for(var i = 0; i < publicacion.length; i ++){
+             urlImagen.push(publicacion[i].fotos[0].urlImagen)
+        }
+        urlImagen = urlImagen[0]
+
         const publicaciones = await Inmueble.find({estado:'activa'});
         const datos = await Inmueble.find();
-      
-        res.render('vistaSeleccionado', { publicacion, datos,publicaciones,idImagen});
+
+        res.render('vistaSeleccionado', { publicacion, datos,publicaciones,idImagen,urlImagen});
         
     } catch (error) {
-        res.redirect('/index');
+        console.log(error)
+        res.redirect('/');
     }
 
 });
