@@ -21,6 +21,8 @@ document.getElementById("cargarFoto").addEventListener("submit", function (event
           deslizarDerecha()
         });
         document.getElementById('loader').style.display = 'none';
+      }else{
+        console.log(data)
       }
 
 
