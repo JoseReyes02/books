@@ -62,6 +62,7 @@ router.post('/publicaciones/cargarFotos', async (req, res) => {
     res.json(imagenesActualizadas);
     console.log('Imágenes subidas y guardadas correctamente');
   } catch (error) {
+    res.json({error: error})
     console.error('Error al subir imágenes:', error);
     res.status(500).json({ error: 'Error al subir imágenes' });
   }

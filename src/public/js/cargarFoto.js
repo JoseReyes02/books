@@ -20,8 +20,12 @@ document.getElementById("cargarFoto").addEventListener("submit", function (event
         deslizarDerecha()
       });
       document.getElementById('loader').style.display = 'none';
+      if(data.error){
+        alert(data.error)
+      }
     })
     .catch(error => {
+       alert(data.error || error)
       console.error("Error:", error);
     });
 });
