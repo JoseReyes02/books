@@ -25,7 +25,7 @@ document.getElementById("cargarFoto").addEventListener("submit", function (event
       }
     })
     .catch(error => {
-       alert(data.error || error)
+       alert(error)
       console.error("Error:", error);
     });
 });
