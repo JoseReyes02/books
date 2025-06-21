@@ -75,7 +75,7 @@ const { idPublicacion } = req.body;
               { $push: { fotos: { $each: fotos } } },
               { new: true }
             ).then(publicacionActualizada => {
-              res.json(publicacionActualizada);
+              res.json({fotos: publicacionActualizada.fotos});
             });
           }
         }
