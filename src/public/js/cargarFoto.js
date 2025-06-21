@@ -1,4 +1,3 @@
-
 document.getElementById("cargarFoto").addEventListener("submit", function (event) {
   event.preventDefault(); // Evita la recarga de la página por defecto al enviar el formulario
   const formData = new FormData(this); // Obtiene los datos del formulario
@@ -21,11 +20,11 @@ document.getElementById("cargarFoto").addEventListener("submit", function (event
       });
       document.getElementById('loader').style.display = 'none';
       if(data.error){
-        alert(data.error)
+        console.log('Error ocurrido'+data.error)
       }
     })
     .catch(error => {
-       alert(error)
+  
       console.error("Error:", error);
     });
 });

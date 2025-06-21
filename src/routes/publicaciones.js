@@ -8,10 +8,7 @@ const { isAuthenticated } = require('../helpers/auth');
 const Inmueble = require('../models/inmueble');
 const { v4 } = require('uuid');
 
-const multer = require('multer');
 
-
-const upload = multer({ dest: 'uploads/' });
 
 const fs = require('fs-extra');
 
@@ -30,42 +27,42 @@ router.get('/publicaciones/misPublicaciones', isAuthenticated, async (req, res) 
 });
 
 router.post('/publicaciones/cargarFotos', async (req, res) => {
-  const { idPublicacion } = req.body;
+    try {
+        const { idPublicacion } = req.body;
+        const fotos = [];
+        // Subir cada imagen a Cloudinary
+        for (const file of req.files) {
+            console.log(file.filename + 1 + 'archivo')
+            const result = await cloudinary.v2.uploader.upload(file.path);
+            fotos.push({
+                idImagen: result.public_id,
+                urlImagen: result.secure_url
+            });
 
-  try {
-    const fotos = [];
-    // Subir cada imagen a Cloudinary
-    for (const file of req.files) {
-      const result = await cloudinary.v2.uploader.upload(file.path);
-      fotos.push({
-        idImagen: result.public_id,
-        urlImagen: result.secure_url
-      });
+            // Eliminar archivo temporal
+            await fs.unlink(file.path);
+        }
 
-      // Eliminar archivo temporal
-      await fs.unlink(file.path);
+        // Guardar array completo en la publicación
+        const publicacionActualizada = await Publicaciones.findByIdAndUpdate(
+            idPublicacion,
+            { $push: { fotos: { $each: fotos } } },
+            { new: true }
+        );
+
+        if (!publicacionActualizada) {
+            console.log('Publicación no encontrada');
+            return res.status(404).json({ error: 'Publicación no encontrada' });
+        }
+
+        const imagenesActualizadas = publicacionActualizada.fotos;
+        res.json(imagenesActualizadas);
+        console.log('Imágenes subidas y guardadas correctamente');
+    } catch (error) {
+        res.json({ error: error })
+        console.error('Error al subir imágenes:', error);
+        res.status(500).json({ error: 'Error al subir imágenes' });
     }
-
-    // Guardar array completo en la publicación
-    const publicacionActualizada = await Publicaciones.findByIdAndUpdate(
-      idPublicacion,
-      { $push: { fotos: { $each: fotos } } },
-      { new: true }
-    );
-
-    if (!publicacionActualizada) {
-      console.log('Publicación no encontrada');
-      return res.status(404).json({ error: 'Publicación no encontrada' });
-    }
-
-    const imagenesActualizadas = publicacionActualizada.fotos;
-    res.json(imagenesActualizadas);
-    console.log('Imágenes subidas y guardadas correctamente');
-  } catch (error) {
-    res.json({error: error})
-    console.error('Error al subir imágenes:', error);
-    res.status(500).json({ error: 'Error al subir imágenes' });
-  }
 });
 
 

@@ -2,21 +2,17 @@
 const express = require('express');
 const path = require('path');
 const methodOverride = require('method-override');
-const  exphbs = require('express-handlebars')
+const exphbs = require('express-handlebars')
 const Handlebars = require('handlebars');
-const {allowInsecurePrototypeAccess} = require('@handlebars/allow-prototype-access');
+const { allowInsecurePrototypeAccess } = require('@handlebars/allow-prototype-access');
 const session = require('express-session');
 const passport = require('passport')
 const multer = require('multer');
-const cors = require('cors');
 
 
 
 const { Server } = require('socket.io');
 const http = require('http');
-
-
-
 
 
 //inicializaciones 
@@ -37,21 +33,23 @@ io.on('connection', (socket) => {
 })
 
 const storage = multer.diskStorage({
-    destination: path.join(__dirname, 'public/upload'),
-    filename: (req, file, cb) => {
-        cb(null,file.originalname);
-    }
+  destination: path.join(__dirname, 'public/upload'),
+  filename: (req, file, cb) => {
+    const ext = path.extname(file.originalname);
+    const nombreSeguro = Date.now() + '-' + file.originalname.replace(/[^a-zA-Z0-9.-]/g, '');
+    cb(null, nombreSeguro);
+  }
 })
 
 //settings
 app.set('port', process.env.PORT);
 app.set('views', path.join(__dirname, 'views'));
 app.engine('.hbs', exphbs.engine({
-    handlebars: allowInsecurePrototypeAccess(Handlebars),
-    defaultLayout: 'main',
-    layoutsDir: path.join(app.get('views'), 'layouts'),
-    partialsDir: path.join(app.get('views'), 'partials'),
-    extname: '.hbs'
+  handlebars: allowInsecurePrototypeAccess(Handlebars),
+  defaultLayout: 'main',
+  layoutsDir: path.join(app.get('views'), 'layouts'),
+  partialsDir: path.join(app.get('views'), 'partials'),
+  extname: '.hbs'
 }));
 app.set('view engine', '.hbs');
 
@@ -59,13 +57,12 @@ app.set('view engine', '.hbs');
 // app.set('view cache', false);
 
 //Stati file
-app.use(cors());
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({ extended: false }));
 app.use(methodOverride('_method'));
 app.use(session({
-    secret:'secret',
-    resave: true,
-    saveUninitialized: true
+  secret: 'secret',
+  resave: true,
+  saveUninitialized: true
 }));
 
 
@@ -79,17 +76,19 @@ app.use(multer({
     const filetypes = /jpeg|jpg|png|gif|avif|webp/;
     const mimetype = filetypes.test(file.mimetype);
     const extname = filetypes.test(path.extname(file.originalname));
+
     if (mimetype && extname) {
       return cb(null, true);
     }
-    cb("El archivo debe ser una imagen válida");
+    cb("El archivo debe ser una imagen valida");
   }
-}).array('image', 10)); // <--- ACEPTA VARIAS CON EL NOMBRE "imagenes"
+}).array('image', 10));
+
 // variables globales
-app.use((req,res,next) => { 
-    res.locals.user = req.user || null
-     next();
- })
+app.use((req, res, next) => {
+  res.locals.user = req.user || null
+  next();
+})
 
 
 
@@ -103,37 +102,12 @@ app.use(require('./routes/admin'));
 
 
 
-// === LiveReload para archivos estáticos y Handlebars ===
-// const liveReloadServer = livereload.createServer({
-//     extraExts: ['hbs'] // 👈 Agregar soporte para archivos .hbs
-//   });
-
-// liveReloadServer.watch([path.join(__dirname, 'public'), path.join(__dirname, 'views')]);
-// app.use(connectLivereload());
-
-app.use(cors({
-  origin: 'https://findmyhouse-779a7a334907.herokuapp.com/' // o tu frontend real
-}));
 
 
-  
-  // liveReloadServer.watch([
-  //   path.join(__dirname, 'views'), // 👈 Verifica cambios en la carpeta de vistas
-  //   path.join(__dirname, 'public')
-  // ]);
-  
-  // app.use(connectLivereload());
-
-// liveReloadServer.server.once("connection", () => {
-//     setTimeout(() => {
-//       liveReloadServer.refresh("/");
-//     }, 100);
-//   })
 
 app.use(express.static(path.join(__dirname, 'public')));
 
 
 httpServer.listen(app.get('port'), () => {
-    console.log("El servidor esta activo!", app.get('port'));
-  })
-  
+  console.log("El servidor esta activo!", app.get('port'));
+})

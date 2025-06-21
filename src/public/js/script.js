@@ -200,10 +200,11 @@ input.addEventListener('change', function () {
             // preview.appendChild(img);
         };
         // document.getElementById('selectedImAGEN').style.display = 'none'
-        document.getElementById('loader').style.display = 'flex';
-        document.getElementById('btnSubir').click()
+
         reader.readAsDataURL(archivo);
     });
+    document.getElementById('loader').style.display = 'flex';
+    document.getElementById('btnSubir').click()
 });
 
 
