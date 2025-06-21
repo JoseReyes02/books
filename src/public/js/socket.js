@@ -33,7 +33,7 @@ function enviarFotoIdUser(idUsuario, imagenName) {
 
 function GuardarPublicacion() {
   const seleccion = document.querySelector('input[name="flexRadioDefault"]:checked').value;
- 
+
   const titulo = document.getElementById('titulo').value;
   const tipoPropiedad = document.getElementById('tipoPropiedad').value;
   const metros = document.getElementById('metros').value;
@@ -42,7 +42,8 @@ function GuardarPublicacion() {
   const marquesinas = document.getElementById('marquesinas').value
   const moneda = document.getElementById('moneda').value
   const disponibilidad = document.getElementById('disponibilidad').value
-  const precio = document.getElementById('precio').value
+  var precio = document.getElementById('precio').value
+
   const pais = document.getElementById('pais').value
   const provincia = document.getElementById('provincia').value
   const municipio = document.getElementById('municipio').value
@@ -52,8 +53,13 @@ function GuardarPublicacion() {
   const nombre = document.getElementById('nombre').value
   const email = document.getElementById('email').value
   const ubicacion = document.getElementById('ubicacion').value
-  // const direccionPersonal = document.getElementById('direcionPersonal').value
   const telefono = document.getElementById('telefono').value
+  precio = parseFloat(precio)
+  const precioo = precio.toLocaleString("en-US", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2
+  });
+  console.log(precioo)
   socket.emit('client:guardarPublicacion', {
     titulo: titulo,
     tipoPropiedad: tipoPropiedad,
@@ -62,21 +68,21 @@ function GuardarPublicacion() {
     marquesinas: marquesinas,
     moneda: moneda,
     disponibilidad: disponibilidad,
-    precio: precio,
+    precio: precioo,
     pais: pais,
     provincia: provincia,
     municipio: municipio,
     direccion: direccion,
     descripcion: descripcion,
     idPublicacion: idPublicacion,
-    tipo_operacion:seleccion,
-    nombre:nombre,
-    metros:metros,
-    ubicacion:ubicacion,
+    tipo_operacion: seleccion,
+    nombre: nombre,
+    metros: metros,
+    ubicacion: ubicacion,
 
-    telefono:telefono,
-    email:email
-  
+    telefono: telefono,
+    email: email
+
   });
 }
 function ActualizarPublicacion() {
@@ -114,13 +120,13 @@ function ActualizarPublicacion() {
     direccion: direccion,
     descripcion: descripcion,
     idPublicacion: idPublicacion,
-    tipo_operacion:seleccion,
-    nombre:nombre,
-    email:email,
-    ubicacion:ubicacion,
+    tipo_operacion: seleccion,
+    nombre: nombre,
+    email: email,
+    ubicacion: ubicacion,
 
-    telefono:telefono
-  
+    telefono: telefono
+
   });
 }
 
@@ -158,7 +164,7 @@ function thumbnail(id) {
     /* Read more about isConfirmed, isDenied below */
     if (result.isConfirmed) {
       const idPublicacion = document.getElementById('idPublicacion').value
-      socket.emit('client:abrirImagen',{
+      socket.emit('client:abrirImagen', {
         idImagen: id,
         idPublicacion: idPublicacion
       });
@@ -166,7 +172,7 @@ function thumbnail(id) {
       Swal.fire("Changes are not saved", "", "info");
     }
   });
-  
+
 }
 
 function deleted(id) {
@@ -202,30 +208,30 @@ socket.on('server:abrirImagen', (data, id) => {
 
 })
 
- function enviarDatoLike(data,id){
+function enviarDatoLike(data, id) {
   socket.emit('client:like', {
-        idUser:data,
-        idPublicacion:id
-       })
- }
+    idUser: data,
+    idPublicacion: id
+  })
+}
 
 
-function filtrarInmueble(){
+function filtrarInmueble() {
   const provincia = document.getElementById('provincia').value
   const municipio = document.getElementById('municipio').value
   const tipo_inmueble = document.getElementById('tipo_inmueble').value
   socket.emit('client:filtrarInmueble', {
-      provincia:provincia,
-      municipio:municipio,
-      tipo_inmueble:tipo_inmueble
-   })
+    provincia: provincia,
+    municipio: municipio,
+    tipo_inmueble: tipo_inmueble
+  })
 }
 
 
-function quitarPublicacion(idPublicacion,idUser){
+function quitarPublicacion(idPublicacion, idUser) {
   socket.emit('client:quitarGuardado', {
-    idPublicacion:idPublicacion,
-    idUser:idUser
+    idPublicacion: idPublicacion,
+    idUser: idUser
   })
 }
 

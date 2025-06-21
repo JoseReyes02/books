@@ -33,7 +33,7 @@
 </div>
 <!-- Header End -->
 
-<img src="" alt="">
+
 <!-- Booking Start -->
 <div class="container-fluid booking mt-5 pb-5">
   <div class="pb-5">
@@ -296,106 +296,102 @@
     <h6 class="text-primary text-uppercase" style="letter-spacing: 5px;">ENCUENTRA TU NUEVA VIVIENDA</h6>
     <h1>Sugerencias para ti</h1>
   </div>
-  <div class="row ">
-    <div class="col-md-4"></div>
-    <div class="col-md-4">
-      <div id="publicaciones">
-        {{#each publicaciones}}
-        <div class="package-ite bg-white  card mt-4">
-          <div class="card-bod">
-
-
-            {{!-- //CARROUSEL --}}
-            {{!-- <p class="m-2">{{titulo}}</p> --}}
-            <div id="carouselExampleControls{{@index}}" class="carousel slide" data-ride="carousel">
-
-              <ol class="carousel-indicators">
-                {{#each fotos}}
-                <li data-target="#carousel{{@index}}" data-slide-to="{{@index}}" {{#if @first}}class="active" {{/if}}>
-                </li>
-                {{/each}}
-              </ol>
-              <div class="carousel-inner" style="height: 100%;">
-                {{#each fotos}}
-                <div class="carousel-item {{#if @first}}active{{/if}}">
-                  <img src="{{this.urlImagen}}" alt="Imagen {{@index}}" class="img-carousel"
-                    style="width: 100%; height: 500px;">
-                </div>
-                {{/each}}
-              </div>
-              <a class="carousel-control-prev" href="#carouselExampleControls{{@index}}" role="button"
-                data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-              </a>
-              <a class="carousel-control-next" href="#carouselExampleControls{{@index}}" role="button"
-                data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-              </a>
+  <div class="row">
+    {{#each publicaciones}}
+    <div class="col-md-4 mt-4">
+      <div class="package-ite bg-white">
+        <div class="card-body">
+          <div style="display: flex; align-items: center;">
+            <img src="{{photo}}" alt="Profile" class="profile-pic">
+            <div class="user-info" style="margin-left: 10px;">
+              <div class="name">{{usuario}}</div>
+              <div class="timestamp">{{fecha}} a las {{hora}}</div>
             </div>
-            <div class="p-2">
-              <div class="d-flex justify-content-between">
-                <h5 class="m-0">{{moneda}} {{precio}}</h5>
-              </div>
+          </div>
 
+
+
+          <div id="carouselExampleControls{{@index}}" class="carousel slide" data-ride="carousel">
+
+            <ol class="carousel-indicators">
+              {{#each fotos}}
+              <li data-target="#carousel{{@index}}" data-slide-to="{{@index}}" {{#if @first}}class="active" {{/if}}>
+              </li>
+              {{/each}}
+            </ol>
+            <div class="carousel-inner" style="height: 100%;">
+              {{#each fotos}}
+              <div class="carousel-item {{#if @first}}active{{/if}}">
+                <img src="{{this.urlImagen}}" alt="Imagen {{@index}}" class="img-carousel"
+                  style="width: 100%; height: 500px;">
+              </div>
+              {{/each}}
             </div>
-
-
-            <div class="p-1">
-              <div class="d-flex justify-content-between mb-3">
-                <small class="m-0"><i class="bi bi-house-door-fill text-primary mr-2"></i>{{habitaciones}}
-                  Habitaciones</small>
-                <small class="m-0"><i class="fa fa-bath text-primary mr-2"></i>{{restron}} Baños</small>
-                <small class="m-0"><i class="fa fa-truck text-primary mr-2"></i>{{marquesinas}} Parqueos</small>
-
-              </div>
-              <div class="localidades" style="margin: 0%;">
-                <small class="m-0">{{provincia}} | {{municipio}} | {{direccion}}</small>
-              </div>
-
-              <hr>
-              <div class=" mt-1 pt-1">
-                <div class="post-footer d-fle align-items-cente" >
-                  <div id="likeCount{{_id}}" style="float: right;">
-                    <span><i class="bi bi-heart-fill" {{#if haDadoMeGusta}} style="color: #13df00" {{else}}
-                        style="color: #f1f1f1" {{/if}}></i> {{likeCount}}</span>
-                  </div>
-                  <div class="botones-container">
-                    <button class="boton" onclick="obtenerLike('{{_id}}')">
-                      <i class="fas fa-bookmark"></i> Guardar
-                    </button>
-                    <button class="boton">
-                      <i class="fas fa-info-circle"></i> Detalles
-                    </button>
-                    <a href="/vistaSeleccionado/{{_id}}" style="text-decoration: none;">
-                      <button class="boton" onclick="compartirPublicacion('{{_id}}')">
-                        <i class="fas fa-share-alt"></i> Compartir
-                      </button>
-                    </a>
-                  </div>
-
-                </div>
-
-              </div>
+            <a class="carousel-control-prev" href="#carouselExampleControls{{@index}}" role="button" data-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleControls{{@index}}" role="button" data-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+          <div class="p-2">
+            <div class="d-flex justify-content-between">
+              <h5 class="m-0">{{moneda}} {{precio}}</h5>
             </div>
 
           </div>
 
+
+          <div class="p-1">
+            <div class="d-flex justify-content-between mb-3">
+              <small class="m-0"><i class="bi bi-house-door-fill text-primary mr-2"></i>{{habitaciones}}
+                Habitaciones</small>
+              <small class="m-0"><i class="fa fa-bath text-primary mr-2"></i>{{restron}} Baños</small>
+              <small class="m-0"><i class="fa fa-truck text-primary mr-2"></i>{{marquesinas}} Parqueos</small>
+
+            </div>
+            <div class="localidades" style="margin: 0%;">
+              <small class="m-0">{{provincia}} | {{municipio}} | {{direccion}}</small>
+            </div>
+
+            <hr>
+            <div class=" mt-1 pt-1">
+              <div class="post-footer d-fle align-items-cente">
+                <div id="likeCount{{_id}}" style="float: right;">
+                  <span><i class="bi bi-heart-fill" {{#if haDadoMeGusta}} style="color: #13df00" {{else}}
+                      style="color: #f1f1f1" {{/if}}></i> {{likeCount}}</span>
+                </div>
+                <div class="botones-container">
+                  <button class="boton" onclick="obtenerLike('{{_id}}')">
+                    <i class="fas fa-bookmark"></i> Guardar
+                  </button>
+                  <a href="/vistaSeleccionado/{{_id}}" style="text-decoration: none;">
+                    <button class="boton">
+                      <i class="fas fa-info-circle"></i> Detalles
+                    </button>
+                  </a>
+
+                  <button class="boton" onclick="compartirPublicacion('{{_id}}')">
+                    <i class="fas fa-share-alt"></i> Compartir
+                  </button>
+
+                </div>
+
+              </div>
+
+            </div>
+          </div>
+
         </div>
 
-        {{/each}}
       </div>
-
     </div>
-    <div class="col-md-4"></div>
+    {{/each}}
+
+
   </div>
-
-
-
-  <style>
-    .package-item {}
-  </style>
 
 </div>
 <!-- Packages End -->

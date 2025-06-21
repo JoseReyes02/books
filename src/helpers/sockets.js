@@ -74,7 +74,7 @@ module.exports = (io) => {
             const marquesinas = data.marquesinas;
             const moneda = data.moneda;
             const disponibilidad = data.disponibilidad;
-            const precio_ = data.precio;
+            const precio = data.precio;
             const pais = data.pais;
             const provincia = data.provincia;
             const municipio = data.municipio;
@@ -94,7 +94,7 @@ module.exports = (io) => {
                 const message = 'Describa un titulo para la publicacion!'
                 socket.emit('server:error', message)
 
-            } else if (!precio_) {
+            } else if (!precio) {
                 const message = 'Describa un precio para la publicacion!'
                 socket.emit('server:error', message)
 
@@ -112,10 +112,8 @@ module.exports = (io) => {
                     const message = 'Agrege imagenes a la publicacion!'
                     socket.emit('server:error', message)
                 } else {
-                    const precio = precio_.toLocaleString("en-US", {
-                        minimumFractionDigits: 2,
-                        maximumFractionDigits: 2
-                    });
+              
+                    
                     
                     titulo = titulo.toUpperCase()
                     const estado = 'activa';
