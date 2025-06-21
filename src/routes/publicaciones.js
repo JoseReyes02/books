@@ -85,7 +85,7 @@ const { idPublicacion } = req.body;
     }
   } catch (error) {
     console.error('Error al subir imágenes:', error);
-    res.json({ error: 'Error al subir imágenes' });
+    res.json({ error: 'Error al subir imágenes ' + error });
   }
 });
 
