@@ -69,20 +69,18 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(multer({
-    storage,
-    dest: path.join(__dirname, 'public/upload'),
-    fileFilter: (req,file,cb) => {
-        const filetypes = /jpeg|jpg|png|gif|avif|webp/;
-        const mimetype = filetypes.test(file.mimetype);
-        const extname = filetypes.test(path.extname(file.originalname));
-
-        if(mimetype && extname){
-            return cb(null, true);
-        }
-        cb("El archivo debe ser una imagen valida");
+  storage,
+  dest: path.join(__dirname, 'public/upload'),
+  fileFilter: (req, file, cb) => {
+    const filetypes = /jpeg|jpg|png|gif|avif|webp/;
+    const mimetype = filetypes.test(file.mimetype);
+    const extname = filetypes.test(path.extname(file.originalname));
+    if (mimetype && extname) {
+      return cb(null, true);
     }
-}).single('image'));
-
+    cb("El archivo debe ser una imagen válida");
+  }
+}).array('image', 10)); // <--- ACEPTA VARIAS CON EL NOMBRE "imagenes"
 // variables globales
 app.use((req,res,next) => { 
     res.locals.user = req.user || null

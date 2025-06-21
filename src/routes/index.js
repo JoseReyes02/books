@@ -82,6 +82,7 @@ router.get('/publicar',isAuthenticated, async (req, res) => {
 
 router.get('/vistaSeleccionado/:id',isAuthenticated, async (req, res) => {
     try {
+        
         const idImagen = req.params.id;
         const publicacion = await Inmueble.find({ _id: idImagen });
         var urlImagen = []

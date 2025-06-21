@@ -8,6 +8,11 @@ const { isAuthenticated } = require('../helpers/auth');
 const Inmueble = require('../models/inmueble');
 const { v4 } = require('uuid');
 
+const multer = require('multer');
+
+
+const upload = multer({ dest: 'uploads/' });
+
 const fs = require('fs-extra');
 
 const cloudinary = require('cloudinary');
@@ -25,43 +30,41 @@ router.get('/publicaciones/misPublicaciones', isAuthenticated, async (req, res) 
 });
 
 router.post('/publicaciones/cargarFotos', async (req, res) => {
-    const { idPublicacion } = req.body;
-    try {
-        const result = await  cloudinary.v2.uploader.upload(req.file.path)
-        const idImagen = result.public_id
-        const urlImagen = result.url
-        // const imagen = req.file.filename;
-        // const uniqueID = v4();
-        const fotos = {
-            idImagen: idImagen,
-            urlImagen: urlImagen,
-        }
-        Publicaciones.findByIdAndUpdate(idPublicacion, { $push: { fotos: fotos } }, { new: true })
-            .then(async (publicacionActualizada) => {
-                if (!publicacionActualizada) {
-                    console.log('Publicación no encontrada');
-                    // Manejar el caso en el que no se encuentra la publicación
-                } else {
-                    const findImagenes = await Publicaciones.findById(idPublicacion);
-                    const fotos = findImagenes.fotos;
-                    res.json(fotos);
-                    console.log('hecho')
-                     // Eliminar el archivo temporal después de subirlo a Cloudinary
-                    await fs.unlink(req.file.path)
-                    
-                }
-            })
-            .catch((error) => {
-                console.error('Error al agregar el comentario:', error);
-            });
-      
-    
-    
-        
-    } catch (error) {
-        console.log(error)
+  const { idPublicacion } = req.body;
+
+  try {
+    const fotos = [];
+    // Subir cada imagen a Cloudinary
+    for (const file of req.files) {
+      const result = await cloudinary.v2.uploader.upload(file.path);
+      fotos.push({
+        idImagen: result.public_id,
+        urlImagen: result.secure_url
+      });
+
+      // Eliminar archivo temporal
+      await fs.unlink(file.path);
     }
-   
+
+    // Guardar array completo en la publicación
+    const publicacionActualizada = await Publicaciones.findByIdAndUpdate(
+      idPublicacion,
+      { $push: { fotos: { $each: fotos } } },
+      { new: true }
+    );
+
+    if (!publicacionActualizada) {
+      console.log('Publicación no encontrada');
+      return res.status(404).json({ error: 'Publicación no encontrada' });
+    }
+
+    const imagenesActualizadas = publicacionActualizada.fotos;
+    res.json(imagenesActualizadas);
+    console.log('Imágenes subidas y guardadas correctamente');
+  } catch (error) {
+    console.error('Error al subir imágenes:', error);
+    res.status(500).json({ error: 'Error al subir imágenes' });
+  }
 });
 
 
@@ -89,21 +92,21 @@ router.post('/publicaciones/editarFotos', async (req, res) => {
             .catch((error) => {
                 console.error('Error al agregar el comentario:', error);
             });
-      
-    
-    
-        
+
+
+
+
     } catch (error) {
-        
+
     }
-   
+
 });
-router.post('/publicaciones/like',async (req, res) => {
+router.post('/publicaciones/like', async (req, res) => {
     try {
-       
+
         const idUser = req.user.id
         res.json(idUser)
-        
+
     } catch (error) {
         const message = 'Primero debes iniciar session!'
         res.json(message)
@@ -111,11 +114,11 @@ router.post('/publicaciones/like',async (req, res) => {
 
 });
 
-router.post('/publicaciones/quitarGuardado',async (req, res) => {
+router.post('/publicaciones/quitarGuardado', async (req, res) => {
     try {
         const idUser = req.user.id
         res.json(idUser)
-        
+
     } catch (error) {
         res.render('users/signin')
     }
@@ -123,17 +126,17 @@ router.post('/publicaciones/quitarGuardado',async (req, res) => {
 });
 
 
-router.post('/publicaciones/guardar', async (req,res) =>{
+router.post('/publicaciones/guardar', async (req, res) => {
     const { idGuardar } = req.body;
     if ((req.user && req.user.id)) {
         var idUser = req.user.id;
         const consulta = await Guardar.findOne({ guardar: 'guardado', idPublicacion: idGuardar, idUser: idUser });
         if (consulta) {
             await Guardar.findByIdAndDelete(consulta.id);
-            var saveCount = await Guardar.find({idPublicacion: idGuardar}).count();  
-            console.log(saveCount) 
-            await Inmueble.findByIdAndUpdate(idGuardar,{saveCount});
-            
+            var saveCount = await Guardar.find({ idPublicacion: idGuardar }).count();
+            console.log(saveCount)
+            await Inmueble.findByIdAndUpdate(idGuardar, { saveCount });
+
 
             const respuesta = {
                 nomegusta: 'No Me gusta'
@@ -148,11 +151,11 @@ router.post('/publicaciones/guardar', async (req,res) =>{
             });
 
             await newSave.save();
-            var saveCount = await Guardar.find({idPublicacion: idGuardar}).count();  
-            console.log(saveCount) 
-            await Inmueble.findByIdAndUpdate(idGuardar,{saveCount});
-     
-           
+            var saveCount = await Guardar.find({ idPublicacion: idGuardar }).count();
+            console.log(saveCount)
+            await Inmueble.findByIdAndUpdate(idGuardar, { saveCount });
+
+
             const respuesta = {
                 megusta: 'Me gusta'
                 // Puedes agregar más datos según tus necesidades
@@ -171,30 +174,30 @@ router.post('/publicaciones/guardar', async (req,res) =>{
 
 })
 
-router.get('/publicacion/edit/:id',async (req,res) =>{
+router.get('/publicacion/edit/:id', async (req, res) => {
     const id = req.params.id
     const publicacion = await Publicaciones.findById(id)
-    res.render('publicaciones/editPublicacion',{publicacion})
+    res.render('publicaciones/editPublicacion', { publicacion })
 
 })
 
-router.post('/publicacion/quitar',async (req,res) =>{
-     
-  try {
-    const {idPublicacion} = req.body
-    const idUser = req.user.id
-    res.send({
-        idUser:idUser,
-        idPublicacion:idPublicacion
+router.post('/publicacion/quitar', async (req, res) => {
 
-    })
-  } catch (error) {
-    res.send({
-        message:'Primero debes iniciar session'
-    })
-  }
-    
-      
+    try {
+        const { idPublicacion } = req.body
+        const idUser = req.user.id
+        res.send({
+            idUser: idUser,
+            idPublicacion: idPublicacion
+
+        })
+    } catch (error) {
+        res.send({
+            message: 'Primero debes iniciar session'
+        })
+    }
+
+
 })
 
 

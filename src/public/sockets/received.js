@@ -3,7 +3,7 @@ socket.on('server:quitarPublicacion', (data) => {
   location.reload()
 })
 
- 
+
 
 socket.on('server:error', (data) => {
   document.getElementById('contenidoError').innerHTML = `
@@ -31,42 +31,23 @@ socket.on('server:publicacionGuardada', (data) => {
 })
 
 //PUBLICACION GUARDADA
-socket.on('server:ponerMeGusta', (data, likes,publicacion) => {
-  document.getElementById('containerLike' + data).innerHTML = `
-          <a href="/vistaSeleccionado/${data}" class="btn btn-primary btn-sm">
-                    <i class="bi bi-list-columns-reverse"></i> Detalles
-                  </a>
-                  <button class="btn btn-primary btn-sm" onclick="obtenerLike('${data}')">
-                    <i class="bi bi-heart-fill" 
-                      style="color: #13df00">
-                    </i>
-                      Guardado
-                  </button>
-                  <div id="likeCount${data}" style="float: right;">
-                    <span><i class="bi-heart-fill"></i> ${publicacion.likeCount}</span>
-                  </div>
+socket.on('server:ponerMeGusta', (data, likes, publicacion) => {
+  document.getElementById('likeCount' + data).innerHTML = `
+                 
+                    <span><i class="bi-heart-fill" style="color: #13df00"></i> ${publicacion.likeCount}</span>
+              
                       
     `
 })
 
 //QUITAR MEGUSTA
-socket.on('server:quitarMeGusta', (data, likes,publicacion) => {
+socket.on('server:quitarMeGusta', (data, likes, publicacion) => {
 
-  document.getElementById('containerLike' + data).innerHTML = `  
-       <a href="/vistaSeleccionado/${data}" class="btn btn-primary btn-sm">
-                    <i class="bi bi-list-columns-reverse"></i> Detalles
-                  </a>
-                  <button class="btn btn-primary btn-sm" onclick="obtenerLike('${data}')">
-                    <i class="bi bi-heart-fill" 
-                      style="color:rgb(231, 231, 231)">
-                    </i>
-                   Guardar
-                  </button>
-                  <div id="likeCount${data}" style="float: right;">
-                    <span><i class="bi-heart-fill"></i> ${publicacion.likeCount}</span>
-                  </div>
-                   
-
+  document.getElementById('likeCount' + data).innerHTML = `
+                 
+                    <span><i class="bi-heart-fill"  style="color: #f1f1f1"></i> ${publicacion.likeCount}</span>
+              
+                      
     `
 
 })
@@ -79,7 +60,7 @@ socket.on('server:filtrarInmueble', (data) => {
   const modalBusqueda = document.getElementById('abrirModalBusqueda')
   modalBusqueda.click()
   data.forEach(public => {
-    
+
     let fotosHTML = "";
     let indicadoresHTML = "";
     let haDadoMeGusta = public.haDadoMeGusta ? "color: #13df00" : "color: #f1f1f1";
@@ -163,12 +144,12 @@ socket.on('server:filtrarInmuebleError', (data) => {
   document.getElementById('limpiarTodo').innerHTML = `
   
   `
-  
+
 })
 
 
 socket.on('server:quitarGuardado', (idPublicacion) => {
-    document.getElementById('publicacionesGuardadas' + idPublicacion).innerHTML = '';
-    alertify.success('Publicacion quitada!');
+  document.getElementById('publicacionesGuardadas' + idPublicacion).innerHTML = '';
+  alertify.success('Publicacion quitada!');
 });
 

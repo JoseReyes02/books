@@ -3,7 +3,7 @@ document.getElementById("cargarFoto").addEventListener("submit", function (event
   event.preventDefault(); // Evita la recarga de la página por defecto al enviar el formulario
   const formData = new FormData(this); // Obtiene los datos del formulario
   const url = "/publicaciones/cargarFotos"; // Reemplaza con la URL de tu servidor
-  fetch(url, {
+  fetch(url, { 
     method: "POST", // Puedes usar POST u otro método según tu servidor
     body: formData
   }) 

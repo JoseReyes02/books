@@ -564,3 +564,31 @@ input[type="submit"]:hover {
 
 
 }
+
+
+.botones-container {
+  display: flex;
+  /* justify-content: center; */
+  gap: 1rem;
+  margin-top: 0px;
+}
+
+.boton {
+  background-color: #13b005;
+  color: white;
+  border: none;
+  padding: 6px 8px;
+  font-size: 13px;
+  border-radius: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+  transition: background 0.3s ease;
+}
+
+.boton:hover {
+  background-color: #0056b3;
+}
+

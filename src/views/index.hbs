@@ -301,7 +301,6 @@
     <div class="col-md-4">
       <div id="publicaciones">
         {{#each publicaciones}}
-
         <div class="package-ite bg-white  card mt-4">
           <div class="card-bod">
 
@@ -357,47 +356,27 @@
 
               <hr>
               <div class=" mt-1 pt-1">
-                <div class="">
-                  <div class="post-footer d-fle align-items-cente" id="containerLike{{_id}}">
-                    <!-- Botón a la derecha -->
-                    <div class="btn-group dropleft">
-                      <button type="button" class="btn" data-toggle="dropdown" aria-haspopup="true"
-                        aria-expanded="false">
-                        <i class="bi bi-list"></i>
-                      </button>
-                      <div class="dropdown-menu dropleft" aria-labelledby="dropdownMenuLink"
-                        style="background-color: #ebebeb;">
-                        <button type="button" class="dropdown-item" onclick="compartirPublicacion('{{_id}}')"> <i
-                            class="bi bi-share"></i> Compartir</button>
-
-                        <a href="/vistaSeleccionado/{{_id}}" class="dropdown-item"> <i
-                            class="bi bi-list-columns-reverse"></i>
-                          Detalles
-                        </a>
-
-
-
-                        <a href="https://wa.me/1{{telefono}}?text=Hola%2C%20estoy%20interesado%20{{imagen}}"
-                          class="dropdown-item" target="_blank"><i class="bi bi-whatsapp"></i> Contactar por WhatsApp
-                        </a>
-
-                      </div>
-                    </div>
-
-                    <button class="btn btn-primary btn-sm" onclick="obtenerLike('{{_id}}')">
-                      <i class="bi bi-heart-fill" {{#if haDadoMeGusta}} style="color: #13df00" {{else}}
-                        style="color: #f1f1f1" {{/if}}>
-                      </i>
-                      {{#if haDadoMeGusta}} Guardado {{else}} Guardar {{/if}}
-                    </button>
-
-
-                    <div id="likeCount{{_id}}" style="float: right;">
-                      <span><i class="bi bi-heart-fill"></i> {{likeCount}}</span>
-                    </div>
-
+                <div class="post-footer d-fle align-items-cente" >
+                  <div id="likeCount{{_id}}" style="float: right;">
+                    <span><i class="bi bi-heart-fill" {{#if haDadoMeGusta}} style="color: #13df00" {{else}}
+                        style="color: #f1f1f1" {{/if}}></i> {{likeCount}}</span>
                   </div>
+                  <div class="botones-container">
+                    <button class="boton" onclick="obtenerLike('{{_id}}')">
+                      <i class="fas fa-bookmark"></i> Guardar
+                    </button>
+                    <button class="boton">
+                      <i class="fas fa-info-circle"></i> Detalles
+                    </button>
+                    <a href="/vistaSeleccionado/{{_id}}" style="text-decoration: none;">
+                      <button class="boton" onclick="compartirPublicacion('{{_id}}')">
+                        <i class="fas fa-share-alt"></i> Compartir
+                      </button>
+                    </a>
+                  </div>
+
                 </div>
+
               </div>
             </div>
 

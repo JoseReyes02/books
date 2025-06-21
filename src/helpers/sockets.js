@@ -29,8 +29,8 @@ module.exports = (io) => {
         segundos = segundos < 10 ? '0' + segundos : segundos;
 
         const hora = `${horas}:${minutos}:${segundos}`;
-       
-         const notificaciones = await Notification.find({ estado: 'noleido' });
+
+        const notificaciones = await Notification.find({ estado: 'noleido' });
         socket.emit('server:cargarMensajes', notificaciones);
 
 
@@ -74,7 +74,7 @@ module.exports = (io) => {
             const marquesinas = data.marquesinas;
             const moneda = data.moneda;
             const disponibilidad = data.disponibilidad;
-            const precio = data.precio;
+            const precio_ = data.precio;
             const pais = data.pais;
             const provincia = data.provincia;
             const municipio = data.municipio;
@@ -94,7 +94,7 @@ module.exports = (io) => {
                 const message = 'Describa un titulo para la publicacion!'
                 socket.emit('server:error', message)
 
-            } else if (!precio) {
+            } else if (!precio_) {
                 const message = 'Describa un precio para la publicacion!'
                 socket.emit('server:error', message)
 
@@ -112,10 +112,16 @@ module.exports = (io) => {
                     const message = 'Agrege imagenes a la publicacion!'
                     socket.emit('server:error', message)
                 } else {
+                    const precio = precio_.toLocaleString("en-US", {
+                        minimumFractionDigits: 2,
+                        maximumFractionDigits: 2
+                    });
+                    
                     titulo = titulo.toUpperCase()
                     const estado = 'activa';
-                    await Publicaciones.findByIdAndUpdate(idPublicacion, {ubicacion,
-                        titulo, tipoPropiedad, restron, fecha, hora, nombre, email,telefono,metros,
+                    await Publicaciones.findByIdAndUpdate(idPublicacion, {
+                        ubicacion,
+                        titulo, tipoPropiedad, restron, fecha, hora, nombre, email, telefono, metros,
                         habitaciones, marquesinas, moneda, disponibilidad, precio, pais
                         , provincia, municipio, direccion, descripcion, estado, tipo_operacion, likeCount
                     })
@@ -176,8 +182,9 @@ module.exports = (io) => {
                 } else {
                     titulo = titulo.toUpperCase()
                     const estado = 'activa';
-                    await Publicaciones.findByIdAndUpdate(idPublicacion, {ubicacion,
-                        titulo, tipoPropiedad, restron, fecha, hora, telefono, nombre, email,metros,
+                    await Publicaciones.findByIdAndUpdate(idPublicacion, {
+                        ubicacion,
+                        titulo, tipoPropiedad, restron, fecha, hora, telefono, nombre, email, metros,
                         habitaciones, marquesinas, moneda, disponibilidad, precio, pais
                         , provincia, municipio, direccion, descripcion, estado, tipo_operacion
                     })
@@ -478,16 +485,16 @@ module.exports = (io) => {
             if (!findChat) {
                 c
                 var estado = 'activo'
-                const newCHat = new Conversacion({ 
-                    userEmisor, userReceptor,estado 
+                const newCHat = new Conversacion({
+                    userEmisor, userReceptor, estado
                 })
                 await newCHat.save();
                 const idChat = newCHat.id
                 socket.emit('server:chatCreado', idChat)
 
-            }else{
+            } else {
                 const idChat = findChat.id;
-                socket.emit('server:chatCreado', idChat,findChat)
+                socket.emit('server:chatCreado', idChat, findChat)
             }
 
 
@@ -500,24 +507,24 @@ module.exports = (io) => {
             const chat = await Conversacion.findById(idChat);
             const userEmisor = chat.userEmisor;
             const userReceptor = chat.userReceptor;
-            
+
             var nombreReceptor = []
             if (userEmisor != idUser) {
                 const findReceptor = await User.findById(userEmisor);
                 nombreReceptor.push(findReceptor.nombre)
-            }else if(userReceptor != idUser) {
+            } else if (userReceptor != idUser) {
                 const findReceptor = await User.findById(userReceptor);
                 nombreReceptor.push(findReceptor.nombre)
             }
-          nombreReceptor = nombreReceptor[0]
-          socket.emit('server:chatCreado', idChat,chat,nombreReceptor)
-            
+            nombreReceptor = nombreReceptor[0]
+            socket.emit('server:chatCreado', idChat, chat, nombreReceptor)
+
         })
 
         socket.on('client:abrirChatUser', async data => {
             const userReceptor = data.userReceptor;
             const userLocal = data.userLocal;
-     
+
 
             const findChat = await Conversacion.findOne({
                 $or: [{ userEmisor: userLocal, userReceptor: userReceptor },
@@ -529,19 +536,19 @@ module.exports = (io) => {
             if (!findChat) {
                 const userEmisor = userLocal;
                 var estado = 'activo'
-                const newCHat = new Conversacion({ 
-                    userEmisor, userReceptor,estado
+                const newCHat = new Conversacion({
+                    userEmisor, userReceptor, estado
                 })
                 await newCHat.save();
                 const idChat = newCHat.id
-                
-                socket.emit('server:chatCreado', idChat,findChat,nombre)
 
-            }else{
+                socket.emit('server:chatCreado', idChat, findChat, nombre)
+
+            } else {
                 const idChat = findChat.id;
-                socket.emit('server:chatCreado', idChat,findChat,nombre)
+                socket.emit('server:chatCreado', idChat, findChat, nombre)
             }
-           
+
         })
 
 
@@ -554,69 +561,69 @@ module.exports = (io) => {
             const userEmisor = chat.userEmisor;
             const userReceptor = chat.userReceptor;
 
-                const userquery = await User.findById(idUser);
+            const userquery = await User.findById(idUser);
 
-                var NameUserSend = userquery.nombre
-                var estado = 'noleido'
-                var photo = userquery.photo;
-                var datosMensaje = ({
-                    mensaje: mensaje,
-                    NameUserSend: NameUserSend,
-                    photo: photo,
-                    fecha: fecha,
-                    hora: hora, 
-                    userEmisor: idUser,
-                    userReceptor: userReceptor, 
-                })
-                Conversacion.findByIdAndUpdate(idChat, { $push: { mensajes: datosMensaje } }, { new: true })
-                    .then(async (publicacionActualizada) => {
-                        if (!publicacionActualizada) {
-                            console.log('Chat no encontrado');
-                            // Manejar el caso en el que no se encuentra la publicación
+            var NameUserSend = userquery.nombre
+            var estado = 'noleido'
+            var photo = userquery.photo;
+            var datosMensaje = ({
+                mensaje: mensaje,
+                NameUserSend: NameUserSend,
+                photo: photo,
+                fecha: fecha,
+                hora: hora,
+                userEmisor: idUser,
+                userReceptor: userReceptor,
+            })
+            Conversacion.findByIdAndUpdate(idChat, { $push: { mensajes: datosMensaje } }, { new: true })
+                .then(async (publicacionActualizada) => {
+                    if (!publicacionActualizada) {
+                        console.log('Chat no encontrado');
+                        // Manejar el caso en el que no se encuentra la publicación
+                    } else {
+
+                        const notificacionChat = await Notification.findOne({ idConversacion: idChat })
+                        const ultimoId = idUser
+                        if (notificacionChat) {
+                            const findUserEmisor = await User.findById(userEmisor)
+                            const nombreUserEmisor = await findUserEmisor.nombre;
+                            const findUserReceptor = await User.findById(userReceptor)
+                            const nombreUserReceptor = findUserReceptor.nombre
+
+                            await Notification.findByIdAndUpdate(notificacionChat.id, { mensaje, ultimoId, nombreUserEmisor, nombreUserReceptor })
+                            const notificaciones = await Notification.find({ estado: 'noleido' });
+                            var cantidad = await Notification.find({ idUser: userEmisor, estado: 'noleido' }).count();
+                            const query = await Conversacion.findById(idChat);
+                            io.emit('server:mensaje', query, cantidad, notificaciones, idChat, idUser);
+
                         } else {
-               
-                            const notificacionChat = await Notification.findOne({idConversacion:idChat})
-                             const ultimoId = idUser
-                            if (notificacionChat) {
-                                const findUserEmisor = await User.findById(userEmisor)
-                                const nombreUserEmisor = await findUserEmisor.nombre;
-                                const findUserReceptor = await User.findById(userReceptor)
-                                const nombreUserReceptor = findUserReceptor.nombre
+                            const findUserEmisor = await User.findById(userEmisor)
+                            const nombreUserEmisor = await findUserEmisor.nombre;
+                            const findUserReceptor = await User.findById(userReceptor)
+                            const nombreUserReceptor = findUserReceptor.nombre
 
-                                await Notification.findByIdAndUpdate(notificacionChat.id, { mensaje,ultimoId,nombreUserEmisor,nombreUserReceptor })
-                                const notificaciones = await Notification.find({ estado: 'noleido' });
-                                var cantidad = await Notification.find({ idUser: userEmisor, estado: 'noleido' }).count();
-                                const query = await Conversacion.findById(idChat);
-                                io.emit('server:mensaje', query, cantidad, notificaciones,idChat,idUser);
+                            const idConversacion = idChat;
+                            const newNotification = new Notification({
+                                mensaje, fecha, estado, photo, idConversacion, idUser, userReceptor, nombreUserEmisor, nombreUserReceptor
+                            })
+                            await newNotification.save();
+                            const notificaciones = await Notification.find({ estado: 'noleido' });
 
-                            } else {
-                                const findUserEmisor = await User.findById(userEmisor)
-                                const nombreUserEmisor = await findUserEmisor.nombre;
-                                const findUserReceptor = await User.findById(userReceptor)
-                                const nombreUserReceptor = findUserReceptor.nombre
-
-                                const idConversacion = idChat;
-                                const newNotification = new Notification({
-                                    mensaje, fecha, estado, photo, idConversacion, idUser, userReceptor,nombreUserEmisor,nombreUserReceptor
-                                })
-                                await newNotification.save();
-                                const notificaciones = await Notification.find({estado: 'noleido' });
-
-                                var cantidad = await Notification.find({ idUser: userEmisor, estado: 'noleido' }).count();
-                                const query = await Conversacion.findById(idChat);
-                                io.emit('server:mensaje', query, cantidad, notificaciones,idChat,idUser);
-                            }
-
-
+                            var cantidad = await Notification.find({ idUser: userEmisor, estado: 'noleido' }).count();
+                            const query = await Conversacion.findById(idChat);
+                            io.emit('server:mensaje', query, cantidad, notificaciones, idChat, idUser);
                         }
-                    })
-                    .catch((error) => {
-                        console.error('Error al agregar el comentario:', error);
-                        // Manejar el error según tus necesidades
-                    });
 
 
-      
+                    }
+                })
+                .catch((error) => {
+                    console.error('Error al agregar el comentario:', error);
+                    // Manejar el error según tus necesidades
+                });
+
+
+
 
 
         })
