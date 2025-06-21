@@ -7,6 +7,33 @@ const Guardar = require('../models/guardar');
 const { isAuthenticated } = require('../helpers/auth');
 const Inmueble = require('../models/inmueble');
 const { v4 } = require('uuid');
+const multer = require('multer');
+const path = require('path');
+// Usamos almacenamiento en memoria para que funcione bien en Heroku
+const storage = multer.memoryStorage();
+
+const { Readable } = require('stream');
+
+function bufferToStream(buffer) {
+  const stream = new Readable();
+  stream.push(buffer);
+  stream.push(null);
+  return stream;
+}
+
+const upload = multer({
+  storage,
+  limits: { fileSize: 10 * 1024 * 1024 }, // 10MB por imagen
+  fileFilter: (req, file, cb) => {
+    const filetypes = /jpeg|jpg|png|gif|avif|webp/;
+    const mimetype = filetypes.test(file.mimetype);
+    const extname = filetypes.test(path.extname(file.originalname));
+    if (mimetype && extname) {
+      return cb(null, true);
+    }
+    cb("El archivo debe ser una imagen válida");
+  }
+});
 
 
 
@@ -26,43 +53,40 @@ router.get('/publicaciones/misPublicaciones', isAuthenticated, async (req, res) 
     res.render('publicaciones/misPublicaciones', { misPublicaciones });
 });
 
-router.post('/publicaciones/cargarFotos', async (req, res) => {
-    try {
-        const { idPublicacion } = req.body;
-        const fotos = [];
-        // Subir cada imagen a Cloudinary
-        for (const file of req.files) {
-            console.log(file.filename + 1 + 'archivo')
-            const result = await cloudinary.v2.uploader.upload(file.path);
-            fotos.push({
-                idImagen: result.public_id,
-                urlImagen: result.secure_url
+router.post('/publicaciones/cargarFotos',upload.array('image', 10), async (req, res) => {
+const { idPublicacion } = req.body;
+  const fotos = [];
+
+  try {
+    for (const file of req.files) {
+      const stream = cloudinary.v2.uploader.upload_stream(
+        { folder: 'findmyhouse' },
+        (error, result) => {
+          if (error) throw error;
+          fotos.push({
+            idImagen: result.public_id,
+            urlImagen: result.secure_url
+          });
+
+          // Cuando todas las imágenes estén listas:
+          if (fotos.length === req.files.length) {
+            Publicaciones.findByIdAndUpdate(
+              idPublicacion,
+              { $push: { fotos: { $each: fotos } } },
+              { new: true }
+            ).then(publicacionActualizada => {
+              res.json(publicacionActualizada.fotos);
             });
-
-            // Eliminar archivo temporal
-            await fs.unlink(file.path);
+          }
         }
+      );
 
-        // Guardar array completo en la publicación
-        const publicacionActualizada = await Publicaciones.findByIdAndUpdate(
-            idPublicacion,
-            { $push: { fotos: { $each: fotos } } },
-            { new: true }
-        );
-
-        if (!publicacionActualizada) {
-            console.log('Publicación no encontrada');
-            return res.status(404).json({ error: 'Publicación no encontrada' });
-        }
-
-        const imagenesActualizadas = publicacionActualizada.fotos;
-        res.json(imagenesActualizadas);
-        console.log('Imágenes subidas y guardadas correctamente');
-    } catch (error) {
-        res.json({ error: error })
-        console.error('Error al subir imágenes:', error);
-        res.status(500).json({ error: 'Error al subir imágenes' });
+      bufferToStream(file.buffer).pipe(stream);
     }
+  } catch (error) {
+    console.error('Error al subir imágenes:', error);
+    res.status(500).json({ error: 'Error al subir imágenes' });
+  }
 });
 
 
