@@ -11,7 +11,8 @@ document.getElementById("cargarFoto").addEventListener("submit", function (event
       document.getElementById('showImagen1').style.display = 'none'
       document.getElementById('showImagen2').style.display = 'block'
       document.getElementById('showImagen2').innerHTML = ''
-      data.forEach(fotos => {
+ 
+      data.fotos.forEach(fotos => {
         document.getElementById('showImagen2').innerHTML += ` 
          <img src="${fotos.urlImagen}" alt="Cinque Terre" class="aumentar" onclick="thumbnail('${fotos.idImagen}')">
           `
@@ -19,9 +20,7 @@ document.getElementById("cargarFoto").addEventListener("submit", function (event
         deslizarDerecha()
       });
       document.getElementById('loader').style.display = 'none';
-      if(data.error){
-        console.log('Error ocurrido'+data.error)
-      }
+    
     })
     .catch(error => {
       console.error("Error:", error);

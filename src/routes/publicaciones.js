@@ -75,7 +75,7 @@ const { idPublicacion } = req.body;
               { $push: { fotos: { $each: fotos } } },
               { new: true }
             ).then(publicacionActualizada => {
-              res.json(publicacionActualizada.fotos);
+              res.json(publicacionActualizada);
             });
           }
         }
@@ -85,7 +85,7 @@ const { idPublicacion } = req.body;
     }
   } catch (error) {
     console.error('Error al subir imágenes:', error);
-    res.status(500).json({ error: 'Error al subir imágenes' });
+    res.json({ error: 'Error al subir imágenes' });
   }
 });
 
