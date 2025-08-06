@@ -1,132 +1,35 @@
 const express = require('express');
 const router = express.Router();
-const User = require('../models/usuarios');
-const Inmueble = require('../models/inmueble');
-const Imagen = require('../models/imagen');
-const Likes = require('../models/likes');
-const notificacion = require('../models/notifications');
-const { isAuthenticated } = require('../helpers/auth'); 
-const usuarios = require('../models/usuarios');
-const Guardar = require('../models/guardar');
-const imagen = require('../models/imagen');
+const PUBLICACION = require('../models/publicacion')
+const cloudinary = require('cloudinary')
+
+const { isAuthenticated } = require('../helpers/auth');
+
+const multer = require('multer');
+const upload = multer();
 
 
-
-router.get('/', async (req, res) => {
-
-    // const imagenes = await Inmueble.find()
-    try {
-      
-        const usuarioActualId = req.user.id;
-        const meGusta = await Likes.find({ idUser: usuarioActualId });
-    
-        const publicaciones = await Inmueble.find({estado:'activa'});
-        const notificaciones = await notificacion.find({userReceptor: usuarioActualId});
-        
-        // Preprocesa los datos para marcar las publicaciones que el usuario ha dado "Me Gusta".
-        const publicacionesConMeGusta = publicaciones.map(publicacion => {
-            const haDadoMeGusta = meGusta.some(like => like.idPublicacion == publicacion._id && like.idUser === req.user.id);
-            // const heGuardado = Gurdado.some(Save => Save.idPublicacion == publicacion._id && Save.idUser === req.user.id);
-            return { ...publicacion._doc, haDadoMeGusta};
-        });
-        const ruta = '/'
-
-        const usuarios = await User.find({
-            estado: 'activo',
-            _id: { $ne: req.user.id }
-        });
-        // Preprocesa los datos para marcar las publicaciones que el usuario ha dado "Me Gusta".
-        res.render('index', { publicaciones: publicacionesConMeGusta,ruta ,notificaciones,usuarios});
-            // res.render('index', { datos, foto1, foto2, foto3, foto4 });
-
-    } catch (error) {
-        const publicaciones = await Inmueble.find({estado:'activa'});
-        res.render('index',{publicaciones});
-    }
-
-
-
-
-});
-
-
-router.post('/index',async(req,res) =>{
-    const {pais,provincia,municipio,tipo_inmueble} = req.body
-    const publicaciones = await Inmueble.find({ $or: [{provincia: provincia }, { municipio: municipio },{tipo_operacion:tipo_inmueble}], estado:'activa' })
-    res.render('index',{publicaciones})
-
-
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
 })
 
 
-router.get('/publicar',isAuthenticated, async (req, res) => {
-    const idUsuario = req.user.id;
-    const publicacion = await Inmueble.findOne({idUsuario:idUsuario,estado: 'incompleta'});
-    if(publicacion){
-        const idPublicacion = publicacion.id;
-        res.render('publicar',{idPublicacion,publicacion});
-    }else{
-        // const 
-        const usuario = req.user.nombre
-        const estado = 'incompleta';
-        const photo = req.user.photo
-        const newPublicacion = new Inmueble({estado,idUsuario,photo,usuario});
-        await newPublicacion.save();
-        const idPublicacion = newPublicacion._id;
- 
-        res.render('publicar',{idPublicacion});
-    }
+router.get('/', async (req, res) => {
+  const publicacion = await PUBLICACION.findOne().sort({ _id: -1 });
 
+  res.render('index',{publicacion});
 });
-
-
-router.get('/vistaSeleccionado/:id',isAuthenticated, async (req, res) => {
-    try {
-        
-        const idImagen = req.params.id;
-        const publicacion = await Inmueble.find({ _id: idImagen });
-        var urlImagen = []
-        for(var i = 0; i < publicacion.length; i ++){
-             urlImagen.push(publicacion[i].fotos[0].urlImagen)
-        }
-        urlImagen = urlImagen[0]
-
-        const publicaciones = await Inmueble.find({estado:'activa'});
-        const datos = await Inmueble.find();
-
-        res.render('vistaSeleccionado', { publicacion, datos,publicaciones,idImagen,urlImagen});
-        
-    } catch (error) {
-        console.log(error)
-        res.redirect('/');
-    }
-
+router.post('/admin/register', async (req, res) => {
+  const { titulo, escritor, comentario,urlPdf } = req.body
+  const result = await cloudinary.v2.uploader.upload(req.file.path);
+  const urlImagen = result.secure_url;
+  const idImagen = result.public_id
+  const estado = "activo"
+  const newBook = new PUBLICACION({ estado, titulo, escritor, comentario,urlImagen,idImagen,urlPdf })
+  newBook.save()
+  res.redirect('/')
 });
-
-
-router.post('/crearChat', async (req, res) => {
-  console.log('holsa')
-});
-
-
-router.get('/about', isAuthenticated, async (req, res) => {
-    res.render('about');
-});
-
-
-router.get('/servicios', isAuthenticated, async (req, res) => {
-    res.render('servicios');
-});
-
-
-router.get('/delete/:id', async (req, res) => {
-    const idImagen = req.params.id;
-    console.log(idImagen)
-    await Inmueble.findByIdAndDelete(idImagen);
-    res.redirect('/');
-});
-
-
-
 module.exports = router;
 

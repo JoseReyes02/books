@@ -1,0 +1,44 @@
+
+  <div class="container my-5">
+    <div class="card shadow">
+      <div class="card-header bg-primary text-white p-3">
+        <h4 class="mb-0">Registro de Libro</h4>
+      </div>
+      <div class="card-body">
+        <form method="post" action="/admin/register" id="registroLibr" enctype="multipart/form-data">
+          <div class="mb-3">
+            <label for="portada" class="form-label">Imagen de portada</label>
+            <input class="form-control" type="file" id="portada" name="imagen" accept="image/*">
+          </div>
+
+          <div class="mb-3">
+            <label for="titulo" class="form-label">Título del libro</label>
+            <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Ej. Cien años de soledad" >
+          </div>
+
+          <div class="mb-3">
+            <label for="escritor" class="form-label">Escritor</label>
+            <input type="text" class="form-control" id="escritor" name="escritor" placeholder="Ej. Gabriel García Márquez">
+          </div>
+
+          <div class="mb-3">
+            <label for="comentario" class="form-label">Comentario</label>
+            <textarea class="form-control" id="comentario" name="comentario" rows="3" placeholder="Escribe un comentario sobre el libro..."></textarea>
+          </div>
+          <div class="mb-3">
+            <label for="comentario" class="form-label">Link del archivo</label>
+            <input type="url" name="urlPdf" class="form-control" placeholder="Pega aquí el enlace del PDF" required />
+          </div>
+
+
+         
+         <div style="text-align: center;">
+      <button type="submit" class="btn btn-success">Registrar libro</button>
+         </div>
+       
+        </form>
+      </div>
+    </div>
+  </div>
+
+

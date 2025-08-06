@@ -16,6 +16,7 @@
     "alertifyjs": "^1.13.1",
     "bcrypt": "^5.0.1",
     "bcryptjs": "^2.4.3",
+    "body-parser": "^2.2.0",
     "bootstrap": "^5.2.0-beta1",
     "cloudinary": "^1.41.3",
     "connect-flash": "^0.1.1",

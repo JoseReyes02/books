@@ -8,6 +8,7 @@ const { allowInsecurePrototypeAccess } = require('@handlebars/allow-prototype-ac
 const session = require('express-session');
 const passport = require('passport')
 const multer = require('multer');
+const bodyParser = require('body-parser');
 
 
 
@@ -35,9 +36,7 @@ io.on('connection', (socket) => {
 const storage = multer.diskStorage({
   destination: path.join(__dirname, 'public/upload'),
   filename: (req, file, cb) => {
-    const ext = path.extname(file.originalname);
-    const nombreSeguro = Date.now() + '-' + file.originalname.replace(/[^a-zA-Z0-9.-]/g, '');
-    cb(null, nombreSeguro);
+    cb(null, file.originalname);
   }
 })
 
@@ -53,6 +52,7 @@ app.engine('.hbs', exphbs.engine({
 }));
 app.set('view engine', '.hbs');
 
+
 // 🔥 Desactivar caché de vistas 🔥
 // app.set('view cache', false);
 
@@ -66,24 +66,31 @@ app.use(session({
 }));
 
 
+app.use(express.urlencoded({ extended: true }));
 
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(express.json());
+app.use(bodyParser.text({ type: 'text/html' }));
 
-// app.use(multer({
-//   storage,
-//   dest: path.join(__dirname, 'public/upload'),
-//   fileFilter: (req, file, cb) => {
-//     const filetypes = /jpeg|jpg|png|gif|avif|webp/;
-//     const mimetype = filetypes.test(file.mimetype);
-//     const extname = filetypes.test(path.extname(file.originalname));
 
-//     if (mimetype && extname) {
-//       return cb(null, true);
-//     }
-//     cb("El archivo debe ser una imagen valida");
-//   }
-// }).array('image', 10));
+
+
+
+app.use(multer({
+  storage,
+  dest: path.join(__dirname, 'public/upload'),
+  fileFilter: (req, file, cb) => {
+    const filetypes = /jpeg|jpg|png|gif|avif|webp|JPG/;
+    const mimetype = filetypes.test(file.mimetype);
+    const extname = filetypes.test(path.extname(file.originalname));
+
+    if (mimetype && extname) {
+      return cb(null, true);
+    }
+    cb("El archivo debe ser una imagen valida");
+  }
+}).single('imagen'));
 
 // variables globales
 app.use((req, res, next) => {
@@ -96,10 +103,9 @@ app.use((req, res, next) => {
 // rutas
 
 app.use(require('./routes/index'));
-app.use(require('./routes/publicaciones'));
+
 app.use(require('./routes/users'));
-app.use(require('./routes/dasboard'));
-app.use(require('./routes/admin'));
+;
 
 
 
