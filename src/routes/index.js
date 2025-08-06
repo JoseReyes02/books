@@ -64,10 +64,9 @@ router.get('/success', async (req, res) => {
              const dounload = true
             res.render('success',{dounload}) 
         })
-    
     } catch (error) {
         console.log(error)
-        res.redirect('/users/signin')
+        res.render('/users/signin',{error})
     }
   res.render('success');
 });
