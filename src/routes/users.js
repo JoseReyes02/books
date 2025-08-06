@@ -65,7 +65,7 @@ router.get('/success', async (req, res) => {
         req.login(user, (err) => {
             if (err) {
                 console.log(err)
-                return res.redirect('/users/signin')
+                return res.render('error',{err})
             }
     
              const dounload = true
@@ -73,7 +73,7 @@ router.get('/success', async (req, res) => {
         })
     } catch (error) {
         console.log(error)
-        res.render('success',{error})
+       res.render('error',{err})
     }
 
 });
@@ -104,12 +104,9 @@ router.get('/users/signup', (req, res) => {
 });
 
 
-router.get('/setCookies', (req, res) => {
-    res.cookie('newUser', false);
-    res.cookie('isEmployee', true);
+router.get('/error', (req, res) => {
 
-
-    res.send('you got the cookies');
+    res.render('users/error')
 
 });
 
