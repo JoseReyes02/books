@@ -61,8 +61,8 @@ router.get('/success', async (req, res) => {
                 return res.redirect('/users/signin')
             }
     
-            // Usuario logueado correctamente
-            res.redirect('/')  // Cambia por la ruta que quieras
+             const dounload = true
+            res.render('success',{dounload}) 
         })
     
     } catch (error) {
