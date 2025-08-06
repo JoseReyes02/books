@@ -73,7 +73,7 @@ router.get('/success', async (req, res) => {
         })
     } catch (error) {
         console.log(error)
-       res.render('error',{err})
+       res.render('error',{error})
     }
 
 });
