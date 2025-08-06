@@ -18,7 +18,6 @@ const client = new OAuth2Client(
     process.env.GOOGLE_CLIENT_SECRET,
     process.env.GOOGLE_REDIRECT_URI
 )
-
 router.get('/auth/google', (req, res) => {
     const url = client.generateAuthUrl({
         access_type: 'offline',
@@ -57,10 +56,10 @@ router.get('/success', async (req, res) => {
         }
     
         // Login con passport (esto serializa el user)
-        req.login(user, (err) => {
-            if (err) {
+        req.login(user, (error) => {
+            if (error) {
                 // console.log(err)
-                return res.render('users/error',{err})
+                return res.render('users/error',{error})
             }
     
              const dounload = true
