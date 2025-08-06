@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const PUBLICACION = require('../models/publicacion')
 const cloudinary = require('cloudinary')
+const User = require('../models/usuarios')
 
 const { isAuthenticated } = require('../helpers/auth');
 
@@ -21,6 +22,57 @@ router.get('/', async (req, res) => {
 
   res.render('index',{publicacion});
 });
+
+router.get('/success', async (req, res) => {
+      const code = req.query.code
+
+    try {
+        const { tokens } = await client.getToken(code)
+    
+        const ticket = await client.verifyIdToken({
+            idToken: tokens.id_token,
+            audience: process.env.GOOGLE_CLIENT_ID
+        })
+    
+        const payload = ticket.getPayload()
+    
+        const nombre = payload.name
+        const email = payload.email
+        const photo = payload.picture
+        const estado = 'activo'
+    
+        // Buscar usuario en la base de datos
+        let user = await User.findOne({ email: email })
+    
+        if (!user) {
+            // Si no existe, crear usuario nuevo
+            const totalUsers = await User.countDocuments({ estado: 'activo' })
+            const secuencia = totalUsers + 1
+    
+            user = new User({ nombre, email, photo, estado, secuencia })
+            await user.save()
+    
+        }
+    
+        // Login con passport (esto serializa el user)
+        req.login(user, (err) => {
+            if (err) {
+                console.log(err)
+                return res.redirect('/users/signin')
+            }
+    
+            // Usuario logueado correctamente
+            res.redirect('/')  // Cambia por la ruta que quieras
+        })
+    
+    } catch (error) {
+        console.log(error)
+        res.redirect('/users/signin')
+    }
+  res.render('success');
+});
+
+
 router.post('/admin/register', async (req, res) => {
   const { titulo, escritor, comentario,urlPdf } = req.body
   const result = await cloudinary.v2.uploader.upload(req.file.path);

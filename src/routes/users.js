@@ -39,10 +39,6 @@ router.get('/admin', (req, res) => {
     res.render('users/admin');
 });
 
-
-
-
-
 router.get('/users/signin', (req, res) => {
     if (req.user) {
        
