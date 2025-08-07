@@ -85,12 +85,19 @@
     </div>
   </section>
 
+  <div id="segundoBoton"></div>
+
 {{#if dounload}}
   <div class="alert alert-info" style="padding: 15px; background-color: #d9edf7; border: 1px solid #bce8f1; color: #31708f; border-radius: 5px;">
     Iniciando descarga...
   </div>
 
   <script>
+     document.getElementById('segundoBoton').innerHTML = `
+          <a href="{{publicacion.urlPdf}}" class="btn btn-primary btn-lg" id="iniciarDescarga" download>Get the Devotional <i
+            class="icon icon-ns-arrow-right"></i></a>
+     `
+
     setTimeout(() => {
       // Redirige a la URL del archivo PDF
       document.getElementById('iniciarDescarga').click()
