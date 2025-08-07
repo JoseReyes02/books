@@ -37,19 +37,16 @@
 
 
 
-  <section id="best-selling" class="leaf-pattern-overlay">
+  <section id="best-sellin" class="leaf-pattern-overlay mt-5">
     <div class="corner-pattern-overlay"></div>
     <div class="container">
       <div class="row justify-content-center">
 
         <div class="col-md-10">
-
           <div class="row">
-
-
             <div class="col-md-5">
               <figure class="products-thumb">
-                <img src="{{publicacion.urlImagen}}" alt="book" class="single-image" style="height: 450px;">
+                <img src="{{publicacion.urlImagen}}" alt="book" class="single-image" style="height: 470px;">
               </figure>
             </div>
 
@@ -70,6 +67,7 @@
                     <a href="#" class="btn btn-primary btn-lg" onclick="abrirModalLogin()">Get the
                       Devotional <i class="icon icon-ns-arrow-right"></i></a>
                     {{/if}}
+                    <div id="segundoBoton"></div>
                   </div>
                 </div>
 
@@ -85,7 +83,7 @@
     </div>
   </section>
 
-  <div id="segundoBoton"></div>
+
 
   {{#if dounload}}
   <div id="mensajeDescarga" class="mensaje-descarga">
@@ -97,8 +95,8 @@
           <a href="{{publicacion.urlPdf}}" class="btn btn-primary btn-lg" id="iniciarDescarga" download hidden>Get the Devotional <i
             class="icon icon-ns-arrow-right"></i></a>
      `
-     document.getElementById('botonPrincipal').innerHTML = ''
-     document.getElementById('botonPrincipal').innerHTML = `
+    document.getElementById('botonPrincipal').innerHTML = ''
+    document.getElementById('botonPrincipal').innerHTML = `
                          <a href="{{publicacion.urlPdf}}" class="btn btn-primary btn-lg" id="iniciarDescarga" download>Get
                       the Devotional <i class="icon icon-ns-arrow-right"></i></a>
      `
@@ -106,7 +104,7 @@
     setTimeout(() => {
       // Redirige a la URL del archivo PDF
       document.getElementById('iniciarDescarga').click()
-       document.getElementById('mensajeDescarga').style.display = 'none';
+      document.getElementById('mensajeDescarga').style.display = 'none';
     }, 1000); // Espera 1 segundo antes de iniciar descarga
 
 
@@ -147,49 +145,39 @@
   <div id="modalLogin" class="modal">
     <div class="modal-contenido">
       <span class="cerrar" onclick="cerrarModalLogin()">&times;</span>
-      <h2>Iniciar Sesión</h2>
-
+      <h3>Iniciar Sesión</h3>
       <div class="container">
-        <div class="buttons">
-          <!-- Botón de Google -->
-          <a href="/auth/google" class="btn google" id="btn">
-            <img src="https://www.svgrepo.com/show/303108/google-icon-logo.svg" alt="Google"
-              style="height: 50px; width:50px">
-            <span>Continuar con Google</span>
-          </a>
-
-
-          {{!-- <div>
-            <form id="formLogin">
-              <div class="divider d-flex align-items-center my-4">
-                <p class="text-center fw-bold mx-3 mb-0">O</p>
+        <div class="row justify-content-center">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              <form action="/users/signin" method="POST">
+                <div class="mb-3">
+                  <label for="email" class="form-label">Correo electrónico</label>
+                  <input type="email" class="form-control" id="email" name="email" placeholder="correo@ejemplo.com"
+                    required>
+                </div>
+                <div class="mb-3">
+                  <label for="password" class="form-label">Contraseña</label>
+                  <input type="password" class="form-control" id="password" name="password" placeholder="••••••••"
+                    required>
+                </div>
+                <div class="d-grid">
+                  <button type="submit" class="btn btn-primary btn-sm">Ingresar</button>
+                </div>
+              </form>
+              <div class="text-center my-3">
+                <span class="text-muted">o</span>
               </div>
-
-              <!-- Email input -->
-              <div class="form-outline mb-4">
-                <label class="form-label" for="form3Example3" style="float: left;">Email address</label>
-                <input type="email" id="form3Example3" name="email" class="form-control form-control-lg"
-                  placeholder="Enter email" value="" />
-
+              <div class="d-grid">
+                <a href="/auth/google" class="btn btn-secondary">
+                  <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google"
+                    style="width:20px; margin-right:8px;">
+                  Iniciar sesión con Google
+                </a>
               </div>
+            </div>
+          </div>
 
-              <!-- Password input -->
-              <div class="form-outline mb-3">
-                <label class="form-label" for="form3Example4" style="float: left;">Password</label>
-                <input type="password" id="form3Example4" name="password" class="form-control form-control-lg"
-                  placeholder="Enter password" value="" />
-
-              </div>
-
-
-
-              <div style="text-align: center;">
-                <button type="submit" class="btn btn-primary btn-sm"
-                  style="padding-left: 2.5rem; padding-right: 2.5rem;">Iniciar session</button>
-
-              </div>
-            </form>
-          </div> --}}
         </div>
       </div>
 
@@ -215,7 +203,7 @@
     /* Contenedor del modal */
     .modal-contenido {
       background-color: #fff;
-      margin: 2% auto;
+      margin: 3% auto;
       padding: 20px;
       border-radius: 10px;
       width: 90%;
