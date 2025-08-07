@@ -55,14 +55,14 @@
 
             <div class="col-md-7">
               <div class="product-entry">
-                <h2 class="section-title divider">{{publicacion.titulo}}</h2>
+                <h2 class="section-title divider">FREE BONUS</h2>
 
                 <div class="products-content">
                   <div class="author-name">By {{publicacion.escritor}}</div>
-                  <h3 class="item-title">Birds gonna be happy</h3>
+                  <h3 class="item-title">{{publicacion.titulo}}</h3>
                   <p>{{publicacion.comentario}}</p>
                   {{!-- <div class="item-price">$ 45.00</div> --}}
-                  <div class="btn-wrap">
+                  <div class="btn-wrap" id="botonPrincipal">
                     {{#if user}}
                     <a href="{{publicacion.urlPdf}}" class="btn btn-primary btn-lg" id="iniciarDescarga" download>Get
                       the Devotional <i class="icon icon-ns-arrow-right"></i></a>
@@ -96,6 +96,11 @@
     document.getElementById('segundoBoton').innerHTML = `
           <a href="{{publicacion.urlPdf}}" class="btn btn-primary btn-lg" id="iniciarDescarga" download hidden>Get the Devotional <i
             class="icon icon-ns-arrow-right"></i></a>
+     `
+     document.getElementById('botonPrincipal').innerHTML = ''
+     document.getElementById('botonPrincipal').innerHTML = `
+                         <a href="{{publicacion.urlPdf}}" class="btn btn-primary btn-lg" id="iniciarDescarga" download>Get
+                      the Devotional <i class="icon icon-ns-arrow-right"></i></a>
      `
 
     setTimeout(() => {
