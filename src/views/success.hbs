@@ -1,1 +1,47 @@
-<h1>hola {{dounload}}</h1>
+{{#if dounload}}
+<div class="alert alert-info">
+    Iniciando descarga...
+</div>
+
+<script>
+    setTimeout(() => {
+        // Simula una descarga automática (redirige a un archivo por ejemplo)
+        document.getElementById('iniciarDescarga').click()
+
+        setTimeout(() => {
+            // Simula una descarga automática (redirige a un archivo por ejemplo)
+          window.location.href = '/'
+
+
+        }, 500);
+
+
+    }, 1000); // Espera 3 segundos antes de redirigir
+</script>
+
+ <style>
+    .download-message {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #e0f7fa;
+      color: #0077b6;
+      padding: 20px 40px;
+      border: 2px solid #00b4d8;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      font-size: 1.2rem;
+      font-weight: 500;
+      text-align: center;
+      z-index: 9999;
+      animation: fadeOut 4s forwards;
+    }
+
+    @keyframes fadeOut {
+      0% { opacity: 1; }
+      80% { opacity: 1; }
+      100% { opacity: 0; display: none; }
+    }
+  </style>
+{{/if}}
