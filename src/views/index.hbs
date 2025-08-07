@@ -88,13 +88,13 @@
   <div id="segundoBoton"></div>
 
 {{#if dounload}}
-  <div class="alert alert-info" style="padding: 15px; background-color: #d9edf7; border: 1px solid #bce8f1; color: #31708f; border-radius: 5px;">
+ <div id="mensajeDescarga" class="mensaje-descarga">
     Iniciando descarga...
   </div>
 
   <script>
      document.getElementById('segundoBoton').innerHTML = `
-          <a href="{{publicacion.urlPdf}}" class="btn btn-primary btn-lg" id="iniciarDescarga" download>Get the Devotional <i
+          <a href="{{publicacion.urlPdf}}" class="btn btn-primary btn-lg" id="iniciarDescarga" download hidden>Get the Devotional <i
             class="icon icon-ns-arrow-right"></i></a>
      `
 
@@ -102,37 +102,37 @@
       // Redirige a la URL del archivo PDF
       document.getElementById('iniciarDescarga').click()
     }, 1000); // Espera 1 segundo antes de iniciar descarga
+
+        setTimeout(() => {
+      document.getElementById('mensajeDescarga').style.display = 'none';
+    }, 2000);
   </script>
 {{/if}}
 
 
 
- <style>
-    .download-message {
+  <style>
+    .mensaje-descarga {
       position: fixed;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      background: #e0f7fa;
-      color: #0077b6;
-      padding: 20px 40px;
-      border: 2px solid #00b4d8;
-      border-radius: 12px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-      font-size: 1.2rem;
-      font-weight: 500;
-      text-align: center;
+      background-color: #17a2b8;
+      color: white;
+      padding: 20px 30px;
+      font-size: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
       z-index: 9999;
-      animation: fadeOut 4s forwards;
+      text-align: center;
+      animation: fadeIn 0.5s ease-in-out;
     }
 
-    @keyframes fadeOut {
-      0% { opacity: 1; }
-      80% { opacity: 1; }
-      100% { opacity: 0; display: none; }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
   </style>
-
 
   <!-- Modal -->
   <div id="modalLogin" class="modal">
