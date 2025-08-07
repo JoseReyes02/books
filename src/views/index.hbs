@@ -64,8 +64,8 @@
                   {{!-- <div class="item-price">$ 45.00</div> --}}
                   <div class="btn-wrap">
                     {{#if user}}
-                    <a href="{{publicacion.urlPdf}}" class="btn btn-primary btn-lg" id="iniciarDescarga" download>Get the Devotional <i
-                        class="icon icon-ns-arrow-right"></i></a>
+                    <a href="{{publicacion.urlPdf}}" class="btn btn-primary btn-lg" id="iniciarDescarga" download>Get
+                      the Devotional <i class="icon icon-ns-arrow-right"></i></a>
                     {{else}}
                     <a href="#" class="btn btn-primary btn-lg" onclick="abrirModalLogin()">Get the
                       Devotional <i class="icon icon-ns-arrow-right"></i></a>
@@ -87,13 +87,13 @@
 
   <div id="segundoBoton"></div>
 
-{{#if dounload}}
- <div id="mensajeDescarga" class="mensaje-descarga">
+  {{#if dounload}}
+  <div id="mensajeDescarga" class="mensaje-descarga">
     Iniciando descarga...
   </div>
 
   <script>
-     document.getElementById('segundoBoton').innerHTML = `
+    document.getElementById('segundoBoton').innerHTML = `
           <a href="{{publicacion.urlPdf}}" class="btn btn-primary btn-lg" id="iniciarDescarga" download hidden>Get the Devotional <i
             class="icon icon-ns-arrow-right"></i></a>
      `
@@ -101,16 +101,12 @@
     setTimeout(() => {
       // Redirige a la URL del archivo PDF
       document.getElementById('iniciarDescarga').click()
-    }, 1000).then(() => {
-      window.location.href = '/'
-    }); // Espera 1 segundo antes de iniciar descarga
+       document.getElementById('mensajeDescarga').style.display = 'none';
+    }, 1000); // Espera 1 segundo antes de iniciar descarga
 
-        setTimeout(() => {
-      document.getElementById('mensajeDescarga').style.display = 'none';
-      
-    }, 2000);
+
   </script>
-{{/if}}
+  {{/if}}
 
 
 
@@ -125,15 +121,20 @@
       padding: 20px 30px;
       font-size: 20px;
       border-radius: 10px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
       z-index: 9999;
       text-align: center;
       animation: fadeIn 0.5s ease-in-out;
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; }
-      to { opacity: 1; }
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
     }
   </style>
 
@@ -142,51 +143,52 @@
     <div class="modal-contenido">
       <span class="cerrar" onclick="cerrarModalLogin()">&times;</span>
       <h2>Iniciar Sesión</h2>
-   
-        <div class="container">
-          <div class="buttons">
-            <!-- Botón de Google -->
-            <a href="/auth/google" class="btn google" id="btn">
-              <img src="https://www.svgrepo.com/show/303108/google-icon-logo.svg" alt="Google" style="height: 50px; width:50px">
-              <span>Continuar con Google</span>
-            </a>
+
+      <div class="container">
+        <div class="buttons">
+          <!-- Botón de Google -->
+          <a href="/auth/google" class="btn google" id="btn">
+            <img src="https://www.svgrepo.com/show/303108/google-icon-logo.svg" alt="Google"
+              style="height: 50px; width:50px">
+            <span>Continuar con Google</span>
+          </a>
 
 
-            {{!-- <div>
-              <form id="formLogin">
-                <div class="divider d-flex align-items-center my-4">
-                  <p class="text-center fw-bold mx-3 mb-0">O</p>
-                </div>
+          {{!-- <div>
+            <form id="formLogin">
+              <div class="divider d-flex align-items-center my-4">
+                <p class="text-center fw-bold mx-3 mb-0">O</p>
+              </div>
 
-                <!-- Email input -->
-                <div class="form-outline mb-4">
-                  <label class="form-label" for="form3Example3" style="float: left;">Email address</label>
-                  <input type="email" id="form3Example3" name="email" class="form-control form-control-lg"
-                    placeholder="Enter email" value="" />
+              <!-- Email input -->
+              <div class="form-outline mb-4">
+                <label class="form-label" for="form3Example3" style="float: left;">Email address</label>
+                <input type="email" id="form3Example3" name="email" class="form-control form-control-lg"
+                  placeholder="Enter email" value="" />
 
-                </div>
+              </div>
 
-                <!-- Password input -->
-                <div class="form-outline mb-3">
-                  <label class="form-label" for="form3Example4" style="float: left;">Password</label>
-                  <input type="password" id="form3Example4" name="password" class="form-control form-control-lg"
-                    placeholder="Enter password" value="" />
+              <!-- Password input -->
+              <div class="form-outline mb-3">
+                <label class="form-label" for="form3Example4" style="float: left;">Password</label>
+                <input type="password" id="form3Example4" name="password" class="form-control form-control-lg"
+                  placeholder="Enter password" value="" />
 
-                </div>
+              </div>
 
-             
 
-                <div style="text-align: center;">
-                  <button type="submit" class="btn btn-primary btn-sm"
-                    style="padding-left: 2.5rem; padding-right: 2.5rem;">Iniciar session</button>
 
-                </div>
-              </form>
-            </div> --}}
-          </div>
+              <div style="text-align: center;">
+                <button type="submit" class="btn btn-primary btn-sm"
+                  style="padding-left: 2.5rem; padding-right: 2.5rem;">Iniciar session</button>
+
+              </div>
+            </form>
+          </div> --}}
         </div>
+      </div>
 
-     
+
     </div>
   </div>
 
@@ -240,8 +242,6 @@
     .cerrar:hover {
       color: #000;
     }
-
-
   </style>
 
 
