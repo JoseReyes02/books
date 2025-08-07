@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const nodemailer = require('nodemailer');
 const User = require('../models/usuarios');
-
+const PUBLICACION = require('../models/publicacion')
 const passport = require('passport');
 const useragent = require('express-useragent');
 const app = express();
@@ -56,14 +56,15 @@ router.get('/success', async (req, res) => {
         }
     
         // Login con passport (esto serializa el user)
-        req.login(user, (error) => {
+        req.login(user,async (error)  => {
             if (error) {
                 // console.log(err)
                 return res.render('users/error',{error})
             }
     
              const dounload = true
-            res.render('success',{dounload}) 
+            const publicacion = await PUBLICACION.findOne().sort({ _id: -1 });
+            res.render('index',{dounload,publicacion}) 
         })
     } catch (error) {
         // console.log(error)

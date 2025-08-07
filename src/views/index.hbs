@@ -85,6 +85,47 @@
     </div>
   </section>
 
+{{#if dounload}}
+  <div class="alert alert-info" style="padding: 15px; background-color: #d9edf7; border: 1px solid #bce8f1; color: #31708f; border-radius: 5px;">
+    Iniciando descarga...
+  </div>
+
+  <script>
+    setTimeout(() => {
+      // Redirige a la URL del archivo PDF
+      window.location.href = "{{publicacion.urlPdf}}";
+    }, 1000); // Espera 1 segundo antes de iniciar descarga
+  </script>
+{{/if}}
+
+
+
+ <style>
+    .download-message {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #e0f7fa;
+      color: #0077b6;
+      padding: 20px 40px;
+      border: 2px solid #00b4d8;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+      font-size: 1.2rem;
+      font-weight: 500;
+      text-align: center;
+      z-index: 9999;
+      animation: fadeOut 4s forwards;
+    }
+
+    @keyframes fadeOut {
+      0% { opacity: 1; }
+      80% { opacity: 1; }
+      100% { opacity: 0; display: none; }
+    }
+  </style>
+
 
   <!-- Modal -->
   <div id="modalLogin" class="modal">
