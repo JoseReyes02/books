@@ -101,11 +101,13 @@
     setTimeout(() => {
       // Redirige a la URL del archivo PDF
       document.getElementById('iniciarDescarga').click()
-    }, 1000); // Espera 1 segundo antes de iniciar descarga
+    }, 1000).then(() => {
+      window.location.href = '/'
+    }); // Espera 1 segundo antes de iniciar descarga
 
         setTimeout(() => {
       document.getElementById('mensajeDescarga').style.display = 'none';
-      window.location.href = '/'
+      
     }, 2000);
   </script>
 {{/if}}
