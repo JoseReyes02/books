@@ -93,7 +93,7 @@
   <script>
     setTimeout(() => {
       // Redirige a la URL del archivo PDF
-      window.location.href = "{{publicacion.urlPdf}}";
+      document.getElementById('iniciarDescarga').click()
     }, 1000); // Espera 1 segundo antes de iniciar descarga
   </script>
 {{/if}}
