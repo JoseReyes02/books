@@ -45,7 +45,7 @@
         <div class="col-md-10">
           <div class="row">
             <div class="col-md-5">
-              <figure class="products-thumb">
+              <figure class="products-thumb" style="text-align: center;">
                 <img src="{{publicacion.urlImagen}}" alt="book" class="single-image" style="height: 470px;">
               </figure>
             </div>
@@ -145,34 +145,22 @@
   <div id="modalLogin" class="modal">
     <div class="modal-contenido">
       <span class="cerrar" onclick="cerrarModalLogin()">&times;</span>
-      <h3>Iniciar Sesión</h3>
+      <h3>Login</h3>
       <div class="container">
         <div class="row justify-content-center">
           <div class="card shadow-sm">
             <div class="card-body">
-              <form action="/users/signin" method="POST">
-                <div class="mb-3">
-                  <label for="email" class="form-label">Correo electrónico</label>
-                  <input type="email" class="form-control" id="email" name="email" placeholder="correo@ejemplo.com"
-                    required>
-                </div>
-                <div class="mb-3">
-                  <label for="password" class="form-label">Contraseña</label>
-                  <input type="password" class="form-control" id="password" name="password" placeholder="••••••••"
-                    required>
-                </div>
-                <div class="d-grid">
-                  <button type="submit" class="btn btn-primary btn-sm" disabled>Ingresar</button>
-                </div>
-              </form>
-              <div class="text-center my-3">
-                <span class="text-muted">o</span>
-              </div>
+
               <div class="d-grid">
-                <a href="/auth/google" class="btn btn-secondary">
+                <figure class="products-thumb" style="text-align: center;">
+                  <img src="{{publicacion.urlImagen}}" alt="book" class="single-image" style="height: 275px;">
+                </figure>
+                <p> To download the content, please sign in with your Google account first.</p>
+                <div class="mt-4"></div>
+                <a href="/auth/google" class="btn">
                   <img src="https://www.gstatic.com/firebasejs/ui/2.0.0/images/auth/google.svg" alt="Google"
                     style="width:20px; margin-right:8px;">
-                  Iniciar sesión con Google
+                  Sign in with Google
                 </a>
               </div>
             </div>
